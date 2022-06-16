@@ -21,3 +21,25 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/.idea/*
+/.mvn/*
+/class-book-api/.mvn/wrapper/maven-wrapper.jar
+/class-book-api/.gitignore
+/class-book-api-schema/.gitignore
+/class-book-db-schema/.gitignore
+/class-book-impl/.gitignore
+/class-book-api-schema/.mvn/wrapper/maven-wrapper.jar
+/class-book-db-schema/.mvn/wrapper/maven-wrapper.jar
+/class-book-impl/.mvn/wrapper/maven-wrapper.jar
+/class-book-api/.mvn/wrapper/maven-wrapper.properties
+/class-book-api-schema/.mvn/wrapper/maven-wrapper.properties
+/class-book-db-schema/.mvn/wrapper/maven-wrapper.properties
+/class-book-impl/.mvn/wrapper/maven-wrapper.properties
+/class-book-api/mvnw
+/class-book-api-schema/mvnw
+/class-book-db-schema/mvnw
+/class-book-impl/mvnw
+/class-book-api/mvnw.cmd
+/class-book-api-schema/mvnw.cmd
+/class-book-db-schema/mvnw.cmd
+/class-book-impl/mvnw.cmd
