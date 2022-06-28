@@ -1,0 +1,1638 @@
+openapi: 3.0.3
+info:
+  title: ClassBook API
+  description: ClassBook REST API for UI use
+  version: 1.0.0
+tags:
+  - name: groups-v1
+  - name: scores-v1
+  - name: students-v1
+  - name: subjects-v1
+  - name: teachers-v1
+  - name: credentials-v1
+servers:
+  - url: http://localhost:8085
+
+paths:
+  /ui/groups:
+    get:
+      tags:
+        - groups-v1
+      summary: List of groups
+      operationId: getGroupList
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          example: 1
+          schema:
+            type: integer
+            format: int32
+        - name: size
+          in: query
+          description: Groups count on page
+          example: 25
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: Sort criteria (can have multiple declarations - id, groupTitle, creationDate, changingDate, isDeleted)
+          example: creationDate,asc
+          schema:
+            type: array
+            items:
+              type: string
+        - name: id
+          in: query
+          description: Filter by id
+          example: 123
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int64
+        - name: groupTitle
+          in: query
+          description: Filter by groupTitle
+          example: 7-A
+          schema:
+            type: array
+            items:
+              type: string
+        - name: creationDate
+          in: query
+          description: Filter by creationDate
+          schema:
+            type: string
+            format: date-time
+        - name: changingDate
+          in: query
+          description: Filter by changingDate
+          schema:
+            type: string
+            format: date-time
+        - name: isDeleted
+          in: query
+          description: Filter by isDeleted
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageView'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+          - bearerAuth: [ ]
+
+    post:
+      tags:
+        - groups-v1
+      summary: Creating new group
+      operationId: postGroup
+      requestBody:
+        description: Callback payload
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Group'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+  /ui/groups/{groupId}:
+    get:
+      tags:
+        - groups-v1
+      summary: Information about concrete group
+      operationId: getGroupById
+      parameters:
+        - name: groupId
+          in: path
+          description: Group identifier
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+    put:
+      tags:
+        - groups-v1
+      summary: Group updating
+      operationId: updateGroup
+      parameters:
+        - name: groupId
+          in: path
+          description: Id for group updating
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Callback payload
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Group'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+    delete:
+      tags:
+        - groups-v1
+      summary: Group deleting
+      operationId: deleteGroup
+      parameters:
+        - name: groupId
+          in: path
+          description: Id for group deleting
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+
+  /ui/scores:
+    get:
+      tags:
+        - score-v1
+      summary: List of Scores
+      operationId: getScoreList
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          example: 1
+          schema:
+            type: integer
+            format: int32
+        - name: size
+          in: query
+          description: Scores count on page
+          example: 25
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: Sort criteria (can have multiple declarations - id, creationDate, changingDate, isDeleted)
+          example: creationDate,asc
+          schema:
+            type: array
+            items:
+              type: string
+        - name: id
+          in: query
+          description: Filter by id
+          example: 123
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int64
+        - name: creationDate
+          in: query
+          description: Filter by creationDate
+          schema:
+            type: string
+            format: date-time
+        - name: changingDate
+          in: query
+          description: Filter by changingDate
+          schema:
+            type: string
+            format: date-time
+        - name: isDeleted
+          in: query
+          description: Filter by isDeleted
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageView'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+    post:
+      tags:
+        - scores-v1
+      summary: Creating new score
+      operationId: postScore
+      requestBody:
+        description: Callback payload
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Score'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+  /ui/scores/{scoreId}:
+    get:
+      tags:
+        - scores-v1
+      summary: Information about concrete score
+      operationId: getScoreById
+      parameters:
+        - name: scoreId
+          in: path
+          description: Score identifier
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Score'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+    put:
+      tags:
+        - scores-v1
+      summary: Score updating
+      operationId: updateScore
+      parameters:
+        - name: scoreId
+          in: path
+          description: Id for score updating
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Callback payload
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Score'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+    delete:
+      tags:
+        - scores-v1
+      summary: Score deleting
+      operationId: deleteScore
+      parameters:
+        - name: scoreId
+          in: path
+          description: Id for score deleting
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+
+  /ui/students:
+    get:
+      tags:
+        - students-v1
+      summary: List of students
+      operationId: getStudentList
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          example: 1
+          schema:
+            type: integer
+            format: int32
+        - name: size
+          in: query
+          description: Students count on page
+          example: 25
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: Sort criteria (can have multiple declarations - id, firstName, lastName, creationDate, changingDate, isDeleted)
+          example: creationDate,asc
+          schema:
+            type: array
+            items:
+              type: string
+        - name: id
+          in: query
+          description: Filter by id
+          example: 123
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int64
+        - name: firstName
+          in: query
+          description: Filter by firstName
+          example: David
+          schema:
+            type: array
+            items:
+              type: string
+        - name: lastName
+          in: query
+          description: Filter by lastName
+          example: Hansen
+          schema:
+            type: array
+            items:
+              type: string
+        - name: creationDate
+          in: query
+          description: Filter by creationDate
+          schema:
+            type: string
+            format: date-time
+        - name: changingDate
+          in: query
+          description: Filter by changingDate
+          schema:
+            type: string
+            format: date-time
+        - name: isDeleted
+          in: query
+          description: Filter by isDeleted
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageView'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+    post:
+      tags:
+        - students-v1
+      summary: Creating new student
+      operationId: postStudent
+      requestBody:
+        description: Callback payload
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Student'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+  /ui/students/{studentId}:
+    get:
+      tags:
+        - students-v1
+      summary: Information about concrete student
+      operationId: getStudentById
+      parameters:
+        - name: studentId
+          in: path
+          description: Student identifier
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+    put:
+      tags:
+        - students-v1
+      summary: Student updating
+      operationId: updateStudent
+      parameters:
+        - name: studentId
+          in: path
+          description: Id for student updating
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Callback payload
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Student'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+    delete:
+      tags:
+        - student-v1
+      summary: Student deleting
+      operationId: deleteStudent
+      parameters:
+        - name: studentId
+          in: path
+          description: Id for student updating
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+
+  /ui/subjects:
+    get:
+      tags:
+        - subjects-v1
+      summary: List of subjects
+      operationId: getSubjectList
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          example: 1
+          schema:
+            type: integer
+            format: int32
+        - name: size
+          in: query
+          description: Subjects count on page
+          example: 25
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: Sort criteria (can have multiple declarations - id, subjectTitle)
+          example: creationDate,asc
+          schema:
+            type: array
+            items:
+              type: string
+        - name: id
+          in: query
+          description: Filter by id
+          example: 123
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int64
+        - name: subjectTitle
+          in: query
+          description: Filter by subjectTitle
+          example: Math
+          schema:
+            type: array
+            items:
+              type: string
+        - name: creationDate
+          in: query
+          description: Filter by creationDate
+          schema:
+            type: string
+            format: date-time
+        - name: changingDate
+          in: query
+          description: Filter by changingDate
+          schema:
+            type: string
+            format: date-time
+        - name: isDeleted
+          in: query
+          description: Filter by isDeleted
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageView'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+    post:
+      tags:
+        - subjects-v1
+      summary: Creating new subject
+      operationId: postSubject
+      requestBody:
+        description: Callback payload
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Subject'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+  /ui/subjects/{subjectId}:
+    get:
+      tags:
+        - subjects-v1
+      summary: Information about concrete subject
+      operationId: getSubjectById
+      parameters:
+        - name: groupId
+          in: path
+          description: Subject identifier
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subject'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+    put:
+      tags:
+        - subjects-v1
+      summary: Subject updating
+      operationId: updateSubject
+      parameters:
+        - name: groupId
+          in: path
+          description: Id for subject updating
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Callback payload
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Subject'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+    delete:
+      tags:
+        - subjects-v1
+      summary: Subject deleting
+      operationId: deleteSubject
+      parameters:
+        - name: groupId
+          in: path
+          description: Id for subject deleting
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+
+  /ui/teachers:
+    get:
+      tags:
+        - teachers-v1
+      summary: List of teachers
+      operationId: getTeacherList
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          example: 1
+          schema:
+            type: integer
+            format: int32
+        - name: size
+          in: query
+          description: Teachers count on page
+          example: 25
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: Sort criteria (can have multiple declarations - id, firstName, lastName, creationDate, changingDate, isDeleted)
+          example: creationDate,asc
+          schema:
+            type: array
+            items:
+              type: string
+        - name: id
+          in: query
+          description: Filter by id
+          example: 123
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int64
+        - name: firstName
+          in: query
+          description: Filter by firstName
+          example: Ivanov
+          schema:
+            type: array
+            items:
+              type: string
+        - name: lastName
+          in: query
+          description: Filter by lastName
+          example: Ivanov
+          schema:
+            type: array
+            items:
+              type: string
+        - name: creationDate
+          in: query
+          description: Filter by creationDate
+          schema:
+            type: string
+            format: date-time
+        - name: changingDate
+          in: query
+          description: Filter by changingDate
+          schema:
+            type: string
+            format: date-time
+        - name: isDeleted
+          in: query
+          description: Filter by isDeleted
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageView'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+    post:
+      tags:
+        - teachers-v1
+      summary: Creating new teacher
+      operationId: postTeacher
+      requestBody:
+        description: Callback payload
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Teacher'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+  /ui/teachers/{teacherId}:
+    get:
+      tags:
+        - teachers-v1
+      summary: Information about concrete teacher
+      operationId: getTeacherById
+      parameters:
+        - name: teacherId
+          in: path
+          description: Teacher identifier
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teacher'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+    put:
+      tags:
+        - teachers-v1
+      summary: Teacher updating
+      operationId: updateTeacher
+      parameters:
+        - name: teacherId
+          in: path
+          description: Id for teacher updating
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Callback payload
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Teacher'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+    delete:
+      tags:
+        - teachers-v1
+      summary: Teacher deleting
+      operationId: deleteTeacher
+      parameters:
+        - name: teacherId
+          in: path
+          description: Id for teacher updating
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+
+  /ui/credentials:
+    get:
+      tags:
+        - credentials-v1
+      summary: List of credentials
+      operationId: getCredentialList
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          example: 1
+          schema:
+            type: integer
+            format: int32
+        - name: size
+          in: query
+          description: Credentials count on page
+          example: 25
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: Sort criteria (can have multiple declarations - id, username, creationDate, changingDate, isDeleted)
+          example: creationDate,asc
+          schema:
+            type: array
+            items:
+              type: string
+        - name: id
+          in: query
+          description: Filter by id
+          example: 123
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int64
+        - name: username
+          in: query
+          description: Filter by username
+          example: ivanov@gmail.com
+          schema:
+            type: array
+            items:
+              type: string
+        - name: creationDate
+          in: query
+          description: Filter by creationDate
+          schema:
+            type: string
+            format: date-time
+        - name: changingDate
+          in: query
+          description: Filter by changingDate
+          schema:
+            type: string
+            format: date-time
+        - name: isDeleted
+          in: query
+          description: Filter by isDeleted
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageView'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+    post:
+      tags:
+        - credentials-v1
+      summary: Creating new credential
+      operationId: postCredential
+      requestBody:
+        description: Callback payload
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Credential'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+  /ui/credentials/{credentialId}:
+    get:
+      tags:
+        - credentials-v1
+      summary: Information about concrete credential
+      operationId: getCredentialById
+      parameters:
+        - name: credentialId
+          in: path
+          description: Credential identifier
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+    put:
+      tags:
+        - credentials-v1
+      summary: Credential updating
+      operationId: updateCredential
+      parameters:
+        - name: credentialId
+          in: path
+          description: Id for credential updating
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Callback payload
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Credential'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+    delete:
+      tags:
+        - credentials-v1
+      summary: Credential deleting
+      operationId: deleteCredential
+      parameters:
+        - name: credentialId
+          in: path
+          description: Id for credential deleting
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+components:
+  schemas:
+
+    Group:
+      type: object
+      description: Group info
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Group Id
+          example: 186
+        groupTitle:
+          type: string
+          description: Group title
+          example: David
+        students:
+          type: array
+          items:
+            $ref: "#/components/schemas/Student"
+        teachers:
+          type: array
+          items:
+            $ref: "#/components/schemas/Teacher"
+        subjects:
+          type: array
+          items:
+            $ref: "#/components/schemas/Subject"
+        isDeleted:
+          type: boolean
+          example: false
+        creationDate:
+            type: string
+            format: date-time
+        modifyingDate:
+            type: string
+            format: date-time
+
+    Score:
+      type: object
+      description: Score info
+      example: 4
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Score Id
+          example: 186
+        score:
+          format: string
+          enum:
+            - ONE(1)
+            - TWO(2)
+            - THREE(3)
+            - FOUR(4)
+            - FIVE(5)
+            - SIX(6)
+            - SEVEN(7)
+            - EIGHT(8)
+            - NINE(9)
+            - TEN(10)
+            - ELEVEN(11)
+            - TWELVE(12)
+        isDeleted:
+          type: boolean
+          example: false
+        creationDate:
+          type: string
+          format: date-time
+        modifyingDate:
+          type: string
+          format: date-time
+
+    Student:
+      type: object
+      description: Student info
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Score Id
+          example: 186
+        firstName:
+          type: string
+          example: David
+        lastName:
+          type: string
+          example: Mondel
+        credential:
+          $ref: "#/components/schemas/Credential"
+        group:
+          $ref: "#/components/schemas/Group"
+        teachers:
+          type: array
+          items:
+            $ref: "#/components/schemas/Teacher"
+        subjects:
+          type: array
+          items:
+            $ref: "#/components/schemas/Subject"
+        isDeleted:
+          type: boolean
+          example: false
+        creationDate:
+          type: string
+          format: date-time
+        modifyingDate:
+          type: string
+          format: date-time
+
+    Subject:
+      type: object
+      description: Subject info
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Score Id
+          example: 186
+        subjectTitle:
+          type: string
+          example: David
+        groups:
+          type: array
+          items:
+            $ref: "#/components/schemas/Group"
+        scores:
+          type: array
+          items:
+            $ref: "#/components/schemas/Score"
+        students:
+          type: array
+          items:
+            $ref: "#/components/schemas/Student"
+        teachers:
+          type: array
+          items:
+            $ref: "#/components/schemas/Teacher"
+        isDeleted:
+          type: boolean
+          example: false
+        creationDate:
+          type: string
+          format: date-time
+        modifyingDate:
+          type: string
+          format: date-time
+
+    Teacher:
+      type: object
+      description: Teacher info
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Score Id
+          example: 186
+        firstName:
+          type: string
+          example: David
+        lastName:
+          type: string
+          example: Mondel
+        credential:
+          $ref: "#/components/schemas/Credential"
+        groups:
+          type: array
+          items:
+            $ref: "#/components/schemas/Group"
+        students:
+          type: array
+          items:
+            $ref: "#/components/schemas/Student"
+        subjects:
+          type: array
+          items:
+            $ref: "#/components/schemas/Subject"
+        isDeleted:
+          type: boolean
+          example: false
+        creationDate:
+          type: string
+          format: date-time
+        modifyingDate:
+          type: string
+          format: date-time
+
+    Credential:
+      type: object
+      description: Credential info
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Score Id
+          example: 186
+        username:
+          type: string
+          example: david234
+        password:
+          type: string
+          example: model123
+        isDeleted:
+          type: boolean
+          example: false
+        creationDate:
+          type: string
+          format: date-time
+        modifyingDate:
+          type: string
+          format: date-time
+
+    PageView:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+          example: 1000
+        data:
+          type: array
+
+    CommonResponse:
+      type: object
+      description: CommonResponse
+      properties:
+        responseId:
+          type: integer
+          format: int64
+          example: 186
+        status:
+          type: string
+          example: Some status
+      example:
+        responseId: 123
+
+    Error:
+      type: object
+      description: Error description
+      properties:
+        timestamp:
+          type: string
+          description: Date and time the error occurred
+          format: date-time
+          example: '2018-12-03T10:15:30+01:00'
+        status:
+          type: integer
+          description: HTTP status code of the error
+          format: int32
+          example: 404
+        errorCode:
+          type: string
+          description: Business error code that allows using 'additional' or redefine 'message'
+          example: VALIDATION_ERROR
+        message:
+          type: string
+          description: Error message
+        path:
+          type: string
+          description: URL that resulted in the error
+          example: ui/cards/54321/history
+        additional:
+          type: object
+          description: >
+              Additional information on the error that is a map of keys and values.
+              Different error code can have different keys
+            additionalProperties: true
+      required:
+        - timestamp
+        - status
+        - message
+        - path
+
+  responses:
+    NoContent:
+      description: Successful response without content
+
+    BadRequest:
+      description: Supplied request data are invalid
+      content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Error'
+
+    Unauthorized:
+      description: Access token is missing or invalid
+
+    Forbidden:
+      description: User is not granted sufficient privileges
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    NotFound:
+      description: Resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
