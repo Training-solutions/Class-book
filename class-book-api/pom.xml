@@ -14,7 +14,101 @@
     </parent>
 
     <properties>
-        <java.version>11</java.version>
+        <openapi-generator-maven-plugin.version>5.1.0</openapi-generator-maven-plugin.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-core</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>${openapi-generator-maven-plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>${project.groupId}</groupId>
+                        <artifactId>class-book-api-schema</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>class-book-v1.yml</inputSpec>
+                            <generatorName>spring</generatorName>
+                            <modelNameSuffix>Dto</modelNameSuffix>
+                            <templateDirectory>src/main/resources/JavaSpring</templateDirectory>
+                            <generateApis>true</generateApis>
+                            <generateModels>true</generateModels>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>true</generateSupportingFiles>
+                            <library>spring-cloud</library>
+                            <configOptions>
+                                <basePackage>com.eschool.openapi.v1</basePackage>
+                                <modelPackage>com.eschool.openapi.v1.model</modelPackage>
+                                <apiPackage>com.eschool.openapi.v1.api</apiPackage>
+                                <interfaceOnly>true</interfaceOnly>
+                                <dateLibrary>java8</dateLibrary>
+                                <java8>true</java8>
+                                <booleanGetterPrefix>is</booleanGetterPrefix>
+                                <useBeanValidation>true</useBeanValidation>
+                                <useTags>true</useTags>
+                                <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
+                                <delegatePattern>true</delegatePattern>
+                                <typeMappings>
+                                    <typeMapping>number=java.math.BigDecimal</typeMapping>
+                                </typeMappings>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

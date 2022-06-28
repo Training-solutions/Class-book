@@ -14,7 +14,7 @@ spring:
     show-sql: true
     generate-ddl: true
   datasource:
-    url: jdbc:postgresql://localhost:5433/classbook?useUnicode=true&useJDBCCompliantTimeZoneShift=true&useLegacyDatatimeCode=false&serverTimezone=UTC&useSSL=false
+    url: jdbc:postgresql://localhost:5432/classbook?useUnicode=true&useJDBCCompliantTimeZoneShift=true&useLegacyDatatimeCode=false&serverTimezone=UTC&useSSL=false
     username: testsolution
     password: testsolution
     driver-class-name: org.postgresql.Driver
