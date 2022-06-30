@@ -784,7 +784,7 @@ paths:
       summary: Information about concrete subject
       operationId: getSubjectById
       parameters:
-        - name: groupId
+        - name: subjectId
           in: path
           description: Subject identifier
           required: true
@@ -817,7 +817,7 @@ paths:
       summary: Subject updating
       operationId: updateSubject
       parameters:
-        - name: groupId
+        - name: subjectId
           in: path
           description: Id for subject updating
           required: true
@@ -856,7 +856,7 @@ paths:
       summary: Subject deleting
       operationId: deleteSubject
       parameters:
-        - name: groupId
+        - name: subjectId
           in: path
           description: Id for subject deleting
           required: true
@@ -1544,7 +1544,8 @@ components:
           example: 1000
         data:
           type: array
-
+          items:
+            type: object
     CommonResponse:
       type: object
       description: CommonResponse
@@ -1584,12 +1585,6 @@ components:
           type: string
           description: URL that resulted in the error
           example: ui/cards/54321/history
-        additional:
-          type: object
-          description: >
-              Additional information on the error that is a map of keys and values.
-              Different error code can have different keys
-            additionalProperties: true
       required:
         - timestamp
         - status
