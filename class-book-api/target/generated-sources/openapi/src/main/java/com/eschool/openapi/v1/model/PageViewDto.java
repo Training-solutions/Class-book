@@ -15,7 +15,7 @@ import javax.validation.constraints.*;
 /**
  * PageViewDto
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-06-30T19:01:36.792883800+08:00[Asia/Shanghai]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-01T17:44:52.817734300+08:00[Asia/Shanghai]")
 public class PageViewDto   {
   @JsonProperty("total")
   private Integer total;

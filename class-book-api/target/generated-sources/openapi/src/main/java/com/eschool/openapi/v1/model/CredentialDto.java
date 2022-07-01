@@ -15,7 +15,7 @@ import javax.validation.constraints.*;
  * Credential info
  */
 @ApiModel(description = "Credential info")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-06-30T19:01:36.792883800+08:00[Asia/Shanghai]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-01T17:44:52.817734300+08:00[Asia/Shanghai]")
 public class CredentialDto   {
   @JsonProperty("id")
   private Long id;

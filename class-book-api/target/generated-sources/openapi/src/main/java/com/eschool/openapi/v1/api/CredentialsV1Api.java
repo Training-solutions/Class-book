@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-06-30T19:01:36.792883800+08:00[Asia/Shanghai]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-01T17:44:52.817734300+08:00[Asia/Shanghai]")
 @Validated
 @Api(value = "CredentialsV1", description = "the CredentialsV1 API")
 public interface CredentialsV1Api {
