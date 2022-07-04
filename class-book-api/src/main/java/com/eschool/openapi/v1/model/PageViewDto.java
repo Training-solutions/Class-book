@@ -8,14 +8,13 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import org.openapitools.jackson.nullable.JsonNullable;
-import javax.annotation.Generated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
  * PageViewDto
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-01T17:44:52.817734300+08:00[Asia/Shanghai]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
 public class PageViewDto   {
   @JsonProperty("total")
   private Integer total;
@@ -49,6 +48,14 @@ public class PageViewDto   {
     return this;
   }
 
+  public PageViewDto addDataItem(Object dataItem) {
+    if (this.data == null) {
+      this.data = new ArrayList<>();
+    }
+    this.data.add(dataItem);
+    return this;
+  }
+
   /**
    * Get data
    * @return data
@@ -66,7 +73,7 @@ public class PageViewDto   {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -74,12 +81,13 @@ public class PageViewDto   {
       return false;
     }
     PageViewDto pageView = (PageViewDto) o;
-    return Objects.equals(this.total, pageView.total)Objects.equals(this.data, pageView.data);
+    return Objects.equals(this.total, pageView.total) &&
+        Objects.equals(this.data, pageView.data);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(totaldata);
+    return Objects.hash(total, data);
   }
 
   @Override
@@ -97,7 +105,7 @@ public class PageViewDto   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.jackson.nullable.JsonNullable;
-import javax.annotation.Generated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -14,7 +13,7 @@ import javax.validation.constraints.*;
  * CommonResponse
  */
 @ApiModel(description = "CommonResponse")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-01T17:44:52.817734300+08:00[Asia/Shanghai]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
 public class CommonResponseDto   {
   @JsonProperty("responseId")
   private Long responseId;
@@ -64,7 +63,7 @@ public class CommonResponseDto   {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -72,12 +71,13 @@ public class CommonResponseDto   {
       return false;
     }
     CommonResponseDto commonResponse = (CommonResponseDto) o;
-    return Objects.equals(this.responseId, commonResponse.responseId)Objects.equals(this.status, commonResponse.status);
+    return Objects.equals(this.responseId, commonResponse.responseId) &&
+        Objects.equals(this.status, commonResponse.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(responseIdstatus);
+    return Objects.hash(responseId, status);
   }
 
   @Override
@@ -95,7 +95,7 @@ public class CommonResponseDto   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }

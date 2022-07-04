@@ -3,39 +3,93 @@ package com.eschool.openapi.v1.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import org.openapitools.jackson.nullable.JsonNullable;
-import javax.annotation.Generated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Credential info
+ * Score info
  */
-@ApiModel(description = "Credential info")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-01T17:44:52.817734300+08:00[Asia/Shanghai]")
-public class CredentialDto   {
+@ApiModel(description = "Score info")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
+public class ScoreDto   {
   @JsonProperty("id")
   private Long id;
 
-  @JsonProperty("username")
-  private String username;
+  /**
+   * Gets or Sets score
+   */
+  public enum ScoreEnum {
+    ONE_1_("ONE(1)"),
+    
+    TWO_2_("TWO(2)"),
+    
+    THREE_3_("THREE(3)"),
+    
+    FOUR_4_("FOUR(4)"),
+    
+    FIVE_5_("FIVE(5)"),
+    
+    SIX_6_("SIX(6)"),
+    
+    SEVEN_7_("SEVEN(7)"),
+    
+    EIGHT_8_("EIGHT(8)"),
+    
+    NINE_9_("NINE(9)"),
+    
+    TEN_10_("TEN(10)"),
+    
+    ELEVEN_11_("ELEVEN(11)"),
+    
+    TWELVE_12_("TWELVE(12)");
 
-  @JsonProperty("password")
-  private String password;
+    private String value;
+
+    ScoreEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static ScoreEnum fromValue(String value) {
+      for (ScoreEnum b : ScoreEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  @JsonProperty("score")
+  private ScoreEnum score;
 
   @JsonProperty("isDeleted")
   private Boolean isDeleted;
 
   @JsonProperty("creationDate")
+  @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime creationDate;
 
   @JsonProperty("modifyingDate")
+  @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime modifyingDate;
 
-  public CredentialDto id(Long id) {
+  public ScoreDto id(Long id) {
     this.id = id;
     return this;
   }
@@ -55,47 +109,27 @@ public class CredentialDto   {
     this.id = id;
   }
 
-  public CredentialDto username(String username) {
-    this.username = username;
+  public ScoreDto score(ScoreEnum score) {
+    this.score = score;
     return this;
   }
 
   /**
-   * Get username
-   * @return username
+   * Get score
+   * @return score
   */
-  @ApiModelProperty(example = "david234", value = "")
+  @ApiModelProperty(value = "")
 
 
-  public String getUsername() {
-    return username;
+  public ScoreEnum getScore() {
+    return score;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
+  public void setScore(ScoreEnum score) {
+    this.score = score;
   }
 
-  public CredentialDto password(String password) {
-    this.password = password;
-    return this;
-  }
-
-  /**
-   * Get password
-   * @return password
-  */
-  @ApiModelProperty(example = "model123", value = "")
-
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public CredentialDto isDeleted(Boolean isDeleted) {
+  public ScoreDto isDeleted(Boolean isDeleted) {
     this.isDeleted = isDeleted;
     return this;
   }
@@ -115,7 +149,7 @@ public class CredentialDto   {
     this.isDeleted = isDeleted;
   }
 
-  public CredentialDto creationDate(OffsetDateTime creationDate) {
+  public ScoreDto creationDate(OffsetDateTime creationDate) {
     this.creationDate = creationDate;
     return this;
   }
@@ -136,7 +170,7 @@ public class CredentialDto   {
     this.creationDate = creationDate;
   }
 
-  public CredentialDto modifyingDate(OffsetDateTime modifyingDate) {
+  public ScoreDto modifyingDate(OffsetDateTime modifyingDate) {
     this.modifyingDate = modifyingDate;
     return this;
   }
@@ -159,30 +193,33 @@ public class CredentialDto   {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CredentialDto credential = (CredentialDto) o;
-    return Objects.equals(this.id, credential.id)Objects.equals(this.username, credential.username)Objects.equals(this.password, credential.password)Objects.equals(this.isDeleted, credential.isDeleted)Objects.equals(this.creationDate, credential.creationDate)Objects.equals(this.modifyingDate, credential.modifyingDate);
+    ScoreDto score = (ScoreDto) o;
+    return Objects.equals(this.id, score.id) &&
+        Objects.equals(this.score, score.score) &&
+        Objects.equals(this.isDeleted, score.isDeleted) &&
+        Objects.equals(this.creationDate, score.creationDate) &&
+        Objects.equals(this.modifyingDate, score.modifyingDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(idusernamepasswordisDeletedcreationDatemodifyingDate);
+    return Objects.hash(id, score, isDeleted, creationDate, modifyingDate);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CredentialDto {\n");
+    sb.append("class ScoreDto {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    username: ").append(toIndentedString(username)).append("\n");
-    sb.append("    password: ").append(toIndentedString(password)).append("\n");
+    sb.append("    score: ").append(toIndentedString(score)).append("\n");
     sb.append("    isDeleted: ").append(toIndentedString(isDeleted)).append("\n");
     sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
     sb.append("    modifyingDate: ").append(toIndentedString(modifyingDate)).append("\n");
@@ -194,7 +231,7 @@ public class CredentialDto   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }

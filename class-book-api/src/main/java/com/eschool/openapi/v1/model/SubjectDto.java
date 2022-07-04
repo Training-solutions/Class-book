@@ -13,7 +13,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.openapitools.jackson.nullable.JsonNullable;
-import javax.annotation.Generated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -21,7 +20,7 @@ import javax.validation.constraints.*;
  * Subject info
  */
 @ApiModel(description = "Subject info")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-01T17:44:52.817734300+08:00[Asia/Shanghai]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
 public class SubjectDto   {
   @JsonProperty("id")
   private Long id;
@@ -49,9 +48,11 @@ public class SubjectDto   {
   private Boolean isDeleted;
 
   @JsonProperty("creationDate")
+  @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime creationDate;
 
   @JsonProperty("modifyingDate")
+  @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime modifyingDate;
 
   public SubjectDto id(Long id) {
@@ -99,6 +100,14 @@ public class SubjectDto   {
     return this;
   }
 
+  public SubjectDto addGroupsItem(GroupDto groupsItem) {
+    if (this.groups == null) {
+      this.groups = new ArrayList<>();
+    }
+    this.groups.add(groupsItem);
+    return this;
+  }
+
   /**
    * Get groups
    * @return groups
@@ -117,6 +126,14 @@ public class SubjectDto   {
 
   public SubjectDto scores(List<ScoreDto> scores) {
     this.scores = scores;
+    return this;
+  }
+
+  public SubjectDto addScoresItem(ScoreDto scoresItem) {
+    if (this.scores == null) {
+      this.scores = new ArrayList<>();
+    }
+    this.scores.add(scoresItem);
     return this;
   }
 
@@ -141,6 +158,14 @@ public class SubjectDto   {
     return this;
   }
 
+  public SubjectDto addStudentsItem(StudentDto studentsItem) {
+    if (this.students == null) {
+      this.students = new ArrayList<>();
+    }
+    this.students.add(studentsItem);
+    return this;
+  }
+
   /**
    * Get students
    * @return students
@@ -159,6 +184,14 @@ public class SubjectDto   {
 
   public SubjectDto teachers(List<TeacherDto> teachers) {
     this.teachers = teachers;
+    return this;
+  }
+
+  public SubjectDto addTeachersItem(TeacherDto teachersItem) {
+    if (this.teachers == null) {
+      this.teachers = new ArrayList<>();
+    }
+    this.teachers.add(teachersItem);
     return this;
   }
 
@@ -242,7 +275,7 @@ public class SubjectDto   {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -250,12 +283,20 @@ public class SubjectDto   {
       return false;
     }
     SubjectDto subject = (SubjectDto) o;
-    return Objects.equals(this.id, subject.id)Objects.equals(this.subjectTitle, subject.subjectTitle)Objects.equals(this.groups, subject.groups)Objects.equals(this.scores, subject.scores)Objects.equals(this.students, subject.students)Objects.equals(this.teachers, subject.teachers)Objects.equals(this.isDeleted, subject.isDeleted)Objects.equals(this.creationDate, subject.creationDate)Objects.equals(this.modifyingDate, subject.modifyingDate);
+    return Objects.equals(this.id, subject.id) &&
+        Objects.equals(this.subjectTitle, subject.subjectTitle) &&
+        Objects.equals(this.groups, subject.groups) &&
+        Objects.equals(this.scores, subject.scores) &&
+        Objects.equals(this.students, subject.students) &&
+        Objects.equals(this.teachers, subject.teachers) &&
+        Objects.equals(this.isDeleted, subject.isDeleted) &&
+        Objects.equals(this.creationDate, subject.creationDate) &&
+        Objects.equals(this.modifyingDate, subject.modifyingDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(idsubjectTitlegroupsscoresstudentsteachersisDeletedcreationDatemodifyingDate);
+    return Objects.hash(id, subjectTitle, groups, scores, students, teachers, isDeleted, creationDate, modifyingDate);
   }
 
   @Override
@@ -280,7 +321,7 @@ public class SubjectDto   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }

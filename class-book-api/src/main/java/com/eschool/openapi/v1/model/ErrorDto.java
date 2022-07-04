@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import org.openapitools.jackson.nullable.JsonNullable;
-import javax.annotation.Generated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -15,9 +14,10 @@ import javax.validation.constraints.*;
  * Error description
  */
 @ApiModel(description = "Error description")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-01T17:44:52.817734300+08:00[Asia/Shanghai]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
 public class ErrorDto   {
   @JsonProperty("timestamp")
+  @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime timestamp;
 
   @JsonProperty("status")
@@ -139,7 +139,7 @@ public class ErrorDto   {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -147,12 +147,16 @@ public class ErrorDto   {
       return false;
     }
     ErrorDto error = (ErrorDto) o;
-    return Objects.equals(this.timestamp, error.timestamp)Objects.equals(this.status, error.status)Objects.equals(this.errorCode, error.errorCode)Objects.equals(this.message, error.message)Objects.equals(this.path, error.path);
+    return Objects.equals(this.timestamp, error.timestamp) &&
+        Objects.equals(this.status, error.status) &&
+        Objects.equals(this.errorCode, error.errorCode) &&
+        Objects.equals(this.message, error.message) &&
+        Objects.equals(this.path, error.path);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(timestampstatuserrorCodemessagepath);
+    return Objects.hash(timestamp, status, errorCode, message, path);
   }
 
   @Override
@@ -173,7 +177,7 @@ public class ErrorDto   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }

@@ -13,7 +13,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.openapitools.jackson.nullable.JsonNullable;
-import javax.annotation.Generated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -21,7 +20,7 @@ import javax.validation.constraints.*;
  * Teacher info
  */
 @ApiModel(description = "Teacher info")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-01T17:44:52.817734300+08:00[Asia/Shanghai]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
 public class TeacherDto   {
   @JsonProperty("id")
   private Long id;
@@ -51,9 +50,11 @@ public class TeacherDto   {
   private Boolean isDeleted;
 
   @JsonProperty("creationDate")
+  @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime creationDate;
 
   @JsonProperty("modifyingDate")
+  @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime modifyingDate;
 
   public TeacherDto id(Long id) {
@@ -142,6 +143,14 @@ public class TeacherDto   {
     return this;
   }
 
+  public TeacherDto addGroupsItem(GroupDto groupsItem) {
+    if (this.groups == null) {
+      this.groups = new ArrayList<>();
+    }
+    this.groups.add(groupsItem);
+    return this;
+  }
+
   /**
    * Get groups
    * @return groups
@@ -163,6 +172,14 @@ public class TeacherDto   {
     return this;
   }
 
+  public TeacherDto addStudentsItem(StudentDto studentsItem) {
+    if (this.students == null) {
+      this.students = new ArrayList<>();
+    }
+    this.students.add(studentsItem);
+    return this;
+  }
+
   /**
    * Get students
    * @return students
@@ -181,6 +198,14 @@ public class TeacherDto   {
 
   public TeacherDto subjects(List<SubjectDto> subjects) {
     this.subjects = subjects;
+    return this;
+  }
+
+  public TeacherDto addSubjectsItem(SubjectDto subjectsItem) {
+    if (this.subjects == null) {
+      this.subjects = new ArrayList<>();
+    }
+    this.subjects.add(subjectsItem);
     return this;
   }
 
@@ -264,7 +289,7 @@ public class TeacherDto   {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -272,12 +297,21 @@ public class TeacherDto   {
       return false;
     }
     TeacherDto teacher = (TeacherDto) o;
-    return Objects.equals(this.id, teacher.id)Objects.equals(this.firstName, teacher.firstName)Objects.equals(this.lastName, teacher.lastName)Objects.equals(this.credential, teacher.credential)Objects.equals(this.groups, teacher.groups)Objects.equals(this.students, teacher.students)Objects.equals(this.subjects, teacher.subjects)Objects.equals(this.isDeleted, teacher.isDeleted)Objects.equals(this.creationDate, teacher.creationDate)Objects.equals(this.modifyingDate, teacher.modifyingDate);
+    return Objects.equals(this.id, teacher.id) &&
+        Objects.equals(this.firstName, teacher.firstName) &&
+        Objects.equals(this.lastName, teacher.lastName) &&
+        Objects.equals(this.credential, teacher.credential) &&
+        Objects.equals(this.groups, teacher.groups) &&
+        Objects.equals(this.students, teacher.students) &&
+        Objects.equals(this.subjects, teacher.subjects) &&
+        Objects.equals(this.isDeleted, teacher.isDeleted) &&
+        Objects.equals(this.creationDate, teacher.creationDate) &&
+        Objects.equals(this.modifyingDate, teacher.modifyingDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(idfirstNamelastNamecredentialgroupsstudentssubjectsisDeletedcreationDatemodifyingDate);
+    return Objects.hash(id, firstName, lastName, credential, groups, students, subjects, isDeleted, creationDate, modifyingDate);
   }
 
   @Override
@@ -303,7 +337,7 @@ public class TeacherDto   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }

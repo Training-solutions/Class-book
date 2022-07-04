@@ -13,7 +13,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.openapitools.jackson.nullable.JsonNullable;
-import javax.annotation.Generated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -21,7 +20,7 @@ import javax.validation.constraints.*;
  * Student info
  */
 @ApiModel(description = "Student info")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-01T17:44:52.817734300+08:00[Asia/Shanghai]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
 public class StudentDto   {
   @JsonProperty("id")
   private Long id;
@@ -50,9 +49,11 @@ public class StudentDto   {
   private Boolean isDeleted;
 
   @JsonProperty("creationDate")
+  @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime creationDate;
 
   @JsonProperty("modifyingDate")
+  @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime modifyingDate;
 
   public StudentDto id(Long id) {
@@ -162,6 +163,14 @@ public class StudentDto   {
     return this;
   }
 
+  public StudentDto addTeachersItem(TeacherDto teachersItem) {
+    if (this.teachers == null) {
+      this.teachers = new ArrayList<>();
+    }
+    this.teachers.add(teachersItem);
+    return this;
+  }
+
   /**
    * Get teachers
    * @return teachers
@@ -180,6 +189,14 @@ public class StudentDto   {
 
   public StudentDto subjects(List<SubjectDto> subjects) {
     this.subjects = subjects;
+    return this;
+  }
+
+  public StudentDto addSubjectsItem(SubjectDto subjectsItem) {
+    if (this.subjects == null) {
+      this.subjects = new ArrayList<>();
+    }
+    this.subjects.add(subjectsItem);
     return this;
   }
 
@@ -263,7 +280,7 @@ public class StudentDto   {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -271,12 +288,21 @@ public class StudentDto   {
       return false;
     }
     StudentDto student = (StudentDto) o;
-    return Objects.equals(this.id, student.id)Objects.equals(this.firstName, student.firstName)Objects.equals(this.lastName, student.lastName)Objects.equals(this.credential, student.credential)Objects.equals(this.group, student.group)Objects.equals(this.teachers, student.teachers)Objects.equals(this.subjects, student.subjects)Objects.equals(this.isDeleted, student.isDeleted)Objects.equals(this.creationDate, student.creationDate)Objects.equals(this.modifyingDate, student.modifyingDate);
+    return Objects.equals(this.id, student.id) &&
+        Objects.equals(this.firstName, student.firstName) &&
+        Objects.equals(this.lastName, student.lastName) &&
+        Objects.equals(this.credential, student.credential) &&
+        Objects.equals(this.group, student.group) &&
+        Objects.equals(this.teachers, student.teachers) &&
+        Objects.equals(this.subjects, student.subjects) &&
+        Objects.equals(this.isDeleted, student.isDeleted) &&
+        Objects.equals(this.creationDate, student.creationDate) &&
+        Objects.equals(this.modifyingDate, student.modifyingDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(idfirstNamelastNamecredentialgroupteacherssubjectsisDeletedcreationDatemodifyingDate);
+    return Objects.hash(id, firstName, lastName, credential, group, teachers, subjects, isDeleted, creationDate, modifyingDate);
   }
 
   @Override
@@ -302,7 +328,7 @@ public class StudentDto   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }
