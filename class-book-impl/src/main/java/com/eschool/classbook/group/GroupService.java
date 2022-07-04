@@ -1,9 +1,8 @@
 package com.eschool.classbook.group;
 
-import com.eschool.classbook.scorepage.ScorepageRepository;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.awt.print.Pageable;
 import java.util.Optional;
 
 public interface GroupService {

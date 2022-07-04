@@ -1,12 +1,11 @@
 package com.eschool.classbook.scorepage;
 
-import com.eschool.classbook.group.GroupEntity;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.awt.print.Pageable;
 import java.util.Optional;
 
-public interface ScorepageService {
+public interface ScoreService {
     Page<ScoreEntity> findAll(Pageable pageable);
     Optional<ScoreEntity> findById(Long id);
     void deleteById(Long id);
