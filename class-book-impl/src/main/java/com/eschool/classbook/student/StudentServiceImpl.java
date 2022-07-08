@@ -21,9 +21,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Optional<StudentEntity> findById(Long id) {
-        return Optional.ofNullable(Optional.of(studentRepository.getById(id))
-                .orElseThrow(() -> new ClassBookException(String.format("Student with id %d wasn't found", id))));
+    public StudentEntity findById(Long id) {
+        return Optional.of(studentRepository.getById(id))
+                .orElseThrow(() -> new ClassBookException(String.format("Student with id %d was not found", id)));
     }
 
     @Override

@@ -1,8 +1,6 @@
 package com.eschool.classbook.teacher;
 
 import com.eschool.classbook.exception.ClassBookException;
-import com.eschool.classbook.subject.SubjectEntity;
-import com.eschool.classbook.subject.SubjectRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -23,9 +21,9 @@ public class TeacherServiceImpl implements TeacherService{
     }
 
     @Override
-    public Optional<TeacherEntity> findById(Long id) {
-        return Optional.ofNullable(Optional.of(teacherRepository.getById(id))
-                .orElseThrow(() -> new ClassBookException(String.format("Teacher with id %d wasn't found", id))));
+    public TeacherEntity findById(Long id) {
+        return Optional.of(teacherRepository.getById(id))
+                .orElseThrow(() -> new ClassBookException(String.format("Teacher with id %d was not found", id)));
     }
 
     @Override

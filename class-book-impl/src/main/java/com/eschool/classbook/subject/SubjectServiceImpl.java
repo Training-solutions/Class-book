@@ -20,9 +20,9 @@ public class SubjectServiceImpl implements SubjectService{
     }
 
     @Override
-    public Optional<SubjectEntity> findById(Long id) {
-        return Optional.ofNullable(Optional.of(subjectRepository.getById(id))
-                .orElseThrow(() -> new ClassBookException(String.format("Subject with id %d wasn't found", id))));
+    public SubjectEntity findById(Long id) {
+        return Optional.of(subjectRepository.getById(id))
+                .orElseThrow(() -> new ClassBookException(String.format("Subject with id %d was not found", id)));
     }
 
     @Override

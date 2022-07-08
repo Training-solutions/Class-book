@@ -21,9 +21,9 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public Optional<ScoreEntity> findById(Long id) {
-        return Optional.ofNullable(Optional.of(scoreRepository.getById(id))
-                .orElseThrow(() -> new ClassBookException(String.format("Score with id %d wasn't found", id))));
+    public ScoreEntity findById(Long id) {
+        return Optional.of(scoreRepository.getById(id))
+                .orElseThrow(() -> new ClassBookException(String.format("Score with id %d was not found", id)));
     }
 
     @Override

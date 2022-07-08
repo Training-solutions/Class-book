@@ -23,9 +23,9 @@ public class GroupServiceImpl implements GroupService{
     }
 
     @Override
-    public Optional<GroupEntity> findById(Long id) {
-        return Optional.ofNullable(Optional.of(groupRepository.getById(id))
-                .orElseThrow(() -> new ClassBookException(String.format("Group with id %d wasn't found", id))));
+    public GroupEntity findById(Long id) {
+        return Optional.of(groupRepository.getById(id))
+                .orElseThrow(() -> new ClassBookException(String.format("Group with id %d wasn't found", id)));
     }
 
     @Override
@@ -46,7 +46,7 @@ public class GroupServiceImpl implements GroupService{
     @Override
     public GroupEntity update(Long id, GroupEntity groupEntity) {
         Optional.of(groupRepository.getById(id))
-                .orElseThrow(() -> new ClassBookException(String.format("Group with id %d wasn't found", id)));
+                .orElseThrow(() -> new ClassBookException(String.format("Group with id %d was not found", id)));
         groupEntity.setModifyingDate(LocalDateTime.now());
         return groupRepository.save(groupEntity);
     }
