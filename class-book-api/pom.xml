@@ -14,7 +14,7 @@
     </parent>
 
     <properties>
-        <openapi-generator-maven-plugin.version>5.1.0</openapi-generator-maven-plugin.version>
+        <openapi-generator-maven-plugin.version>5.0.1</openapi-generator-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -81,7 +81,7 @@
                             <inputSpec>class-book-v1.yml</inputSpec>
                             <generatorName>spring</generatorName>
                             <modelNameSuffix>Dto</modelNameSuffix>
-                            <templateDirectory>src/main/resources/JavaSpring</templateDirectory>
+                            <!--                            <templateDirectory>src/main/resources/JavaSpring</templateDirectory>-->
                             <generateApis>true</generateApis>
                             <generateModels>true</generateModels>
                             <generateApiTests>false</generateApiTests>
@@ -112,3 +112,4 @@
     </build>
 
 </project>
+
