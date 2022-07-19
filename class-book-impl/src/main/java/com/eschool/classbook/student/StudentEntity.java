@@ -70,6 +70,26 @@ public class StudentEntity extends BaseEntity {
     @ToString.Exclude
     private Set<SubjectEntity> subjects = new HashSet<>();
 
+    public void addTeacher(TeacherEntity teacherEntity){
+        teacherEntity.getStudents().add(this);
+        teachers.add(teacherEntity);
+    }
+
+    public void removeTeacher(TeacherEntity teacherEntity){
+        teacherEntity.getStudents().remove(this);
+        teachers.remove(teacherEntity);
+    }
+
+    public void addSubject(SubjectEntity subjectEntity){
+        subjectEntity.getStudents().add(this);
+        subjects.add(subjectEntity);
+    }
+
+    public void removeSubject(SubjectEntity subjectEntity){
+        subjectEntity.getStudents().remove(this);
+        subjects.remove(subjectEntity);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

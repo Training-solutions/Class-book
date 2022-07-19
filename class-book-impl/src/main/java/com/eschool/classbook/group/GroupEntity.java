@@ -42,6 +42,7 @@ public class GroupEntity extends BaseEntity {
     @Column(name = "group_title", nullable = false, unique = true)
     private String groupTitle;
 
+    @Setter(AccessLevel.PRIVATE)
     @OneToMany(mappedBy = "group")
     @ToString.Exclude
     private List<StudentEntity> students = new ArrayList<>();
@@ -63,6 +64,36 @@ public class GroupEntity extends BaseEntity {
     )
     @ToString.Exclude
     private Set<SubjectEntity> subjects = new HashSet<>();
+
+    public void addStudent(StudentEntity studentEntity) {
+        studentEntity.setGroup(this);
+        students.add(studentEntity);
+    }
+
+    public void removeStudent(StudentEntity studentEntity) {
+        studentEntity.setGroup(null);
+        students.remove(studentEntity);
+    }
+
+    public void addTeacher(TeacherEntity teacherEntity) {
+        teacherEntity.getGroups().add(this);
+        teachers.add(teacherEntity);
+    }
+
+    public void removeTeacher(TeacherEntity teacherEntity) {
+        teacherEntity.getGroups().remove(this);
+        teachers.remove(teacherEntity);
+    }
+
+    public void addSubject(SubjectEntity subjectEntity) {
+        subjectEntity.getGroups().add(this);
+        subjects.add(subjectEntity);
+    }
+
+    public void removeSubject(SubjectEntity subjectEntity) {
+        subjectEntity.getGroups().remove(this);
+        subjects.remove(subjectEntity);
+    }
 
     @Override
     public boolean equals(Object o) {
