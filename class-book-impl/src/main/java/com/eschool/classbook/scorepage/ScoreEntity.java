@@ -49,6 +49,16 @@ public class ScoreEntity extends BaseEntity {
     @ToString.Exclude
     private Set<SubjectEntity> subjects = new HashSet<>();
 
+    public void addSubject(SubjectEntity subjectEntity){
+        subjectEntity.getScores().add(this);
+        subjects.add(subjectEntity);
+    }
+
+    public void removeSubject(SubjectEntity subjectEntity){
+        subjectEntity.getScores().remove(this);
+        subjects.remove(subjectEntity);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

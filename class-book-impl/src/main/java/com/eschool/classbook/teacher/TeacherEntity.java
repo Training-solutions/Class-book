@@ -68,6 +68,36 @@ public class TeacherEntity extends BaseEntity {
     @ToString.Exclude
     private Set<SubjectEntity> subjects = new HashSet<>();
 
+    public void addGroup(GroupEntity groupEntity) {
+        groupEntity.getTeachers().add(this);
+        groups.add(groupEntity);
+    }
+
+    public void removeGroup(GroupEntity groupEntity) {
+        groupEntity.getTeachers().remove(this);
+        groups.remove(groupEntity);
+    }
+
+    public void addStudent(StudentEntity studentEntity) {
+        studentEntity.getTeachers().add(this);
+        students.add(studentEntity);
+    }
+
+    public void removeStudent(StudentEntity studentEntity) {
+        studentEntity.getTeachers().add(this);
+        students.remove(studentEntity);
+    }
+
+    public void addSubject(SubjectEntity subjectEntity) {
+        subjectEntity.getTeachers().add(this);
+        subjects.add(subjectEntity);
+    }
+
+    public void removeSubject(SubjectEntity subjectEntity) {
+        subjectEntity.getTeachers().add(this);
+        subjects.remove(subjectEntity);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

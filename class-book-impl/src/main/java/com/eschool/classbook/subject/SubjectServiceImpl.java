@@ -27,7 +27,7 @@ public class SubjectServiceImpl implements SubjectService{
 
     @Override
     public void deleteById(Long id) {
-        SubjectEntity subject = Optional.of(subjectRepository.getById(id))
+        SubjectEntity subject = subjectRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Subject with id %d wasn't found", id)));
         subject.setModifyingDate(LocalDateTime.now());
         subject.setDeleted(true);
@@ -41,7 +41,7 @@ public class SubjectServiceImpl implements SubjectService{
 
     @Override
     public SubjectEntity update(Long id, SubjectEntity subjectEntity) {
-        Optional.of(subjectRepository.getById(id))
+       subjectRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Subject with id %d wasn't found", id)));
         subjectEntity.setModifyingDate(LocalDateTime.now());
         return subjectRepository.save(subjectEntity);

@@ -22,7 +22,7 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Override
     public ScoreEntity findById(Long id) {
-        return Optional.of(scoreRepository.getById(id))
+        return scoreRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Score with id %d was not found", id)));
     }
 
@@ -42,7 +42,7 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Override
     public ScoreEntity update(Long id, ScoreEntity scoreEntity) {
-        Optional.of(scoreRepository.getById(id))
+        scoreRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Score with id %d wasn't found", id)));
         scoreEntity.setModifyingDate(LocalDateTime.now());
         return scoreRepository.save(scoreEntity);

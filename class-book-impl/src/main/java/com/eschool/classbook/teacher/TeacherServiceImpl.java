@@ -22,13 +22,13 @@ public class TeacherServiceImpl implements TeacherService{
 
     @Override
     public TeacherEntity findById(Long id) {
-        return Optional.of(teacherRepository.getById(id))
+        return teacherRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Teacher with id %d was not found", id)));
     }
 
     @Override
     public void deleteById(Long id) {
-        TeacherEntity teacher = Optional.of(teacherRepository.getById(id))
+        TeacherEntity teacher = teacherRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Teacher with id %d wasn't found", id)));
         teacher.setModifyingDate(LocalDateTime.now());
         teacher.setDeleted(true);
@@ -42,7 +42,7 @@ public class TeacherServiceImpl implements TeacherService{
 
     @Override
     public TeacherEntity update(Long id, TeacherEntity teacherEntity) {
-        Optional.of(teacherRepository.getById(id))
+        teacherRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Teacher with id %d wasn't found", id)));
         teacherEntity.setModifyingDate(LocalDateTime.now());
         return teacherRepository.save(teacherEntity);

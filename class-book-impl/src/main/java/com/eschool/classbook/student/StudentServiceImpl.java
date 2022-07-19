@@ -22,13 +22,13 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentEntity findById(Long id) {
-        return Optional.of(studentRepository.getById(id))
+        return studentRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Student with id %d was not found", id)));
     }
 
     @Override
     public void deleteById(Long id) {
-        StudentEntity student = Optional.of(studentRepository.getById(id))
+        StudentEntity student = studentRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Student with id %d wasn't found", id)));
         student.setModifyingDate(LocalDateTime.now());
         student.setDeleted(true);
@@ -42,7 +42,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentEntity update(Long id, StudentEntity studentEntity) {
-        Optional.of(studentRepository.getById(id))
+        studentRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Student with id %d wasn't found", id)));
         studentEntity.setModifyingDate(LocalDateTime.now());
         return studentRepository.save(studentEntity);
