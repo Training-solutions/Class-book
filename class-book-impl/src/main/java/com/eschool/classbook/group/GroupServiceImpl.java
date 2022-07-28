@@ -30,7 +30,7 @@ public class GroupServiceImpl implements GroupService{
 
     @Override
     public void deleteById(Long id) {
-        GroupEntity group = Optional.of(groupRepository.getById(id))
+        GroupEntity group = groupRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Group with id %d wasn't found", id)));
         group.setModifyingDate(LocalDateTime.now());
         group.setDeleted(true);

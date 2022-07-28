@@ -21,7 +21,7 @@ public class SubjectServiceImpl implements SubjectService{
 
     @Override
     public SubjectEntity findById(Long id) {
-        return Optional.of(subjectRepository.getById(id))
+        return subjectRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Subject with id %d was not found", id)));
     }
 
