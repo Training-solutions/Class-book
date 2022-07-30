@@ -101,6 +101,7 @@ public class StudentServiceImplUnitTest {
 
     @Test
     public void givenStudent_whenDelete_thenStudentDeletedSuccessfully(){
+
         //given
         StudentEntity student = TestData.getStudent();
         Long id = student.getId();

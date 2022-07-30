@@ -28,7 +28,7 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Override
     public void deleteById(Long id) {
-        ScoreEntity score = Optional.of(scoreRepository.getById(id))
+        ScoreEntity score = scoreRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Score with id %d wasn't found", id)));
         score.setModifyingDate(LocalDateTime.now());
         score.setDeleted(true);
