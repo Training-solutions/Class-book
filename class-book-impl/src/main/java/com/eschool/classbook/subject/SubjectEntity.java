@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,22 +39,22 @@ public class SubjectEntity extends BaseEntity {
     private String subjectTitle;
 
     @Setter(AccessLevel.PRIVATE)
-    @ManyToMany(mappedBy = "subjects")
+    @ManyToMany(mappedBy = "subjects", cascade = {CascadeType.MERGE})
     @ToString.Exclude
     private Set<GroupEntity> groups = new HashSet<>();
 
     @Setter(AccessLevel.PRIVATE)
-    @ManyToMany(mappedBy = "subjects")
+    @ManyToMany(mappedBy = "subjects", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @ToString.Exclude
     private Set<ScoreEntity> scores = new HashSet<>();
 
     @Setter(AccessLevel.PRIVATE)
-    @ManyToMany(mappedBy = "subjects")
+    @ManyToMany(mappedBy = "subjects", cascade = {CascadeType.MERGE})
     @ToString.Exclude
     private Set<StudentEntity> students = new HashSet<>();
 
     @Setter(AccessLevel.PRIVATE)
-    @ManyToMany(mappedBy = "subjects")
+    @ManyToMany(mappedBy = "subjects", cascade = {CascadeType.MERGE})
     @ToString.Exclude
     private Set<TeacherEntity> teachers = new HashSet<>();
 

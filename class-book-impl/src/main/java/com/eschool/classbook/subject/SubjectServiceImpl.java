@@ -3,10 +3,12 @@ package com.eschool.classbook.subject;
 import com.eschool.classbook.exception.ClassBookException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+@Service
 public class SubjectServiceImpl implements SubjectService{
     private final SubjectRepository subjectRepository;
 

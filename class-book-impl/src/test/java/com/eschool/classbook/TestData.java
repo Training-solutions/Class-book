@@ -13,18 +13,16 @@ import java.time.LocalDateTime;
 public class TestData {
     public static StudentEntity getStudent() {
         StudentEntity studentEntity = new StudentEntity();
-        studentEntity.setId(1L);
         studentEntity.setFirstName("David");
         studentEntity.setLastName("Emerston");
-        studentEntity.setCreationDate(LocalDateTime.now());
-        studentEntity.setModifyingDate(LocalDateTime.now());
+        studentEntity.setCreationDate(LocalDateTime.of(2020,8,10,11,10,45));
+        studentEntity.setModifyingDate(LocalDateTime.of(2021,7,10,14,12,58));
         studentEntity.setDeleted(false);
         return studentEntity;
     }
 
     public static SubjectEntity getSubject() {
         SubjectEntity subjectEntity = new SubjectEntity();
-        subjectEntity.setId(1L);
         subjectEntity.setSubjectTitle("Math");
         subjectEntity.setCreationDate(LocalDateTime.now());
         subjectEntity.setModifyingDate(LocalDateTime.now());
@@ -34,7 +32,6 @@ public class TestData {
 
     public static ScoreEntity getScore() {
         ScoreEntity scoreEntity = new ScoreEntity();
-        scoreEntity.setId(1L);
         scoreEntity.setScore(Score.ELEVEN);
         scoreEntity.setDeleted(false);
         scoreEntity.setCreationDate(LocalDateTime.now());
@@ -44,7 +41,6 @@ public class TestData {
 
     public static TeacherEntity getTeacher() {
         TeacherEntity teacherEntity = new TeacherEntity();
-        teacherEntity.setId(1L);
         teacherEntity.setFirstName("Leo");
         teacherEntity.setLastName("Davidson");
         teacherEntity.setDeleted(false);
@@ -55,7 +51,6 @@ public class TestData {
 
     public static GroupEntity getGroup() {
         GroupEntity groupEntity = new GroupEntity();
-        groupEntity.setId(1L);
         groupEntity.setGroupTitle("1A");
         groupEntity.setCreationDate(LocalDateTime.now());
         groupEntity.setModifyingDate(LocalDateTime.now());
@@ -65,7 +60,6 @@ public class TestData {
 
     public static CredentialEntity getCredential() {
         CredentialEntity credentialEntity = new CredentialEntity();
-        credentialEntity.setId(1L);
         credentialEntity.setUsername("david_emerston");
         credentialEntity.setPassword("qwerty");
         credentialEntity.setCreationDate(LocalDateTime.now());

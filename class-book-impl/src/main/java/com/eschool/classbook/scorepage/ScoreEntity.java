@@ -31,17 +31,17 @@ import java.util.Set;
 @Table(name = "scores")
 public class ScoreEntity extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "score_page_generator")
-    @SequenceGenerator(allocationSize = 1, name = "score_page_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "score_generator")
+    @SequenceGenerator(allocationSize = 1, name = "score_generator")
     @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(name = "score")
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private Score score;
 
     @Setter(AccessLevel.PRIVATE)
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(name = "score_subject",
             joinColumns = @JoinColumn(name = "score_id"),
             inverseJoinColumns = @JoinColumn(name = "subject_id")
