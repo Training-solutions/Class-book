@@ -34,8 +34,8 @@ import java.util.Set;
 @Table(name = "students")
 public class StudentEntity extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "students_generator")
-    @SequenceGenerator(allocationSize = 1, name = "students_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_generator")
+    @SequenceGenerator(allocationSize = 1, name = "student_generator")
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -45,15 +45,15 @@ public class StudentEntity extends BaseEntity {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "credential")
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH}, orphanRemoval = true)
+    @JoinColumn(name = "credential", nullable = false)
     private CredentialEntity credential;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private GroupEntity group;
 
     @Setter(AccessLevel.PRIVATE)
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(name = "student_teacher",
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "teacher_id")
@@ -62,7 +62,7 @@ public class StudentEntity extends BaseEntity {
     private Set<TeacherEntity> teachers = new HashSet<>();
 
     @Setter(AccessLevel.PRIVATE)
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(name = "student_subject",
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "subject_id")
