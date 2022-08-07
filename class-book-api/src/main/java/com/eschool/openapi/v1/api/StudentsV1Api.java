@@ -7,25 +7,25 @@ package com.eschool.openapi.v1.api;
 
 import com.eschool.openapi.v1.model.CommonResponseDto;
 import com.eschool.openapi.v1.model.ErrorDto;
-import java.time.OffsetDateTime;
 import com.eschool.openapi.v1.model.PageViewDto;
 import com.eschool.openapi.v1.model.StudentDto;
-import io.swagger.annotations.*;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.Authorization;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.multipart.MultipartFile;
-import springfox.documentation.annotations.ApiIgnore;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
-import javax.validation.constraints.*;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
 @Validated
 @Api(value = "StudentsV1", description = "the StudentsV1 API")
@@ -57,7 +57,7 @@ public interface StudentsV1Api {
         value = "/ui/students/{studentId}",
         produces = { "application/json" }
     )
-    ResponseEntity<StudentDto> _getStudentById(@ApiParam(value = "Student identifier",required=true) @PathVariable("studentId") Long studentId);
+    ResponseEntity<StudentDto> getStudentById(@ApiParam(value = "Student identifier",required=true) @PathVariable("studentId") Long studentId);
 
 
     /**
@@ -92,8 +92,7 @@ public interface StudentsV1Api {
         value = "/ui/students",
         produces = { "application/json" }
     )
-    ResponseEntity<PageViewDto> _getStudentList(@ApiParam(value = "Page number") @Valid @RequestParam(value = "page", required = false) Integer page,@ApiParam(value = "Students count on page") @Valid @RequestParam(value = "size", required = false) Integer size,@ApiParam(value = "Sort criteria (can have multiple declarations - id, firstName, lastName, creationDate, changingDate, isDeleted)") @Valid @RequestParam(value = "sort", required = false) List<String> sort,@ApiParam(value = "Filter by id") @Valid @RequestParam(value = "id", required = false) List<Long> id,@ApiParam(value = "Filter by firstName") @Valid @RequestParam(value = "firstName", required = false) List<String> firstName,@ApiParam(value = "Filter by lastName") @Valid @RequestParam(value = "lastName", required = false) List<String> lastName,@ApiParam(value = "Filter by creationDate") @Valid @RequestParam(value = "creationDate", required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) OffsetDateTime creationDate,@ApiParam(value = "Filter by changingDate") @Valid @RequestParam(value = "changingDate", required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) OffsetDateTime changingDate,@ApiParam(value = "Filter by isDeleted") @Valid @RequestParam(value = "isDeleted", required = false) Boolean isDeleted);
-
+    ResponseEntity<PageViewDto<StudentDto>> getStudentList(Pageable pageable);
 
     /**
      * POST /ui/students : Creating new student
@@ -122,7 +121,7 @@ public interface StudentsV1Api {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    ResponseEntity<CommonResponseDto> _postStudent(@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) StudentDto studentDto);
+    ResponseEntity<CommonResponseDto> postStudent(@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) StudentDto studentDto);
 
 
     /**
@@ -153,6 +152,32 @@ public interface StudentsV1Api {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    ResponseEntity<CommonResponseDto> _updateStudent(@ApiParam(value = "Id for student updating",required=true) @PathVariable("studentId") Long studentId,@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) StudentDto studentDto);
+    ResponseEntity<CommonResponseDto> updateStudent(@ApiParam(value = "Id for student updating",required=true) @PathVariable("studentId") Long studentId,@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) StudentDto studentDto);
+
+    /**
+     * DELETE /ui/students/{studentId} : Student deleting
+     *
+     * @param studentId Id for student updating (required)
+     * @return Successful response (status code 200)
+     *         or Supplied request data are invalid (status code 400)
+     *         or Access token is missing or invalid (status code 401)
+     *         or User is not granted sufficient privileges (status code 403)
+     *         or Internal server error (status code 500)
+     */
+    @ApiOperation(value = "Student deleting", nickname = "deleteStudent", notes = "", response = CommonResponseDto.class, authorizations = {
+
+            @Authorization(value = "bearerAuth")
+    }, tags={ "student-v1", })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful response", response = CommonResponseDto.class),
+            @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorDto.class),
+            @ApiResponse(code = 401, message = "Access token is missing or invalid"),
+            @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorDto.class),
+            @ApiResponse(code = 500, message = "Internal server error", response = ErrorDto.class) })
+    @DeleteMapping(
+            value = "/ui/students/{studentId}",
+            produces = { "application/json" }
+    )
+    ResponseEntity<CommonResponseDto> deleteStudent(@ApiParam(value = "Id for student updating",required=true) @PathVariable("studentId") Long studentId);
 
 }

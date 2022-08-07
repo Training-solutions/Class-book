@@ -55,7 +55,7 @@ public interface TeachersV1Api {
         value = "/ui/teachers/{teacherId}",
         produces = { "application/json" }
     )
-    ResponseEntity<CommonResponseDto> _deleteTeacher(@ApiParam(value = "Id for teacher updating",required=true) @PathVariable("teacherId") Long teacherId);
+    ResponseEntity<CommonResponseDto> deleteTeacher(@ApiParam(value = "Id for teacher updating",required=true) @PathVariable("teacherId") Long teacherId);
 
 
     /**
@@ -84,7 +84,7 @@ public interface TeachersV1Api {
         value = "/ui/teachers/{teacherId}",
         produces = { "application/json" }
     )
-    ResponseEntity<TeacherDto> _getTeacherById(@ApiParam(value = "Teacher identifier",required=true) @PathVariable("teacherId") Long teacherId);
+    ResponseEntity<TeacherDto> getTeacherById(@ApiParam(value = "Teacher identifier",required=true) @PathVariable("teacherId") Long teacherId);
 
 
     /**
@@ -119,7 +119,7 @@ public interface TeachersV1Api {
         value = "/ui/teachers",
         produces = { "application/json" }
     )
-    ResponseEntity<PageViewDto> _getTeacherList(@ApiParam(value = "Page number") @Valid @RequestParam(value = "page", required = false) Integer page,@ApiParam(value = "Teachers count on page") @Valid @RequestParam(value = "size", required = false) Integer size,@ApiParam(value = "Sort criteria (can have multiple declarations - id, firstName, lastName, creationDate, changingDate, isDeleted)") @Valid @RequestParam(value = "sort", required = false) List<String> sort,@ApiParam(value = "Filter by id") @Valid @RequestParam(value = "id", required = false) List<Long> id,@ApiParam(value = "Filter by firstName") @Valid @RequestParam(value = "firstName", required = false) List<String> firstName,@ApiParam(value = "Filter by lastName") @Valid @RequestParam(value = "lastName", required = false) List<String> lastName,@ApiParam(value = "Filter by creationDate") @Valid @RequestParam(value = "creationDate", required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) OffsetDateTime creationDate,@ApiParam(value = "Filter by changingDate") @Valid @RequestParam(value = "changingDate", required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) OffsetDateTime changingDate,@ApiParam(value = "Filter by isDeleted") @Valid @RequestParam(value = "isDeleted", required = false) Boolean isDeleted);
+    ResponseEntity<PageViewDto<TeacherDto>> getTeacherList();
 
 
     /**
@@ -149,7 +149,7 @@ public interface TeachersV1Api {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    ResponseEntity<CommonResponseDto> _postTeacher(@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) TeacherDto teacherDto);
+    ResponseEntity<CommonResponseDto> postTeacher(@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) TeacherDto teacherDto);
 
 
     /**
@@ -180,6 +180,6 @@ public interface TeachersV1Api {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    ResponseEntity<CommonResponseDto> _updateTeacher(@ApiParam(value = "Id for teacher updating",required=true) @PathVariable("teacherId") Long teacherId,@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) TeacherDto teacherDto);
+    ResponseEntity<CommonResponseDto> updateTeacher(@ApiParam(value = "Id for teacher updating",required=true) @PathVariable("teacherId") Long teacherId,@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) TeacherDto teacherDto);
 
 }

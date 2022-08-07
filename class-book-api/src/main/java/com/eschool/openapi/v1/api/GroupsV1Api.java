@@ -8,24 +8,24 @@ package com.eschool.openapi.v1.api;
 import com.eschool.openapi.v1.model.CommonResponseDto;
 import com.eschool.openapi.v1.model.ErrorDto;
 import com.eschool.openapi.v1.model.GroupDto;
-import java.time.OffsetDateTime;
 import com.eschool.openapi.v1.model.PageViewDto;
-import io.swagger.annotations.*;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.Authorization;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.multipart.MultipartFile;
-import springfox.documentation.annotations.ApiIgnore;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
-import javax.validation.constraints.*;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
 @Validated
 @Api(value = "GroupsV1", description = "the GroupsV1 API")
@@ -55,7 +55,7 @@ public interface GroupsV1Api {
         value = "/ui/groups/{groupId}",
         produces = { "application/json" }
     )
-    ResponseEntity<CommonResponseDto> _deleteGroup(@ApiParam(value = "Id for group deleting",required=true) @PathVariable("groupId") Long groupId);
+    ResponseEntity<CommonResponseDto> deleteGroup(@ApiParam(value = "Id for group deleting",required=true) @PathVariable("groupId") Long groupId);
 
 
     /**
@@ -84,7 +84,7 @@ public interface GroupsV1Api {
         value = "/ui/groups/{groupId}",
         produces = { "application/json" }
     )
-    ResponseEntity<GroupDto> _getGroupById(@ApiParam(value = "Group identifier",required=true) @PathVariable("groupId") Long groupId);
+    ResponseEntity<GroupDto> getGroupById(@ApiParam(value = "Group identifier",required=true) @PathVariable("groupId") Long groupId);
 
 
     /**
@@ -118,7 +118,7 @@ public interface GroupsV1Api {
         value = "/ui/groups",
         produces = { "application/json" }
     )
-    ResponseEntity<PageViewDto> _getGroupList(@ApiParam(value = "Page number") @Valid @RequestParam(value = "page", required = false) Integer page,@ApiParam(value = "Groups count on page") @Valid @RequestParam(value = "size", required = false) Integer size,@ApiParam(value = "Sort criteria (can have multiple declarations - id, groupTitle, creationDate, changingDate, isDeleted)") @Valid @RequestParam(value = "sort", required = false) List<String> sort,@ApiParam(value = "Filter by id") @Valid @RequestParam(value = "id", required = false) List<Long> id,@ApiParam(value = "Filter by groupTitle") @Valid @RequestParam(value = "groupTitle", required = false) List<String> groupTitle,@ApiParam(value = "Filter by creationDate") @Valid @RequestParam(value = "creationDate", required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) OffsetDateTime creationDate,@ApiParam(value = "Filter by changingDate") @Valid @RequestParam(value = "changingDate", required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) OffsetDateTime changingDate,@ApiParam(value = "Filter by isDeleted") @Valid @RequestParam(value = "isDeleted", required = false) Boolean isDeleted);
+    ResponseEntity<PageViewDto<GroupDto>> getGroupList(Pageable pageable);
 
 
     /**
@@ -148,7 +148,7 @@ public interface GroupsV1Api {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    ResponseEntity<CommonResponseDto> _postGroup(@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) GroupDto groupDto);
+    ResponseEntity<CommonResponseDto> postGroup(@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) GroupDto groupDto);
 
 
     /**
@@ -179,6 +179,6 @@ public interface GroupsV1Api {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    ResponseEntity<CommonResponseDto> _updateGroup(@ApiParam(value = "Id for group updating",required=true) @PathVariable("groupId") Long groupId,@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) GroupDto groupDto);
+    ResponseEntity<CommonResponseDto> updateGroup(@ApiParam(value = "Id for group updating",required=true) @PathVariable("groupId") Long groupId,@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) GroupDto groupDto);
 
 }

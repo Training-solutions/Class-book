@@ -7,23 +7,25 @@ package com.eschool.openapi.v1.api;
 
 import com.eschool.openapi.v1.model.CommonResponseDto;
 import com.eschool.openapi.v1.model.ErrorDto;
+import com.eschool.openapi.v1.model.PageViewDto;
 import com.eschool.openapi.v1.model.ScoreDto;
-import io.swagger.annotations.*;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.Authorization;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.multipart.MultipartFile;
-import springfox.documentation.annotations.ApiIgnore;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
-import javax.validation.constraints.*;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
 @Validated
 @Api(value = "ScoresV1", description = "the ScoresV1 API")
@@ -53,8 +55,40 @@ public interface ScoresV1Api {
         value = "/ui/scores/{scoreId}",
         produces = { "application/json" }
     )
-    ResponseEntity<CommonResponseDto> _deleteScore(@ApiParam(value = "Id for score deleting",required=true) @PathVariable("scoreId") Long scoreId);
+    ResponseEntity<CommonResponseDto> deleteScore(@ApiParam(value = "Id for score deleting",required=true) @PathVariable("scoreId") Long scoreId);
 
+
+    /**
+     * GET /ui/scores : List of Scores
+     *
+     * @param page Page number (optional)
+     * @param size Scores count on page (optional)
+     * @param sort Sort criteria (can have multiple declarations - id, creationDate, changingDate, isDeleted) (optional, default to new ArrayList&lt;&gt;())
+     * @param id Filter by id (optional, default to new ArrayList&lt;&gt;())
+     * @param creationDate Filter by creationDate (optional)
+     * @param changingDate Filter by changingDate (optional)
+     * @param isDeleted Filter by isDeleted (optional)
+     * @return Successful response (status code 200)
+     *         or Access token is missing or invalid (status code 401)
+     *         or User is not granted sufficient privileges (status code 403)
+     *         or Resource was not found (status code 404)
+     *         or Internal server error (status code 500)
+     */
+    @ApiOperation(value = "List of Scores", nickname = "getScoreList", notes = "", response = PageViewDto.class, authorizations = {
+
+            @Authorization(value = "bearerAuth")
+    }, tags={ "score-v1", })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful response", response = PageViewDto.class),
+            @ApiResponse(code = 401, message = "Access token is missing or invalid"),
+            @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorDto.class),
+            @ApiResponse(code = 404, message = "Resource was not found", response = ErrorDto.class),
+            @ApiResponse(code = 500, message = "Internal server error", response = ErrorDto.class) })
+    @GetMapping(
+            value = "/ui/scores",
+            produces = { "application/json" }
+    )
+    ResponseEntity<PageViewDto<ScoreDto>> getScoreList(Pageable pageable);
 
     /**
      * GET /ui/scores/{scoreId} : Information about concrete score
@@ -82,7 +116,7 @@ public interface ScoresV1Api {
         value = "/ui/scores/{scoreId}",
         produces = { "application/json" }
     )
-    ResponseEntity<ScoreDto> _getScoreById(@ApiParam(value = "Score identifier",required=true) @PathVariable("scoreId") Long scoreId);
+    ResponseEntity<ScoreDto> getScoreById(@ApiParam(value = "Score identifier",required=true) @PathVariable("scoreId") Long scoreId);
 
 
     /**
@@ -112,7 +146,7 @@ public interface ScoresV1Api {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    ResponseEntity<CommonResponseDto> _postScore(@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) ScoreDto scoreDto);
+    ResponseEntity<CommonResponseDto> postScore(@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) ScoreDto scoreDto);
 
 
     /**
@@ -143,6 +177,6 @@ public interface ScoresV1Api {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    ResponseEntity<CommonResponseDto> _updateScore(@ApiParam(value = "Id for score updating",required=true) @PathVariable("scoreId") Long scoreId,@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) ScoreDto scoreDto);
+    ResponseEntity<CommonResponseDto> updateScore(@ApiParam(value = "Id for score updating",required=true) @PathVariable("scoreId") Long scoreId,@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) ScoreDto scoreDto);
 
 }
