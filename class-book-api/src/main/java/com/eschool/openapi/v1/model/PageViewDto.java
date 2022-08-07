@@ -15,13 +15,13 @@ import javax.validation.constraints.*;
  * PageViewDto
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
-public class PageViewDto   {
+public class PageViewDto<T>   {
   @JsonProperty("total")
   private Integer total;
 
   @JsonProperty("data")
   @Valid
-  private List<Object> data = null;
+  private List<T> data = null;
 
   public PageViewDto total(Integer total) {
     this.total = total;
@@ -43,12 +43,13 @@ public class PageViewDto   {
     this.total = total;
   }
 
-  public PageViewDto data(List<Object> data) {
+  public PageViewDto data(List<T> data) {
     this.data = data;
+    this.total = data.size();
     return this;
   }
 
-  public PageViewDto addDataItem(Object dataItem) {
+  public PageViewDto addDataItem(T dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }
@@ -63,12 +64,13 @@ public class PageViewDto   {
   @ApiModelProperty(value = "")
 
 
-  public List<Object> getData() {
+  public List<T> getData() {
     return data;
   }
 
-  public void setData(List<Object> data) {
+  public void setData(List<T> data) {
     this.data = data;
+    this.total = data.size();
   }
 
 

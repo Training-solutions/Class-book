@@ -635,7 +635,7 @@ paths:
 
     delete:
       tags:
-        - student-v1
+        - students-v1
       summary: Student deleting
       operationId: deleteStudent
       parameters:
@@ -1546,6 +1546,7 @@ components:
           type: array
           items:
             type: object
+
     CommonResponse:
       type: object
       description: CommonResponse
