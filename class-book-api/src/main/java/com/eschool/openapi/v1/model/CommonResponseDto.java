@@ -26,6 +26,11 @@ public class CommonResponseDto   {
     return this;
   }
 
+  public CommonResponseDto(Long responseId, String status) {
+    this.responseId = responseId;
+    this.status = status;
+  }
+
   /**
    * Get responseId
    * @return responseId

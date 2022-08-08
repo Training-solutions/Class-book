@@ -7,25 +7,28 @@ package com.eschool.openapi.v1.api;
 
 import com.eschool.openapi.v1.model.CommonResponseDto;
 import com.eschool.openapi.v1.model.ErrorDto;
-import java.time.OffsetDateTime;
 import com.eschool.openapi.v1.model.PageViewDto;
 import com.eschool.openapi.v1.model.SubjectDto;
-import io.swagger.annotations.*;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.Authorization;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.multipart.MultipartFile;
-import springfox.documentation.annotations.ApiIgnore;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
 @Validated
 @Api(value = "SubjectsV1", description = "the SubjectsV1 API")
@@ -55,7 +58,7 @@ public interface SubjectsV1Api {
         value = "/ui/subjects/{subjectId}",
         produces = { "application/json" }
     )
-    ResponseEntity<CommonResponseDto> _deleteSubject(@ApiParam(value = "Id for subject deleting",required=true) @PathVariable("subjectId") Long subjectId);
+    ResponseEntity<CommonResponseDto> deleteSubject(@ApiParam(value = "Id for subject deleting",required=true) @PathVariable("subjectId") Long subjectId);
 
 
     /**
@@ -84,7 +87,7 @@ public interface SubjectsV1Api {
         value = "/ui/subjects/{subjectId}",
         produces = { "application/json" }
     )
-    ResponseEntity<SubjectDto> _getSubjectById(@ApiParam(value = "Subject identifier",required=true) @PathVariable("subjectId") Long subjectId);
+    ResponseEntity<SubjectDto> getSubjectById(@ApiParam(value = "Subject identifier",required=true) @PathVariable("subjectId") Long subjectId);
 
 
     /**
@@ -118,7 +121,7 @@ public interface SubjectsV1Api {
         value = "/ui/subjects",
         produces = { "application/json" }
     )
-    ResponseEntity<PageViewDto> _getSubjectList(@ApiParam(value = "Page number") @Valid @RequestParam(value = "page", required = false) Integer page,@ApiParam(value = "Subjects count on page") @Valid @RequestParam(value = "size", required = false) Integer size,@ApiParam(value = "Sort criteria (can have multiple declarations - id, subjectTitle)") @Valid @RequestParam(value = "sort", required = false) List<String> sort,@ApiParam(value = "Filter by id") @Valid @RequestParam(value = "id", required = false) List<Long> id,@ApiParam(value = "Filter by subjectTitle") @Valid @RequestParam(value = "subjectTitle", required = false) List<String> subjectTitle,@ApiParam(value = "Filter by creationDate") @Valid @RequestParam(value = "creationDate", required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) OffsetDateTime creationDate,@ApiParam(value = "Filter by changingDate") @Valid @RequestParam(value = "changingDate", required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) OffsetDateTime changingDate,@ApiParam(value = "Filter by isDeleted") @Valid @RequestParam(value = "isDeleted", required = false) Boolean isDeleted);
+    ResponseEntity<PageViewDto<SubjectDto>> getSubjectList(Pageable pageable);
 
 
     /**
@@ -148,7 +151,7 @@ public interface SubjectsV1Api {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    ResponseEntity<CommonResponseDto> _postSubject(@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) SubjectDto subjectDto);
+    ResponseEntity<CommonResponseDto> postSubject(@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) SubjectDto subjectDto);
 
 
     /**
@@ -179,6 +182,6 @@ public interface SubjectsV1Api {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    ResponseEntity<CommonResponseDto> _updateSubject(@ApiParam(value = "Id for subject updating",required=true) @PathVariable("subjectId") Long subjectId,@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) SubjectDto subjectDto);
+    ResponseEntity<CommonResponseDto> updateSubject(@ApiParam(value = "Id for subject updating",required=true) @PathVariable("subjectId") Long subjectId,@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) SubjectDto subjectDto);
 
 }
