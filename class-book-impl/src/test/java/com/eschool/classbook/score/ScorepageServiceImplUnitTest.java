@@ -1,8 +1,7 @@
-package com.eschool.classbook.scorepage;
+package com.eschool.classbook.score;
 
 import com.eschool.classbook.TestData;
 import com.eschool.classbook.exception.ClassBookException;
-import com.eschool.classbook.group.GroupEntity;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.data.domain.Page;

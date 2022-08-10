@@ -2,8 +2,8 @@ package com.eschool.classbook;
 
 import com.eschool.classbook.credential.CredentialEntity;
 import com.eschool.classbook.group.GroupEntity;
-import com.eschool.classbook.scorepage.Score;
-import com.eschool.classbook.scorepage.ScoreEntity;
+import com.eschool.classbook.score.Score;
+import com.eschool.classbook.score.ScoreEntity;
 import com.eschool.classbook.student.StudentEntity;
 import com.eschool.classbook.subject.SubjectEntity;
 import com.eschool.classbook.teacher.TeacherEntity;
