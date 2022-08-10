@@ -1,4 +1,4 @@
-package com.eschool.classbook.scorepage;
+package com.eschool.classbook.score;
 
 public enum ScoresEnum {
     ONE(1),

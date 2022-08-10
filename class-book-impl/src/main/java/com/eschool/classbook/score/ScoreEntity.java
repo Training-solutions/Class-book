@@ -1,4 +1,4 @@
-package com.eschool.classbook.scorepage;
+package com.eschool.classbook.score;
 
 import com.eschool.classbook.BaseEntity;
 import com.eschool.classbook.subject.SubjectEntity;

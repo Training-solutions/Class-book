@@ -1,4 +1,4 @@
-package com.eschool.classbook.scorepage;
+package com.eschool.classbook.score;
 
 import com.eschool.classbook.exception.ClassBookException;
 import org.springframework.data.domain.Page;

@@ -2,12 +2,6 @@ package com.eschool.classbook.subject;
 
 import com.eschool.classbook.TestData;
 import com.eschool.classbook.exception.ClassBookException;
-import com.eschool.classbook.scorepage.Score;
-import com.eschool.classbook.scorepage.ScoreEntity;
-import com.eschool.classbook.teacher.TeacherEntity;
-import com.eschool.classbook.teacher.TeacherRepository;
-import com.eschool.classbook.teacher.TeacherService;
-import com.eschool.classbook.teacher.TeacherServiceImpl;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.data.domain.Page;

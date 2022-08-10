@@ -2,7 +2,7 @@ package com.eschool.classbook.subject;
 
 import com.eschool.classbook.BaseEntity;
 import com.eschool.classbook.group.GroupEntity;
-import com.eschool.classbook.scorepage.ScoreEntity;
+import com.eschool.classbook.score.ScoreEntity;
 import com.eschool.classbook.student.StudentEntity;
 import com.eschool.classbook.teacher.TeacherEntity;
 import lombok.AccessLevel;

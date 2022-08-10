@@ -1,4 +1,4 @@
-package com.eschool.classbook.scorepage;
+package com.eschool.classbook.score;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
