@@ -1,21 +1,24 @@
 package com.eschool.openapi.v1.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.OffsetDateTime;
-import org.openapitools.jackson.nullable.JsonNullable;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.annotation.Generated;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import java.time.OffsetDateTime;
+import java.util.Objects;
 
 /**
  * Score info
  */
 @ApiModel(description = "Score info")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
+@Generated(
+        value = "org.openapitools.codegen.languages.SpringCodegen",
+        date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
 public class ScoreDto   {
   @JsonProperty("id")
   private Long id;
@@ -24,38 +27,38 @@ public class ScoreDto   {
    * Gets or Sets score
    */
   public enum ScoreEnum {
-    ONE_1_("ONE(1)"),
+    ONE(1),
     
-    TWO_2_("TWO(2)"),
+    TWO(2),
     
-    THREE_3_("THREE(3)"),
+    THREE(3),
     
-    FOUR_4_("FOUR(4)"),
+    FOUR(4),
     
-    FIVE_5_("FIVE(5)"),
+    FIVE(5),
     
-    SIX_6_("SIX(6)"),
+    SIX(6),
     
-    SEVEN_7_("SEVEN(7)"),
+    SEVEN(7),
     
-    EIGHT_8_("EIGHT(8)"),
+    EIGHT(8),
     
-    NINE_9_("NINE(9)"),
+    NINE(9),
     
-    TEN_10_("TEN(10)"),
+    TEN(10),
     
-    ELEVEN_11_("ELEVEN(11)"),
+    ELEVEN(11),
     
-    TWELVE_12_("TWELVE(12)");
+    TWELVE(12);
 
-    private String value;
+    private Integer value;
 
-    ScoreEnum(String value) {
+    ScoreEnum(Integer value) {
       this.value = value;
     }
 
     @JsonValue
-    public String getValue() {
+    public Integer getValue() {
       return value;
     }
 
@@ -65,7 +68,7 @@ public class ScoreDto   {
     }
 
     @JsonCreator
-    public static ScoreEnum fromValue(String value) {
+    public static ScoreEnum fromValue(Integer value) {
       for (ScoreEnum b : ScoreEnum.values()) {
         if (b.value.equals(value)) {
           return b;
@@ -78,15 +81,15 @@ public class ScoreDto   {
   @JsonProperty("score")
   private ScoreEnum score;
 
-  @JsonProperty("isDeleted")
-  private Boolean isDeleted;
+  @JsonProperty("deleted")
+  private Boolean deleted;
 
   @JsonProperty("creationDate")
-  @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
+  @DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime creationDate;
 
   @JsonProperty("modifyingDate")
-  @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
+  @DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime modifyingDate;
 
   public ScoreDto id(Long id) {
@@ -129,24 +132,24 @@ public class ScoreDto   {
     this.score = score;
   }
 
-  public ScoreDto isDeleted(Boolean isDeleted) {
-    this.isDeleted = isDeleted;
+  public ScoreDto isDeleted(Boolean deleted) {
+    this.deleted = deleted;
     return this;
   }
 
   /**
-   * Get isDeleted
-   * @return isDeleted
+   * Get deleted
+   * @return deleted
   */
   @ApiModelProperty(example = "false", value = "")
 
 
-  public Boolean isIsDeleted() {
-    return isDeleted;
+  public Boolean isDeleted() {
+    return deleted;
   }
 
-  public void setIsDeleted(Boolean isDeleted) {
-    this.isDeleted = isDeleted;
+  public void setDeleted(Boolean deleted) {
+    this.deleted = deleted;
   }
 
   public ScoreDto creationDate(OffsetDateTime creationDate) {
@@ -203,14 +206,14 @@ public class ScoreDto   {
     ScoreDto score = (ScoreDto) o;
     return Objects.equals(this.id, score.id) &&
         Objects.equals(this.score, score.score) &&
-        Objects.equals(this.isDeleted, score.isDeleted) &&
+        Objects.equals(this.deleted, score.deleted) &&
         Objects.equals(this.creationDate, score.creationDate) &&
         Objects.equals(this.modifyingDate, score.modifyingDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, score, isDeleted, creationDate, modifyingDate);
+    return Objects.hash(id, score, deleted, creationDate, modifyingDate);
   }
 
   @Override
@@ -220,7 +223,7 @@ public class ScoreDto   {
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    score: ").append(toIndentedString(score)).append("\n");
-    sb.append("    isDeleted: ").append(toIndentedString(isDeleted)).append("\n");
+    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
     sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
     sb.append("    modifyingDate: ").append(toIndentedString(modifyingDate)).append("\n");
     sb.append("}");

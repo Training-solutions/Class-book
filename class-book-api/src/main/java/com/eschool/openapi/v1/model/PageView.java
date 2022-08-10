@@ -1,21 +1,21 @@
 package com.eschool.openapi.v1.model;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import javax.annotation.Generated;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import org.openapitools.jackson.nullable.JsonNullable;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import java.util.Objects;
 
 /**
- * PageViewDto
+ * PageView
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
-public class PageViewDto<T>   {
+@Generated(
+        value = "org.openapitools.codegen.languages.SpringCodegen",
+        date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
+public class PageView<T>   {
   @JsonProperty("total")
   private Integer total;
 
@@ -23,7 +23,7 @@ public class PageViewDto<T>   {
   @Valid
   private List<T> data = null;
 
-  public PageViewDto total(Integer total) {
+  public PageView total(Integer total) {
     this.total = total;
     return this;
   }
@@ -43,13 +43,13 @@ public class PageViewDto<T>   {
     this.total = total;
   }
 
-  public PageViewDto data(List<T> data) {
+  public PageView data(List<T> data) {
     this.data = data;
     this.total = data.size();
     return this;
   }
 
-  public PageViewDto addDataItem(T dataItem) {
+  public PageView addDataItem(T dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }
@@ -68,12 +68,6 @@ public class PageViewDto<T>   {
     return data;
   }
 
-  public void setData(List<T> data) {
-    this.data = data;
-    this.total = data.size();
-  }
-
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -82,7 +76,7 @@ public class PageViewDto<T>   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PageViewDto pageView = (PageViewDto) o;
+    PageView pageView = (PageView) o;
     return Objects.equals(this.total, pageView.total) &&
         Objects.equals(this.data, pageView.data);
   }
@@ -95,7 +89,7 @@ public class PageViewDto<T>   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PageViewDto {\n");
+    sb.append("class PageView {\n");
     
     sb.append("    total: ").append(toIndentedString(total)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");

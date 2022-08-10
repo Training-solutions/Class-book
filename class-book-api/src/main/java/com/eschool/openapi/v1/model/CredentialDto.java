@@ -1,39 +1,41 @@
 package com.eschool.openapi.v1.model;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.OffsetDateTime;
-import org.openapitools.jackson.nullable.JsonNullable;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.annotation.Generated;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import java.time.OffsetDateTime;
+import java.util.Objects;
 
 /**
  * Credential info
  */
 @ApiModel(description = "Credential info")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
+@Generated(
+        value = "org.openapitools.codegen.languages.SpringCodegen",
+        date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
 public class CredentialDto   {
   @JsonProperty("id")
   private Long id;
 
-  @JsonProperty("username")
+  @JsonProperty(value = "username", required = true)
   private String username;
 
-  @JsonProperty("password")
+  @JsonProperty(value = "password", required = true)
   private String password;
 
-  @JsonProperty("isDeleted")
-  private Boolean isDeleted;
+  @JsonProperty("deleted")
+  private Boolean deleted;
 
   @JsonProperty("creationDate")
-  @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
+  @DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime creationDate;
 
   @JsonProperty("modifyingDate")
-  @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
+  @DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime modifyingDate;
 
   public CredentialDto id(Long id) {
@@ -96,24 +98,24 @@ public class CredentialDto   {
     this.password = password;
   }
 
-  public CredentialDto isDeleted(Boolean isDeleted) {
-    this.isDeleted = isDeleted;
+  public CredentialDto isDeleted(Boolean deleted) {
+    this.deleted = deleted;
     return this;
   }
 
   /**
-   * Get isDeleted
-   * @return isDeleted
+   * Get deleted
+   * @return deleted
   */
   @ApiModelProperty(example = "false", value = "")
 
 
-  public Boolean isIsDeleted() {
-    return isDeleted;
+  public Boolean isDeleted() {
+    return deleted;
   }
 
-  public void setIsDeleted(Boolean isDeleted) {
-    this.isDeleted = isDeleted;
+  public void setDeleted(Boolean deleted) {
+    this.deleted = deleted;
   }
 
   public CredentialDto creationDate(OffsetDateTime creationDate) {
@@ -171,14 +173,14 @@ public class CredentialDto   {
     return Objects.equals(this.id, credential.id) &&
         Objects.equals(this.username, credential.username) &&
         Objects.equals(this.password, credential.password) &&
-        Objects.equals(this.isDeleted, credential.isDeleted) &&
+        Objects.equals(this.deleted, credential.deleted) &&
         Objects.equals(this.creationDate, credential.creationDate) &&
         Objects.equals(this.modifyingDate, credential.modifyingDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, username, password, isDeleted, creationDate, modifyingDate);
+    return Objects.hash(id, username, password, deleted, creationDate, modifyingDate);
   }
 
   @Override
@@ -189,7 +191,7 @@ public class CredentialDto   {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
-    sb.append("    isDeleted: ").append(toIndentedString(isDeleted)).append("\n");
+    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
     sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
     sb.append("    modifyingDate: ").append(toIndentedString(modifyingDate)).append("\n");
     sb.append("}");

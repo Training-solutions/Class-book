@@ -1,40 +1,38 @@
 package com.eschool.openapi.v1.model;
 
-import java.util.Objects;
-import com.eschool.openapi.v1.model.CredentialDto;
-import com.eschool.openapi.v1.model.GroupDto;
-import com.eschool.openapi.v1.model.SubjectDto;
-import com.eschool.openapi.v1.model.TeacherDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.annotation.Generated;
+import javax.validation.Valid;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.openapitools.jackson.nullable.JsonNullable;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import java.util.Objects;
 
 /**
  * Student info
  */
 @ApiModel(description = "Student info")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
+@Generated(
+        value = "org.openapitools.codegen.languages.SpringCodegen",
+        date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
 public class StudentDto   {
   @JsonProperty("id")
   private Long id;
 
-  @JsonProperty("firstName")
+  @JsonProperty(value = "firstName", required = true)
   private String firstName;
 
-  @JsonProperty("lastName")
+  @JsonProperty(value = "lastName", required = true)
   private String lastName;
 
-  @JsonProperty("credential")
+  @JsonProperty(value = "credential", required = true)
   private CredentialDto credential;
 
-  @JsonProperty("group")
+  @JsonProperty(value = "group")
   private GroupDto group;
 
   @JsonProperty("teachers")
@@ -45,15 +43,15 @@ public class StudentDto   {
   @Valid
   private List<SubjectDto> subjects = null;
 
-  @JsonProperty("isDeleted")
-  private Boolean isDeleted;
+  @JsonProperty("deleted")
+  private Boolean deleted;
 
   @JsonProperty("creationDate")
-  @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
+  @DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime creationDate;
 
   @JsonProperty("modifyingDate")
-  @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
+  @DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime modifyingDate;
 
   public StudentDto id(Long id) {
@@ -216,24 +214,24 @@ public class StudentDto   {
     this.subjects = subjects;
   }
 
-  public StudentDto isDeleted(Boolean isDeleted) {
-    this.isDeleted = isDeleted;
+  public StudentDto isDeleted(Boolean deleted) {
+    this.deleted = deleted;
     return this;
   }
 
   /**
-   * Get isDeleted
-   * @return isDeleted
+   * Get deleted
+   * @return deleted
   */
   @ApiModelProperty(example = "false", value = "")
 
 
-  public Boolean isIsDeleted() {
-    return isDeleted;
+  public Boolean isDeleted() {
+    return deleted;
   }
 
-  public void setIsDeleted(Boolean isDeleted) {
-    this.isDeleted = isDeleted;
+  public void setDeleted(Boolean deleted) {
+    this.deleted = deleted;
   }
 
   public StudentDto creationDate(OffsetDateTime creationDate) {
@@ -295,14 +293,14 @@ public class StudentDto   {
         Objects.equals(this.group, student.group) &&
         Objects.equals(this.teachers, student.teachers) &&
         Objects.equals(this.subjects, student.subjects) &&
-        Objects.equals(this.isDeleted, student.isDeleted) &&
+        Objects.equals(this.deleted, student.deleted) &&
         Objects.equals(this.creationDate, student.creationDate) &&
         Objects.equals(this.modifyingDate, student.modifyingDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, firstName, lastName, credential, group, teachers, subjects, isDeleted, creationDate, modifyingDate);
+    return Objects.hash(id, firstName, lastName, credential, group, teachers, subjects, deleted, creationDate, modifyingDate);
   }
 
   @Override
@@ -317,7 +315,7 @@ public class StudentDto   {
     sb.append("    group: ").append(toIndentedString(group)).append("\n");
     sb.append("    teachers: ").append(toIndentedString(teachers)).append("\n");
     sb.append("    subjects: ").append(toIndentedString(subjects)).append("\n");
-    sb.append("    isDeleted: ").append(toIndentedString(isDeleted)).append("\n");
+    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
     sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
     sb.append("    modifyingDate: ").append(toIndentedString(modifyingDate)).append("\n");
     sb.append("}");

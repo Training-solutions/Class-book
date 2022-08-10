@@ -1,25 +1,24 @@
 package com.eschool.openapi.v1.model;
 
-import java.util.Objects;
-import com.eschool.openapi.v1.model.StudentDto;
-import com.eschool.openapi.v1.model.SubjectDto;
-import com.eschool.openapi.v1.model.TeacherDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.annotation.Generated;
+import javax.validation.Valid;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.openapitools.jackson.nullable.JsonNullable;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import java.util.Objects;
 
 /**
  * Group info
  */
 @ApiModel(description = "Group info")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
+@Generated(
+        value = "org.openapitools.codegen.languages.SpringCodegen",
+        date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
 public class GroupDto   {
   @JsonProperty("id")
   private Long id;
@@ -39,15 +38,15 @@ public class GroupDto   {
   @Valid
   private List<SubjectDto> subjects = null;
 
-  @JsonProperty("isDeleted")
-  private Boolean isDeleted;
+  @JsonProperty("deleted")
+  private Boolean deleted;
 
   @JsonProperty("creationDate")
-  @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
+  @DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime creationDate;
 
   @JsonProperty("modifyingDate")
-  @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
+  @DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime modifyingDate;
 
   public GroupDto id(Long id) {
@@ -177,24 +176,24 @@ public class GroupDto   {
     this.subjects = subjects;
   }
 
-  public GroupDto isDeleted(Boolean isDeleted) {
-    this.isDeleted = isDeleted;
+  public GroupDto isDeleted(Boolean deleted) {
+    this.deleted = deleted;
     return this;
   }
 
   /**
-   * Get isDeleted
-   * @return isDeleted
+   * Get deleted
+   * @return deleted
   */
   @ApiModelProperty(example = "false", value = "")
 
 
-  public Boolean isIsDeleted() {
-    return isDeleted;
+  public Boolean isDeleted() {
+    return deleted;
   }
 
-  public void setIsDeleted(Boolean isDeleted) {
-    this.isDeleted = isDeleted;
+  public void setDeleted(Boolean deleted) {
+    this.deleted = deleted;
   }
 
   public GroupDto creationDate(OffsetDateTime creationDate) {
@@ -254,14 +253,14 @@ public class GroupDto   {
         Objects.equals(this.students, group.students) &&
         Objects.equals(this.teachers, group.teachers) &&
         Objects.equals(this.subjects, group.subjects) &&
-        Objects.equals(this.isDeleted, group.isDeleted) &&
+        Objects.equals(this.deleted, group.deleted) &&
         Objects.equals(this.creationDate, group.creationDate) &&
         Objects.equals(this.modifyingDate, group.modifyingDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, groupTitle, students, teachers, subjects, isDeleted, creationDate, modifyingDate);
+    return Objects.hash(id, groupTitle, students, teachers, subjects, deleted, creationDate, modifyingDate);
   }
 
   @Override
@@ -274,7 +273,7 @@ public class GroupDto   {
     sb.append("    students: ").append(toIndentedString(students)).append("\n");
     sb.append("    teachers: ").append(toIndentedString(teachers)).append("\n");
     sb.append("    subjects: ").append(toIndentedString(subjects)).append("\n");
-    sb.append("    isDeleted: ").append(toIndentedString(isDeleted)).append("\n");
+    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
     sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
     sb.append("    modifyingDate: ").append(toIndentedString(modifyingDate)).append("\n");
     sb.append("}");
