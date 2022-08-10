@@ -1,8 +1,9 @@
 package com.eschool.classbook.student;
 
+
 import com.eschool.openapi.v1.api.StudentsV1Api;
 import com.eschool.openapi.v1.model.CommonResponseDto;
-import com.eschool.openapi.v1.model.PageViewDto;
+import com.eschool.openapi.v1.model.PageView;
 import com.eschool.openapi.v1.model.StudentDto;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,18 +26,18 @@ public class StudentResource implements StudentsV1Api {
     @Override
     public ResponseEntity<StudentDto> getStudentById(Long id) {
         StudentEntity studentEntity = studentService.findById(id);
-        StudentDto studentDto = studentMapper.toDTO(studentEntity);
+        StudentDto studentDto = studentMapper.toDto(studentEntity);
         return ResponseEntity.ok(studentDto);
     }
 
     @Override
-    public ResponseEntity<PageViewDto<StudentDto>> getStudentList(Pageable pageable) {
+    public ResponseEntity<PageView<StudentDto>> getStudentList(Pageable pageable) {
         Page<StudentEntity> studentEntities = studentService.findAll(pageable);
-        List<StudentDto> collect = studentEntities.getContent().stream().map(studentMapper::toDTO)
+        List<StudentDto> collect = studentEntities.getContent().stream().map(studentMapper::toDto)
                 .collect(Collectors.toList());
-        PageViewDto<StudentDto> pageViewDto = new PageViewDto<>();
-        pageViewDto.setData(collect);
-        return ResponseEntity.ok(pageViewDto);
+        PageView<StudentDto> pageView = new PageView<>();
+        pageView.data(collect);
+        return ResponseEntity.ok(pageView);
     }
 
     @Override
