@@ -4,7 +4,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface GroupService {
-
     Page<GroupEntity> findAll(Pageable pageable);
     GroupEntity findById(Long id);
     void deleteById(Long id);
