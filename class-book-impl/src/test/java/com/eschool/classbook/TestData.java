@@ -7,11 +7,14 @@ import com.eschool.classbook.scorepage.ScoreEntity;
 import com.eschool.classbook.student.StudentEntity;
 import com.eschool.classbook.subject.SubjectEntity;
 import com.eschool.classbook.teacher.TeacherEntity;
+import com.eschool.openapi.v1.model.CredentialDto;
+import com.eschool.openapi.v1.model.StudentDto;
+import com.eschool.openapi.v1.model.SubjectDto;
 
 import java.time.LocalDateTime;
 
 public class TestData {
-    public static StudentEntity getStudent() {
+    public static StudentEntity getStudentEntity() {
         StudentEntity studentEntity = new StudentEntity();
         studentEntity.setFirstName("David");
         studentEntity.setLastName("Emerston");
@@ -19,6 +22,13 @@ public class TestData {
         studentEntity.setModifyingDate(LocalDateTime.of(2021,7,10,14,12,58));
         studentEntity.setDeleted(false);
         return studentEntity;
+    }
+
+    public static StudentDto getStudentDto() {
+        StudentDto studentDto = new StudentDto();
+        studentDto.setFirstName("David");
+        studentDto.setLastName("Emerston");
+        return studentDto;
     }
 
     public static SubjectEntity getSubject() {
@@ -66,5 +76,12 @@ public class TestData {
         credentialEntity.setModifyingDate(LocalDateTime.now());
         credentialEntity.setDeleted(true);
         return credentialEntity;
+    }
+
+    public static CredentialDto getCredentialDto() {
+        CredentialDto credentialDto = new CredentialDto();
+        credentialDto.setUsername("david_emerston");
+        credentialDto.setPassword("qwerty");
+        return credentialDto;
     }
 }
