@@ -9,6 +9,8 @@ INSERT INTO credentials (id, creation_date, deleted, modifying_date, password, u
 VALUES (nextval('credential_generator'), current_timestamp, false, current_timestamp, 'sdgsgs134', 'robert_tasert');
 INSERT INTO credentials (id, creation_date, deleted, modifying_date, password, username)
 VALUES (nextval('credential_generator'), current_timestamp, false, current_timestamp, 'qwssssgr34', 'david_hekson');
+INSERT INTO credentials (id, creation_date, deleted, modifying_date, password, username)
+VALUES (nextval('credential_generator'), current_timestamp, false, current_timestamp, 'qwssssgr34', 'peter_molden');
 
 ALTER SEQUENCE group_generator RESTART;
 INSERT INTO groups (id, creation_date, deleted, modifying_date, group_title)
@@ -17,6 +19,8 @@ INSERT INTO groups (id, creation_date, deleted, modifying_date, group_title)
 VALUES (nextval('group_generator'), current_timestamp, false, current_timestamp, '3A');
 INSERT INTO groups (id, creation_date, deleted, modifying_date, group_title)
 VALUES (nextval('group_generator'), current_timestamp, false, current_timestamp, '4A');
+INSERT INTO groups (id, creation_date, deleted, modifying_date, group_title)
+VALUES (nextval('group_generator'), current_timestamp, false, current_timestamp, '5A');
 
 ALTER SEQUENCE student_generator RESTART;
 INSERT INTO students (id, creation_date, deleted, modifying_date, first_name, last_name, credential, group_id)
@@ -31,6 +35,8 @@ INSERT INTO teachers (id, creation_date, deleted, modifying_date, first_name, la
 VALUES (nextval('teacher_generator'), current_timestamp, false, current_timestamp, 'David', 'Hekston', 4);
 INSERT INTO teachers (id, creation_date, deleted, modifying_date, first_name, last_name, credential)
 VALUES (nextval('teacher_generator'), current_timestamp, false, current_timestamp, 'Robert', 'Tasert', 5);
+INSERT INTO teachers (id, creation_date, deleted, modifying_date, first_name, last_name, credential)
+VALUES (nextval('teacher_generator'), current_timestamp, false, current_timestamp, 'Peter', 'Molder', 6);
 
 ALTER SEQUENCE score_generator RESTART;
 INSERT INTO scores (id, creation_date, deleted, modifying_date, score)
@@ -47,14 +53,18 @@ INSERT INTO subjects (id, creation_date, deleted, modifying_date, subject_title)
 VALUES (nextval('subject_generator'), current_timestamp, false, current_timestamp, 'GEOMETRY');
 INSERT INTO subjects (id, creation_date, deleted, modifying_date, subject_title)
 VALUES (nextval('subject_generator'), current_timestamp, false, current_timestamp, 'ENGLISH');
+INSERT INTO subjects (id, creation_date, deleted, modifying_date, subject_title)
+VALUES (nextval('subject_generator'), current_timestamp, false, current_timestamp, 'CHEMISTRY');
 
 INSERT INTO group_subject(group_id, subject_id) VALUES (1,1);
 INSERT INTO group_subject(group_id, subject_id) VALUES (2,2);
 INSERT INTO group_subject(group_id, subject_id) VALUES (3,3);
+INSERT INTO group_subject(group_id, subject_id) VALUES (4,4);
 
 INSERT INTO group_teacher(group_id, teacher_id) VALUES (1,1);
 INSERT INTO group_teacher(group_id, teacher_id) VALUES (2,2);
 INSERT INTO group_teacher(group_id, teacher_id) VALUES (3,2);
+INSERT INTO group_teacher(group_id, teacher_id) VALUES (4,3);
 
 INSERT INTO score_subject(score_id, subject_id) VALUES (1,1);
 INSERT INTO score_subject(score_id, subject_id) VALUES (2,2);
