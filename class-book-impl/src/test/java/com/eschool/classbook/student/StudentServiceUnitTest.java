@@ -17,16 +17,15 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class StudentServiceImplUnitTest {
+public class StudentServiceUnitTest {
     private final StudentRepository studentRepository = mock(StudentRepository.class);
     private final StudentService studentService = new StudentServiceImpl(studentRepository);
 
     @Test
-    public void givenStudent_wnenSave_thenStudentSavedSuccessfully(){
+    public void givenStudent_whenSave_thenStudentSavedSuccessfully(){
         //given
-        StudentEntity studentEntity = TestData.getStudent();
-        studentEntity.setId(null);
-        StudentEntity expected = TestData.getStudent();
+        StudentEntity studentEntity = TestData.getStudentEntity();
+        StudentEntity expected = TestData.getStudentEntity();
         when(studentRepository.save(eq(studentEntity))).thenReturn(expected);
 
         //when
@@ -39,7 +38,7 @@ public class StudentServiceImplUnitTest {
     @Test
     public void givenStudent_whenFindById_thenStudentFoundSuccessfully(){
         //given
-        StudentEntity expected = TestData.getStudent();
+        StudentEntity expected = TestData.getStudentEntity();
         Long id = expected.getId();
         when(studentRepository.findById(eq(id))).thenReturn(Optional.of(expected));
 
@@ -53,7 +52,7 @@ public class StudentServiceImplUnitTest {
     @Test
     public void givenStudent_whenFindById_thenExceptionThrows(){
         //given
-        StudentEntity expected = TestData.getStudent();
+        StudentEntity expected = TestData.getStudentEntity();
         Long id = expected.getId();
         when(studentRepository.findById(eq(id))).thenReturn(Optional.of(expected));
         Long failedId = 2L;
@@ -70,7 +69,7 @@ public class StudentServiceImplUnitTest {
     @Test
     public void givenStudentList_whenFindAll_thenFoundStudentListSuccessfully(){
         //given
-        StudentEntity student = TestData.getStudent();
+        StudentEntity student = TestData.getStudentEntity();
         List<StudentEntity> expected = List.of(student);
         when(studentRepository.findAll(eq(Pageable.unpaged()))).thenReturn(new PageImpl<>(expected));
 
@@ -84,9 +83,9 @@ public class StudentServiceImplUnitTest {
     @Test
     public void givenStudent_whenUpdate_thenStudentUpdatedSuccessfully(){
         //given
-        StudentEntity student = TestData.getStudent();
+        StudentEntity student = TestData.getStudentEntity();
         Long id = student.getId();
-        StudentEntity expected = TestData.getStudent();
+        StudentEntity expected = TestData.getStudentEntity();
         expected.setLastName("Some text");
         when(studentRepository.findById(eq(id))).thenReturn(Optional.of(student));
         when(studentRepository.save(eq(student))).thenReturn(expected);
@@ -102,9 +101,9 @@ public class StudentServiceImplUnitTest {
     @Test
     public void givenStudent_whenDelete_thenStudentDeletedSuccessfully(){
         //given
-        StudentEntity student = TestData.getStudent();
+        StudentEntity student = TestData.getStudentEntity();
         Long id = student.getId();
-        StudentEntity expected = TestData.getStudent();
+        StudentEntity expected = TestData.getStudentEntity();
         expected.setDeleted(true);
         when(studentRepository.findById(eq(id))).thenReturn(Optional.of(student));
         when(studentRepository.save(eq(student))).thenReturn(expected);
