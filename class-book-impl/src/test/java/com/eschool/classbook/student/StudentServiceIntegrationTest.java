@@ -33,7 +33,7 @@ import static org.junit.Assert.assertTrue;
         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class StudentServiceIntegrationTest extends BaseIntegrationTest {
     @Autowired
-    private StudentService studentService;
+    protected StudentService studentService;
 
     @Autowired
     private StudentRepository studentRepository;
@@ -63,14 +63,14 @@ public class StudentServiceIntegrationTest extends BaseIntegrationTest {
     @Test
     public void givenStudent_whenSaveStudent_thenSaveSuccessfully(){
         //given
-        StudentEntity expected = TestData.getStudent();
+        StudentEntity expected = TestData.getStudentEntity();
         CredentialEntity credential = TestData.getCredential();
         expected.setCredential(credential);
-        GroupEntity groupEntity = groupRepository.findById(1L).get();
+        GroupEntity groupEntity = groupRepository.findById(4L).get();
         expected.setGroup(groupEntity);
-        SubjectEntity subjectEntity = subjectRepository.findById(1L).get();
+        SubjectEntity subjectEntity = subjectRepository.findById(4L).get();
         expected.addSubject(subjectEntity);
-        TeacherEntity teacherEntity = teacherRepository.findById(1L).get();
+        TeacherEntity teacherEntity = teacherRepository.findById(3L).get();
         expected.addTeacher(teacherEntity);
 
         //when

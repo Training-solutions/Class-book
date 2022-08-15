@@ -7,17 +7,17 @@ import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(
         initializers = BaseIntegrationTest.ContainerInitializer.class,
         classes = ClassBookIntegrationConfigurationSupport.class
 )
 public abstract class BaseIntegrationTest {
+
     @ClassRule
     public static final PostgreSQLContainer<?> container;
 

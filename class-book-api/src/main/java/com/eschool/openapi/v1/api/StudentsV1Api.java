@@ -127,7 +127,6 @@ public interface StudentsV1Api {
             @ApiParam(value = "Callback payload"  )
             @Valid @RequestBody(required = true) StudentDto studentDto);
 
-
     /**
      * PUT /ui/students/{studentId} : Student updating
      *

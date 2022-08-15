@@ -4,6 +4,7 @@ import com.eschool.classbook.BaseEntity;
 import com.eschool.classbook.student.StudentEntity;
 import com.eschool.classbook.subject.SubjectEntity;
 import com.eschool.classbook.teacher.TeacherEntity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,6 +47,7 @@ public class GroupEntity extends BaseEntity {
     @OneToMany(mappedBy = "group",
             cascade = {CascadeType.MERGE})
     @ToString.Exclude
+    @JsonManagedReference
     private List<StudentEntity> students = new ArrayList<>();
 
     @Setter(AccessLevel.PRIVATE)
@@ -55,6 +57,7 @@ public class GroupEntity extends BaseEntity {
                 inverseJoinColumns = @JoinColumn(name = "teacher_id")
     )
     @ToString.Exclude
+    @JsonManagedReference
     private Set<TeacherEntity> teachers = new HashSet<>();
 
     @Setter(AccessLevel.PRIVATE)
@@ -64,6 +67,7 @@ public class GroupEntity extends BaseEntity {
                 inverseJoinColumns = @JoinColumn(name = "subject_id")
     )
     @ToString.Exclude
+    @JsonManagedReference
     private Set<SubjectEntity> subjects = new HashSet<>();
 
     public void addStudent(StudentEntity studentEntity) {

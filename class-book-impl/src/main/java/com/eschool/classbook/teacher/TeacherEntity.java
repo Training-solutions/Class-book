@@ -6,6 +6,7 @@ import com.eschool.classbook.credential.CredentialEntity;
 import com.eschool.classbook.group.GroupEntity;
 import com.eschool.classbook.student.StudentEntity;
 import com.eschool.classbook.subject.SubjectEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -52,11 +53,13 @@ public class TeacherEntity extends BaseEntity {
     @Setter(AccessLevel.PRIVATE)
     @ManyToMany(mappedBy = "teachers", cascade = {CascadeType.MERGE})
     @ToString.Exclude
+    @JsonBackReference
     private Set<GroupEntity> groups = new HashSet<>();
 
     @Setter(AccessLevel.PRIVATE)
     @ManyToMany(mappedBy = "teachers", cascade = {CascadeType.MERGE})
     @ToString.Exclude
+    @JsonBackReference
     private Set<StudentEntity> students = new HashSet<>();
 
     @Setter(AccessLevel.PRIVATE)
