@@ -5,6 +5,8 @@ import com.eschool.classbook.credential.CredentialEntity;
 import com.eschool.classbook.group.GroupEntity;
 import com.eschool.classbook.subject.SubjectEntity;
 import com.eschool.classbook.teacher.TeacherEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -50,6 +52,7 @@ public class StudentEntity extends BaseEntity {
     private CredentialEntity credential;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
+    @JsonBackReference
     private GroupEntity group;
 
     @Setter(AccessLevel.PRIVATE)
@@ -59,6 +62,7 @@ public class StudentEntity extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "teacher_id")
     )
     @ToString.Exclude
+    @JsonManagedReference
     private Set<TeacherEntity> teachers = new HashSet<>();
 
     @Setter(AccessLevel.PRIVATE)
@@ -68,6 +72,7 @@ public class StudentEntity extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "subject_id")
     )
     @ToString.Exclude
+    @JsonManagedReference
     private Set<SubjectEntity> subjects = new HashSet<>();
 
     public void addTeacher(TeacherEntity teacherEntity){
