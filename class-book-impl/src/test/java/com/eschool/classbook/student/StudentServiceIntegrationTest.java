@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+Iimport org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -130,12 +131,10 @@ public class StudentServiceIntegrationTest extends BaseIntegrationTest {
         );
     }
 
-    //This test needs to be run first cause test order random execution
-    @Order(1)
     @Test
     public void givenStudentList_whenFindAll_thenFoundStudentListSuccessfully(){
         //when
-        Page<StudentEntity> actual = studentService.findAll(Pageable.unpaged());
+        Page<StudentEntity> actual = studentService.findAll(PageRequest.of(1, 3));
 
         //then
         assertEquals(3,actual.getTotalElements());
@@ -162,7 +161,6 @@ public class StudentServiceIntegrationTest extends BaseIntegrationTest {
     public void givenStudent_whenDelete_thenStudentDeletedSuccessfully(){
         //given
         Long id = 1L;
-        studentService.deleteById(id);
 
         //when
         studentService.deleteById(id);
