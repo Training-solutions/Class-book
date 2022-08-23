@@ -2,72 +2,40 @@ package com.eschool.classbook.group;
 
 import com.eschool.classbook.BaseIntegrationTest;
 import com.eschool.classbook.TestData;
-import com.eschool.classbook.credential.CredentialRepository;
 import com.eschool.classbook.exception.ClassBookException;
-import com.eschool.classbook.student.StudentRepository;
-import com.eschool.classbook.subject.SubjectRepository;
-import com.eschool.classbook.teacher.TeacherRepository;
-import org.junit.After;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Objects;
 
-import static org.junit.Assert.*;
-
-@Sql(
-        scripts = {"classpath:sql/data.sql"},
-        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
-)
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
 public class GroupServiceIntegrationTests extends BaseIntegrationTest {
-
     @Autowired
     private GroupService groupService;
-
-    @Autowired
-    private GroupRepository groupRepository;
-
-    @Autowired
-    private StudentRepository studentRepository;
-
-    @Autowired
-    private SubjectRepository subjectRepository;
-
-    @Autowired
-    private TeacherRepository teacherRepository;
-
-    @Autowired
-    private CredentialRepository credentialRepository;
-
-    @After
-    public void clean() {
-        studentRepository.deleteAll();
-        groupRepository.deleteAll();
-        subjectRepository.deleteAll();
-        teacherRepository.deleteAll();
-        credentialRepository.deleteAll();
-    }
 
     @Test
     public void givenGroup_whenSaveGroup_thenSaveSuccessfully() {
         //given
-        GroupEntity expexted = TestData.getGroup();
+        GroupEntity expected = TestData.getGroup();
 
         //when
-        GroupEntity actual = groupService.save(expexted);
+        GroupEntity actual = groupService.save(expected);
 
         //then
         assertNotNull(actual);
-        assertEquals(expexted.getGroupTitle(), actual.getGroupTitle());
-        assertEquals(expexted.getId(), actual.getId());
-        assertEquals(expexted.isDeleted(), actual.isDeleted());
-        assertTrue(expexted.getStudents().isEmpty());
-        assertTrue(expexted.getTeachers().isEmpty());
-        assertTrue(expexted.getSubjects().isEmpty());
+        assertEquals(expected.getGroupTitle(), actual.getGroupTitle());
+        assertEquals(expected.getId(), actual.getId());
+        assertEquals(expected.isDeleted(), actual.isDeleted());
+        assertTrue(expected.getStudents().isEmpty());
+        assertTrue(expected.getTeachers().isEmpty());
+        assertTrue(expected.getSubjects().isEmpty());
     }
 
     @Test

@@ -2,7 +2,6 @@ package com.eschool.classbook.scorepage;
 
 import com.eschool.classbook.TestData;
 import com.eschool.classbook.exception.ClassBookException;
-import com.eschool.classbook.group.GroupEntity;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.data.domain.Page;
@@ -12,16 +11,19 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
 import static org.junit.Assert.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-public class ScorepageServiceImplUnitTest {
+public class ScoreServiceImplUnitTest {
     private ScoreRepository scoreRepository = mock(ScoreRepository.class);
 
     private final ScoreService scoreService = new ScoreServiceImpl(scoreRepository);
 
     @Test
-    public void givenScorepage_whenSave_thenReturnSuccessfulResult() {
+    public void givenScore_whenSave_thenReturnSuccessfulResult() {
         //given
         ScoreEntity scoreEntity = TestData.getScore();
         scoreEntity.setId(null);
@@ -32,11 +34,11 @@ public class ScorepageServiceImplUnitTest {
         ScoreEntity actual = scoreService.save(scoreEntity);
 
         //then
-        Mockito.verify(scoreRepository, times(1)).save(eq(scoreEntity));
+        verify(scoreRepository, times(1)).save(eq(scoreEntity));
     }
 
     @Test
-    public void givenScorepage_whenFindById_thenReturnSuccessfulResult(){
+    public void givenScore_whenFindById_thenReturnSuccessfulResult(){
         //given
         ScoreEntity expected = TestData.getScore();
         Long id = expected.getId();
@@ -50,7 +52,7 @@ public class ScorepageServiceImplUnitTest {
     }
 
     @Test
-    public void givenScorepage_whenFindById_thenThrowsException(){
+    public void givenScore_whenFindById_thenThrowsException(){
         //given
         ScoreEntity scoreEntity = TestData.getScore();
         Long id = scoreEntity.getId();
@@ -68,7 +70,7 @@ public class ScorepageServiceImplUnitTest {
     }
 
     @Test
-    public void givenScorepage_whenDeleteById_thenDeletedSuccessfully(){
+    public void givenScore_whenDeleteById_thenDeletedSuccessfully(){
         //given
         ScoreEntity scoreEntity = TestData.getScore();
         Long id = scoreEntity.getId();
@@ -88,7 +90,7 @@ public class ScorepageServiceImplUnitTest {
     }
 
     @Test
-    public void givenScorepageList_whenFindAll_thenFoundScorepageListSuccessfully(){
+    public void givenScoreList_whenFindAll_thenFoundScoreListSuccessfully(){
         //given
         ScoreEntity scoreEntity = TestData.getScore();
         List<ScoreEntity> expected = List.of(scoreEntity);
@@ -101,7 +103,7 @@ public class ScorepageServiceImplUnitTest {
 
     }
     @Test
-    public void givenScorepage_whenUpdate_thenUpdatedSuccessfully(){
+    public void givenScore_whenUpdate_thenUpdatedSuccessfully(){
         //given
         ScoreEntity scoreEntity = TestData.getScore();
         Long id = scoreEntity.getId();

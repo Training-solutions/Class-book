@@ -3,20 +3,14 @@ package com.eschool.classbook.student;
 import com.eschool.classbook.BaseIntegrationTest;
 import com.eschool.classbook.TestData;
 import com.eschool.classbook.credential.CredentialEntity;
-import com.eschool.classbook.credential.CredentialRepository;
 import com.eschool.classbook.exception.ClassBookException;
 import com.eschool.classbook.group.GroupEntity;
-import com.eschool.classbook.group.GroupRepository;
 import com.eschool.classbook.subject.SubjectEntity;
-import com.eschool.classbook.subject.SubjectRepository;
 import com.eschool.classbook.teacher.TeacherEntity;
-import com.eschool.classbook.teacher.TeacherRepository;
-import org.junit.After;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -27,37 +21,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
-@Sql(
-        scripts = {"classpath:sql/data.sql"},
-        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class StudentServiceIntegrationTest extends BaseIntegrationTest {
     @Autowired
     private StudentService studentService;
-
-    @Autowired
-    private StudentRepository studentRepository;
-
-    @Autowired
-    private GroupRepository groupRepository;
-
-    @Autowired
-    private SubjectRepository subjectRepository;
-
-    @Autowired
-    private CredentialRepository credentialRepository;
-
-    @Autowired
-    private TeacherRepository teacherRepository;
-
-    @After
-    public void clean(){
-        studentRepository.deleteAll();
-        groupRepository.deleteAll();
-        subjectRepository.deleteAll();
-        teacherRepository.deleteAll();
-        //needs to be the last
-        credentialRepository.deleteAll();
-    }
 
     @Test
     public void givenStudent_whenSaveStudent_thenSaveSuccessfully(){

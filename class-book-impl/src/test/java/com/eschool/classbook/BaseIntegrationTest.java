@@ -1,39 +1,100 @@
 package com.eschool.classbook;
 
-import org.junit.ClassRule;
+import com.eschool.classbook.credential.CredentialRepository;
+import com.eschool.classbook.group.GroupRepository;
+import com.eschool.classbook.scorepage.ScoreRepository;
+import com.eschool.classbook.student.StudentRepository;
+import com.eschool.classbook.subject.SubjectRepository;
+import com.eschool.classbook.teacher.TeacherRepository;
+import org.junit.After;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.util.TestPropertyValues;
-import org.springframework.context.ApplicationContextInitializer;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.utility.DockerImageName;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(
-        initializers = BaseIntegrationTest.ContainerInitializer.class,
         classes = ClassBookIntegrationConfigurationSupport.class
 )
+@Sql(
+        scripts = {"classpath:sql/data.sql"},
+        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public abstract class BaseIntegrationTest {
+    public StudentRepository studentRepository;
+    public GroupRepository groupRepository;
+    public SubjectRepository subjectRepository;
+    public TeacherRepository teacherRepository;
+    private ScoreRepository scoreRepository;
+    public CredentialRepository credentialRepository;
 
-    @ClassRule
-    public static final PostgreSQLContainer<?> container;
-
-    static {
-        container = new PostgreSQLContainer<>("postgres:12.5");
-        container.start();
+    @Autowired
+    public final void setStudentRepository(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
     }
 
-    static class ContainerInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
-        @Override
-        public void initialize(ConfigurableApplicationContext applicationContext) {
-            TestPropertyValues.of(
-                    "spring.datasource.url=" + container.getJdbcUrl(),
-                    "spring.datasource.username=" + container.getUsername(),
-                    "spring.datasource.password=" + container.getPassword()
-            ).applyTo(applicationContext.getEnvironment());
-        }
+    @Autowired
+    public final void setGroupRepository(GroupRepository groupRepository) {
+        this.groupRepository = groupRepository;
+    }
+
+    @Autowired
+    public final void setSubjectRepository(SubjectRepository subjectRepository) {
+        this.subjectRepository = subjectRepository;
+    }
+
+    @Autowired
+    public final void setTeacherRepository(TeacherRepository teacherRepository) {
+        this.teacherRepository = teacherRepository;
+    }
+
+    @Autowired
+    public final void setScoreRepository(ScoreRepository scoreRepository) {
+        this.scoreRepository = scoreRepository;
+    }
+
+    @Autowired
+    public final void setCredentialRepository(CredentialRepository credentialRepository) {
+        this.credentialRepository = credentialRepository;
+    }
+
+    @After
+    public void clean(){
+        //needs to be the first one
+        studentRepository.deleteAll();
+
+        groupRepository.deleteAll();
+        subjectRepository.deleteAll();
+        teacherRepository.deleteAll();
+        scoreRepository.deleteAll();
+
+        //needs to be the last
+        credentialRepository.deleteAll();
+    }
+
+    @SuppressWarnings("rawtypes")
+    private static PostgreSQLContainer postgreSQLContainer;
+
+
+    static {
+        DockerImageName postgres = DockerImageName.parse("postgres:13.1");
+        postgreSQLContainer = (PostgreSQLContainer) new PostgreSQLContainer(postgres).withReuse(true);
+        postgreSQLContainer.start();
+    }
+
+    @SuppressWarnings("unused")
+    @DynamicPropertySource
+    static void registerPgProperties(DynamicPropertyRegistry propertyRegistry) {
+        String jdbcUrl = postgreSQLContainer.getJdbcUrl();
+        propertyRegistry.add("integration-tests-db", postgreSQLContainer::getDatabaseName);
+        propertyRegistry.add("spring.datasource.username", postgreSQLContainer::getUsername);
+        propertyRegistry.add("spring.datasource.password", postgreSQLContainer::getPassword);
+        propertyRegistry.add("spring.datasource.url", () -> jdbcUrl);
     }
 }

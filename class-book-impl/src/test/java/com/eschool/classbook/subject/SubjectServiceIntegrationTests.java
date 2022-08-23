@@ -2,52 +2,19 @@ package com.eschool.classbook.subject;
 
 import com.eschool.classbook.BaseIntegrationTest;
 import com.eschool.classbook.TestData;
-import com.eschool.classbook.credential.CredentialRepository;
 import com.eschool.classbook.exception.ClassBookException;
-import com.eschool.classbook.group.GroupEntity;
-import com.eschool.classbook.group.GroupRepository;
-import com.eschool.classbook.student.StudentRepository;
-import com.eschool.classbook.teacher.TeacherRepository;
-import org.junit.After;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.jdbc.Sql;
 
-import static org.junit.Assert.*;
-
-@Sql(
-        scripts = {"classpath:sql/data.sql"},
-        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
-)
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
 public class SubjectServiceIntegrationTests extends BaseIntegrationTest {
-
     @Autowired
     private SubjectService subjectService;
-
-    @Autowired
-    private GroupRepository groupRepository;
-
-    @Autowired
-    private StudentRepository studentRepository;
-
-    @Autowired
-    private SubjectRepository subjectRepository;
-
-    @Autowired
-    private TeacherRepository teacherRepository;
-
-    @Autowired
-    private CredentialRepository credentialRepository;
-
-    @After
-    public void clean() {
-        groupRepository.deleteAll();
-        studentRepository.deleteAll();
-        subjectRepository.deleteAll();
-        teacherRepository.deleteAll();
-        credentialRepository.deleteAll();
-    }
 
     @Test
     public void givenSubject_whenSave_thenReturnSuccessfulResult() {
