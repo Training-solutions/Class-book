@@ -4,12 +4,7 @@ import com.eschool.classbook.BaseIntegrationTest;
 import com.eschool.classbook.TestData;
 import com.eschool.classbook.credential.CredentialRepository;
 import com.eschool.classbook.exception.ClassBookException;
-import com.eschool.classbook.group.GroupEntity;
 import com.eschool.classbook.group.GroupRepository;
-import com.eschool.classbook.group.GroupService;
-import com.eschool.classbook.score.Score;
-import com.eschool.classbook.score.ScoreEntity;
-import com.eschool.classbook.score.ScoreService;
 import com.eschool.classbook.student.StudentRepository;
 import com.eschool.classbook.subject.SubjectRepository;
 import com.eschool.classbook.teacher.TeacherRepository;
@@ -22,7 +17,11 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Objects;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
 @Sql(
         scripts = {"classpath:sql/data.sql"},

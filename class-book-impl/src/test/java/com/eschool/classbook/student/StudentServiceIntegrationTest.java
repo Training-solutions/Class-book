@@ -13,11 +13,9 @@ import com.eschool.classbook.teacher.TeacherEntity;
 import com.eschool.classbook.teacher.TeacherRepository;
 import org.junit.After;
 import org.junit.Test;
-import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-Iimport org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.util.HashSet;
@@ -64,7 +62,7 @@ public class StudentServiceIntegrationTest extends BaseIntegrationTest {
     @Test
     public void givenStudent_whenSaveStudent_thenSaveSuccessfully(){
         //given
-        StudentEntity expected = TestData.getStudent();
+        StudentEntity expected = TestData.getStudentEntity();
         CredentialEntity credential = TestData.getCredential();
         expected.setCredential(credential);
         GroupEntity groupEntity = groupRepository.findById(1L).get();

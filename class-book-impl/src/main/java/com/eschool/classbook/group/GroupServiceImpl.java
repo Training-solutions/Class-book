@@ -35,7 +35,6 @@ public class GroupServiceImpl implements GroupService{
         group.setModifyingDate(LocalDateTime.now());
         group.setDeleted(true);
         groupRepository.save(group);
-
     }
 
     @Override

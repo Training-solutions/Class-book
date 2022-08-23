@@ -3,6 +3,7 @@ package com.eschool.classbook.group;
 import com.eschool.classbook.BaseIntegrationTest;
 import com.eschool.classbook.TestData;
 import com.eschool.classbook.credential.CredentialRepository;
+import com.eschool.classbook.exception.ClassBookException;
 import com.eschool.classbook.student.StudentRepository;
 import com.eschool.classbook.subject.SubjectRepository;
 import com.eschool.classbook.teacher.TeacherRepository;
@@ -44,8 +45,8 @@ public class GroupServiceIntegrationTests extends BaseIntegrationTest {
 
     @After
     public void clean() {
-        groupRepository.deleteAll();
         studentRepository.deleteAll();
+        groupRepository.deleteAll();
         subjectRepository.deleteAll();
         teacherRepository.deleteAll();
         credentialRepository.deleteAll();
@@ -89,8 +90,9 @@ public class GroupServiceIntegrationTests extends BaseIntegrationTest {
         Long failedId = 123L;
 
         //when and then
-        assertThrows(String.format("Group with id %d wasn't found",
-                failedId), ClassCastException.class,
+        assertThrows(
+                String.format("Group with id %d wasn't found", failedId),
+                ClassBookException.class,
                 () -> groupService.findById(failedId));
     }
 
@@ -98,12 +100,12 @@ public class GroupServiceIntegrationTests extends BaseIntegrationTest {
     public void givenGroup_whenDeleteById_thenDeletedSuccessfully(){
         //given
         Long id = 1L;
-        GroupEntity groupEntity = groupService.findById(id);
 
         //when
         groupService.deleteById(id);
 
         //then
+        GroupEntity groupEntity = groupService.findById(id);
         assertTrue(groupEntity.isDeleted());
 
     }
@@ -111,13 +113,12 @@ public class GroupServiceIntegrationTests extends BaseIntegrationTest {
     @Test
     public void givenGroupList_whenFindAll_thenFoundGroupListSuccessfully(){
         //when
-        Page<GroupEntity> actualGroups = groupService.findAll(PageRequest.of(1, 3));
+        Page<GroupEntity> actualGroups = groupService.findAll(PageRequest.of(0, 4));
 
         //then
         assertEquals(1, actualGroups.getTotalPages());
-        assertEquals(3, actualGroups.getTotalElements());
+        assertEquals(4, actualGroups.getTotalElements());
         assertTrue(actualGroups.stream().allMatch(Objects::nonNull));
-
     }
 
     @Test
