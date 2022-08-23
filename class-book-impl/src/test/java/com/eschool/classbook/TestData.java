@@ -9,7 +9,6 @@ import com.eschool.classbook.subject.SubjectEntity;
 import com.eschool.classbook.teacher.TeacherEntity;
 import com.eschool.openapi.v1.model.CredentialDto;
 import com.eschool.openapi.v1.model.StudentDto;
-import com.eschool.openapi.v1.model.SubjectDto;
 
 import java.time.LocalDateTime;
 
@@ -31,7 +30,7 @@ public class TestData {
         return studentDto;
     }
 
-    public static SubjectEntity getSubject() {
+    public static SubjectEntity getSubjectEntity() {
         SubjectEntity subjectEntity = new SubjectEntity();
         subjectEntity.setSubjectTitle("Math");
         subjectEntity.setCreationDate(LocalDateTime.now());
@@ -40,7 +39,7 @@ public class TestData {
         return subjectEntity;
     }
 
-    public static ScoreEntity getScore() {
+    public static ScoreEntity getScoreEntity() {
         ScoreEntity scoreEntity = new ScoreEntity();
         scoreEntity.setScore(Score.ELEVEN);
         scoreEntity.setDeleted(false);
@@ -49,7 +48,7 @@ public class TestData {
         return scoreEntity;
     }
 
-    public static TeacherEntity getTeacher() {
+    public static TeacherEntity getTeacherEntity() {
         TeacherEntity teacherEntity = new TeacherEntity();
         teacherEntity.setFirstName("Leo");
         teacherEntity.setLastName("Davidson");
@@ -59,7 +58,7 @@ public class TestData {
         return teacherEntity;
     }
 
-    public static GroupEntity getGroup() {
+    public static GroupEntity getGroupEntity() {
         GroupEntity groupEntity = new GroupEntity();
         groupEntity.setGroupTitle("1A");
         groupEntity.setCreationDate(LocalDateTime.now());
@@ -68,7 +67,7 @@ public class TestData {
         return groupEntity;
     }
 
-    public static CredentialEntity getCredential() {
+    public static CredentialEntity getCredentialEntity() {
         CredentialEntity credentialEntity = new CredentialEntity();
         credentialEntity.setUsername("david_emerston");
         credentialEntity.setPassword("qwerty");

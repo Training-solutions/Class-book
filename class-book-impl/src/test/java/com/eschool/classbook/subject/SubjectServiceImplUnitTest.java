@@ -2,12 +2,6 @@ package com.eschool.classbook.subject;
 
 import com.eschool.classbook.TestData;
 import com.eschool.classbook.exception.ClassBookException;
-import com.eschool.classbook.scorepage.Score;
-import com.eschool.classbook.scorepage.ScoreEntity;
-import com.eschool.classbook.teacher.TeacherEntity;
-import com.eschool.classbook.teacher.TeacherRepository;
-import com.eschool.classbook.teacher.TeacherService;
-import com.eschool.classbook.teacher.TeacherServiceImpl;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.data.domain.Page;
@@ -28,9 +22,9 @@ public class SubjectServiceImplUnitTest {
     @Test
     public void givenSubject_whenSave_thenReturnSuccessfulResult() {
         //given
-        SubjectEntity subjectEntity = TestData.getSubject();
+        SubjectEntity subjectEntity = TestData.getSubjectEntity();
         subjectEntity.setId(null);
-        SubjectEntity expected = TestData.getSubject();
+        SubjectEntity expected = TestData.getSubjectEntity();
         when(subjectRepository.save(eq(subjectEntity))).thenReturn(expected);
 
         //when
@@ -43,7 +37,7 @@ public class SubjectServiceImplUnitTest {
     @Test
     public void givenSubject_whenFindById_thenReturnSuccessfulResult(){
         //given
-        SubjectEntity expected = TestData.getSubject();
+        SubjectEntity expected = TestData.getSubjectEntity();
         Long id = expected.getId();
         when(subjectRepository.findById(eq(id))).thenReturn(Optional.of(expected));
 
@@ -57,7 +51,7 @@ public class SubjectServiceImplUnitTest {
     @Test
     public void givenSubject_whenFindById_thenThrowsException(){
         //given
-        SubjectEntity subjectEntity = TestData.getSubject();
+        SubjectEntity subjectEntity = TestData.getSubjectEntity();
         Long id = subjectEntity.getId();
         when(subjectRepository.findById(eq(id))).thenReturn(Optional.of(subjectEntity));
         Long failedId = 2L;
@@ -75,9 +69,9 @@ public class SubjectServiceImplUnitTest {
     @Test
     public void givenSubject_whenDeleteById_thenDeletedSuccessfully(){
         //given
-        SubjectEntity subjectEntity = TestData.getSubject();
+        SubjectEntity subjectEntity = TestData.getSubjectEntity();
         Long id = subjectEntity.getId();
-        SubjectEntity expected = TestData.getSubject();
+        SubjectEntity expected = TestData.getSubjectEntity();
         expected.setDeleted(true);
 
         when(subjectRepository.findById(eq(id))).thenReturn(Optional.of(subjectEntity));
@@ -95,7 +89,7 @@ public class SubjectServiceImplUnitTest {
     @Test
     public void givenSubjectList_whenFindAll_thenFoundSubjectListSuccessfully(){
         //given
-        SubjectEntity subjectEntity = TestData.getSubject();
+        SubjectEntity subjectEntity = TestData.getSubjectEntity();
         List<SubjectEntity> expected = List.of(subjectEntity);
         when(subjectRepository.findAll()).thenReturn(expected);
 
@@ -109,9 +103,9 @@ public class SubjectServiceImplUnitTest {
     @Test
     public void givenSubject_whenUpdate_thenUpdatedSuccessfully(){
         //given
-        SubjectEntity subjectEntity = TestData.getSubject();
+        SubjectEntity subjectEntity = TestData.getSubjectEntity();
         Long id = subjectEntity.getId();
-        SubjectEntity expected = TestData.getSubject();
+        SubjectEntity expected = TestData.getSubjectEntity();
         expected.setSubjectTitle("Some text...");
         when(subjectRepository.findById(eq(id))).thenReturn(Optional.of(subjectEntity));
         when(subjectRepository.save(eq(subjectEntity))).thenReturn(expected);

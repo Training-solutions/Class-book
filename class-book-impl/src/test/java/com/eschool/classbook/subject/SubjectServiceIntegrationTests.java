@@ -19,7 +19,7 @@ public class SubjectServiceIntegrationTests extends BaseIntegrationTest {
     @Test
     public void givenSubject_whenSave_thenReturnSuccessfulResult() {
         //given
-        SubjectEntity expected = TestData.getSubject();
+        SubjectEntity expected = TestData.getSubjectEntity();
 
         //when
         SubjectEntity actual = subjectService.save(expected);

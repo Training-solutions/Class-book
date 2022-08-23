@@ -23,7 +23,7 @@ public class GroupServiceIntegrationTests extends BaseIntegrationTest {
     @Test
     public void givenGroup_whenSaveGroup_thenSaveSuccessfully() {
         //given
-        GroupEntity expected = TestData.getGroup();
+        GroupEntity expected = TestData.getGroupEntity();
 
         //when
         GroupEntity actual = groupService.save(expected);

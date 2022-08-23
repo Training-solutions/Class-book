@@ -23,7 +23,7 @@ public class ScoreServiceIntegrationTests extends BaseIntegrationTest {
     @Test
     public void givenScore_whenSave_thenReturnSuccessfulResult() {
         //given
-        ScoreEntity expected = TestData.getScore();
+        ScoreEntity expected = TestData.getScoreEntity();
 
         //when
         ScoreEntity actual = scoreService.save(expected);

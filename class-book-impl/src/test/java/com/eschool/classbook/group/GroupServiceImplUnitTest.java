@@ -24,9 +24,9 @@ public class GroupServiceImplUnitTest {
     @Test
     public void givenGroup_whenSave_thenReturnSuccessfulResult() {
         //given
-        GroupEntity groupEntity = TestData.getGroup();
+        GroupEntity groupEntity = TestData.getGroupEntity();
         groupEntity.setId(null);
-        GroupEntity expected = TestData.getGroup();
+        GroupEntity expected = TestData.getGroupEntity();
         when(groupRepository.save(eq(groupEntity))).thenReturn(expected);
 
         //when
@@ -40,7 +40,7 @@ public class GroupServiceImplUnitTest {
     @Test
     public void givenGroup_whenFindById_thenReturnSuccessfulResult(){
 
-        GroupEntity expected = TestData.getGroup();
+        GroupEntity expected = TestData.getGroupEntity();
         Long id = expected.getId();
         when(groupRepository.findById(eq(id))).thenReturn(Optional.of(expected));
 
@@ -53,7 +53,7 @@ public class GroupServiceImplUnitTest {
     public void givenGroup_whenFindById_thenExceptionThrows(){
 
         //given
-        GroupEntity expected = TestData.getGroup();
+        GroupEntity expected = TestData.getGroupEntity();
         Long id = expected.getId();
         when(groupRepository.findById(eq(id))).thenReturn(Optional.of(expected));
         Long failedId = 2L;
@@ -71,9 +71,9 @@ public class GroupServiceImplUnitTest {
     public void givenGroup_whenDeleteById_thenDeletedSuccessfully(){
 
         // given
-        GroupEntity groupEntity = TestData.getGroup();
+        GroupEntity groupEntity = TestData.getGroupEntity();
         Long id = groupEntity.getId();
-        GroupEntity expexted = TestData.getGroup();
+        GroupEntity expexted = TestData.getGroupEntity();
         expexted.setDeleted(true);
         when(groupRepository.findById(eq(id))).thenReturn(Optional.of(groupEntity));
         when(groupRepository.save(eq(groupEntity))).thenReturn(expexted);
@@ -89,7 +89,7 @@ public class GroupServiceImplUnitTest {
     @Test
     public void givenGroupList_whenFindAll_thenFoundGroupListSuccessfully(){
         //given
-        GroupEntity group = TestData.getGroup();
+        GroupEntity group = TestData.getGroupEntity();
         List<GroupEntity> expected = List.of(group);
         when(groupRepository.findAll()).thenReturn(expected);
 
@@ -103,9 +103,9 @@ public class GroupServiceImplUnitTest {
     @Test
     public void givenGroup_whenUpdate_thenUpdatedSuccessfully(){
         //given
-        GroupEntity group = TestData.getGroup();
+        GroupEntity group = TestData.getGroupEntity();
         Long id = group.getId();
-        GroupEntity expected = TestData.getGroup();
+        GroupEntity expected = TestData.getGroupEntity();
         expected.setGroupTitle("Updated group");
         when(groupRepository.findById(eq(id))).thenReturn(Optional.of(group));
         when(groupRepository.save(eq(group))).thenReturn(expected);

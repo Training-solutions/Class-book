@@ -3,7 +3,6 @@ package com.eschool.classbook.scorepage;
 import com.eschool.classbook.TestData;
 import com.eschool.classbook.exception.ClassBookException;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -25,9 +24,9 @@ public class ScoreServiceImplUnitTest {
     @Test
     public void givenScore_whenSave_thenReturnSuccessfulResult() {
         //given
-        ScoreEntity scoreEntity = TestData.getScore();
+        ScoreEntity scoreEntity = TestData.getScoreEntity();
         scoreEntity.setId(null);
-        ScoreEntity expected = TestData.getScore();
+        ScoreEntity expected = TestData.getScoreEntity();
         when(scoreRepository.save(eq(scoreEntity))).thenReturn(expected);
 
         //when
@@ -40,7 +39,7 @@ public class ScoreServiceImplUnitTest {
     @Test
     public void givenScore_whenFindById_thenReturnSuccessfulResult(){
         //given
-        ScoreEntity expected = TestData.getScore();
+        ScoreEntity expected = TestData.getScoreEntity();
         Long id = expected.getId();
         when(scoreRepository.findById(eq(id))).thenReturn(Optional.of(expected));
 
@@ -54,7 +53,7 @@ public class ScoreServiceImplUnitTest {
     @Test
     public void givenScore_whenFindById_thenThrowsException(){
         //given
-        ScoreEntity scoreEntity = TestData.getScore();
+        ScoreEntity scoreEntity = TestData.getScoreEntity();
         Long id = scoreEntity.getId();
         when(scoreRepository.findById(eq(id))).thenReturn(Optional.of(scoreEntity));
         Long failedId = 2L;
@@ -72,9 +71,9 @@ public class ScoreServiceImplUnitTest {
     @Test
     public void givenScore_whenDeleteById_thenDeletedSuccessfully(){
         //given
-        ScoreEntity scoreEntity = TestData.getScore();
+        ScoreEntity scoreEntity = TestData.getScoreEntity();
         Long id = scoreEntity.getId();
-        ScoreEntity expected = TestData.getScore();
+        ScoreEntity expected = TestData.getScoreEntity();
         expected.setDeleted(true);
 
         when(scoreRepository.findById(eq(id))).thenReturn(Optional.of(scoreEntity));
@@ -92,7 +91,7 @@ public class ScoreServiceImplUnitTest {
     @Test
     public void givenScoreList_whenFindAll_thenFoundScoreListSuccessfully(){
         //given
-        ScoreEntity scoreEntity = TestData.getScore();
+        ScoreEntity scoreEntity = TestData.getScoreEntity();
         List<ScoreEntity> expected = List.of(scoreEntity);
         when(scoreRepository.findAll()).thenReturn(expected);
 
@@ -105,9 +104,9 @@ public class ScoreServiceImplUnitTest {
     @Test
     public void givenScore_whenUpdate_thenUpdatedSuccessfully(){
         //given
-        ScoreEntity scoreEntity = TestData.getScore();
+        ScoreEntity scoreEntity = TestData.getScoreEntity();
         Long id = scoreEntity.getId();
-        ScoreEntity expected = TestData.getScore();
+        ScoreEntity expected = TestData.getScoreEntity();
         expected.setScore(Score.TEN);
         when(scoreRepository.findById(eq(id))).thenReturn(Optional.of(scoreEntity));
         when(scoreRepository.save(eq(scoreEntity))).thenReturn(expected);

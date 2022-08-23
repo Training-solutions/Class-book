@@ -2,8 +2,6 @@ package com.eschool.classbook.teacher;
 
 import com.eschool.classbook.TestData;
 import com.eschool.classbook.exception.ClassBookException;
-import com.eschool.classbook.student.StudentEntity;
-import com.eschool.classbook.subject.SubjectEntity;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.data.domain.Page;
@@ -24,9 +22,9 @@ public class TeacherServiceImplUnitTest {
     @Test
     public void givenTeacher_whenSave_thenReturnSuccessfulResult() {
         //given
-        TeacherEntity teacherEntity = TestData.getTeacher();
+        TeacherEntity teacherEntity = TestData.getTeacherEntity();
         teacherEntity.setId(null);
-        TeacherEntity expected = TestData.getTeacher();
+        TeacherEntity expected = TestData.getTeacherEntity();
         when(teacherRepository.save(eq(teacherEntity))).thenReturn(expected);
 
         //when
@@ -40,7 +38,7 @@ public class TeacherServiceImplUnitTest {
     @Test
     public void givenTeacher_whenFindById_thenReturnSuccessfulResult(){
         //given
-        TeacherEntity expected = TestData.getTeacher();
+        TeacherEntity expected = TestData.getTeacherEntity();
         Long id = expected.getId();
         when(teacherRepository.findById(eq(id))).thenReturn(Optional.of(expected));
 
@@ -54,7 +52,7 @@ public class TeacherServiceImplUnitTest {
     @Test
     public void givenTeacher_whenFindById_thenThrowsException(){
         //given
-        TeacherEntity teacherEntity = TestData.getTeacher();
+        TeacherEntity teacherEntity = TestData.getTeacherEntity();
         Long id = teacherEntity.getId();
         when(teacherRepository.findById(eq(id))).thenReturn(Optional.of(teacherEntity));
         Long failedId = 2L;
@@ -72,9 +70,9 @@ public class TeacherServiceImplUnitTest {
     @Test
     public void givenTeacher_whenDeleteById_thenDeletedSuccessfully(){
         //given
-        TeacherEntity teacherEntity = TestData.getTeacher();
+        TeacherEntity teacherEntity = TestData.getTeacherEntity();
         Long id = teacherEntity.getId();
-        TeacherEntity expected = TestData.getTeacher();
+        TeacherEntity expected = TestData.getTeacherEntity();
         expected.setDeleted(true);
 
         when(teacherRepository.findById(eq(id))).thenReturn(Optional.of(teacherEntity));
@@ -92,7 +90,7 @@ public class TeacherServiceImplUnitTest {
     @Test
     public void givenTeacherList_whenFindAll_thenFoundTeacherListSuccessfully(){
         //given
-        TeacherEntity teacherEntity = TestData.getTeacher();
+        TeacherEntity teacherEntity = TestData.getTeacherEntity();
         List<TeacherEntity> expected = List.of(teacherEntity);
         when(teacherRepository.findAll()).thenReturn(expected);
 
@@ -106,9 +104,9 @@ public class TeacherServiceImplUnitTest {
     @Test
     public void givenTeacher_whenUpdate_thenUpdatedSuccessfully(){
         //given
-        TeacherEntity teacherEntity = TestData.getTeacher();
+        TeacherEntity teacherEntity = TestData.getTeacherEntity();
         Long id = teacherEntity.getId();
-        TeacherEntity expected = TestData.getTeacher();
+        TeacherEntity expected = TestData.getTeacherEntity();
         expected.setFirstName("Some text...");
         when(teacherRepository.findById(eq(id))).thenReturn(Optional.of(teacherEntity));
         when(teacherRepository.save(eq(teacherEntity))).thenReturn(expected);

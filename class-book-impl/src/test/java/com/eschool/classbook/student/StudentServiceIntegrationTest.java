@@ -29,7 +29,7 @@ public class StudentServiceIntegrationTest extends BaseIntegrationTest {
     public void givenStudent_whenSaveStudent_thenSaveSuccessfully(){
         //given
         StudentEntity expected = TestData.getStudentEntity();
-        CredentialEntity credential = TestData.getCredential();
+        CredentialEntity credential = TestData.getCredentialEntity();
         expected.setCredential(credential);
         GroupEntity groupEntity = groupRepository.findById(1L).get();
         expected.setGroup(groupEntity);
