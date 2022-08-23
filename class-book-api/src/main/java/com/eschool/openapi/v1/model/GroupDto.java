@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME;
+
 /**
  * Group info
  */
@@ -23,7 +25,7 @@ public class GroupDto   {
   @JsonProperty("id")
   private Long id;
 
-  @JsonProperty("groupTitle")
+  @JsonProperty(value = "groupTitle", required = true)
   private String groupTitle;
 
   @JsonProperty("students")
@@ -42,11 +44,11 @@ public class GroupDto   {
   private Boolean deleted;
 
   @JsonProperty("creationDate")
-  @DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
+  @DateTimeFormat(iso = DATE_TIME)
   private OffsetDateTime creationDate;
 
   @JsonProperty("modifyingDate")
-  @DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
+  @DateTimeFormat(iso = DATE_TIME)
   private OffsetDateTime modifyingDate;
 
   public GroupDto id(Long id) {

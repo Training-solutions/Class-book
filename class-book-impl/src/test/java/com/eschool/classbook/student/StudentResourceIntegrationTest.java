@@ -3,26 +3,18 @@ package com.eschool.classbook.student;
 import com.eschool.classbook.BaseIntegrationTest;
 import com.eschool.classbook.TestData;
 import com.eschool.classbook.credential.CredentialRepository;
-import com.eschool.classbook.group.GroupEntity;
 import com.eschool.classbook.group.GroupRepository;
-import com.eschool.classbook.subject.SubjectEntity;
 import com.eschool.classbook.subject.SubjectRepository;
-import com.eschool.classbook.teacher.TeacherEntity;
 import com.eschool.classbook.teacher.TeacherRepository;
 import com.eschool.openapi.v1.model.CredentialDto;
 import com.eschool.openapi.v1.model.StudentDto;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
-import io.restassured.response.ValidatableResponse;
-import net.minidev.json.JSONObject;
-import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.Test;
+import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.jdbc.Sql;
-
-import java.util.List;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -36,6 +28,9 @@ import static org.hamcrest.Matchers.nullValue;
 public class StudentResourceIntegrationTest extends BaseIntegrationTest {
     @LocalServerPort
     int port;
+
+    @Autowired
+    private StudentMapper studentMapper;
 
     @Autowired
     private StudentService studentService;
@@ -154,14 +149,46 @@ public class StudentResourceIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
+    @Order(1)
     public void givenStudentList_whenFindAll_thenFoundStudentListSuccessfully(){
+        given()
+                .port(port)
+                .when()
+                .get("/ui/students?page={page}&size={size}", 0,10)
+                .then()
+                .statusCode(200)
+                .body("total", equalTo(3))
+                .body("data", notNullValue());
     }
 
     @Test
     public void givenStudent_whenUpdate_thenStudentUpdatedSuccessfully(){
+        StudentEntity student = studentRepository.getById(1L);
+        StudentDto studentDto = studentMapper.toDto(student);
+        studentDto.setFirstName("Henry");
+
+        given()
+                .port(port)
+                .when()
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+                .body(studentDto)
+                .put("/ui/students/{id}", 1)
+                .then()
+                .statusCode(200)
+                .body("responseId", equalTo(""))
+                .body("status", equalTo(""));
     }
 
     @Test
     public void givenStudent_whenDelete_thenStudentDeletedSuccessfully(){
+        given()
+                .port(port)
+                .when()
+                .delete("/students/{id}", 3)
+                .then()
+                .statusCode(200)
+                .body("responseId", equalTo(""))
+                .body("status", equalTo(""));
     }
 }

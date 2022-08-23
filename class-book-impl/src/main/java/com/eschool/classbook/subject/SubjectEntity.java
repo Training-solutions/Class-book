@@ -43,6 +43,7 @@ public class SubjectEntity extends BaseEntity {
     @ManyToMany(mappedBy = "subjects", cascade = {CascadeType.MERGE})
     @ToString.Exclude
     @JsonBackReference
+    @Column(updatable = false, insertable = false)
     private Set<GroupEntity> groups = new HashSet<>();
 
     @Setter(AccessLevel.PRIVATE)

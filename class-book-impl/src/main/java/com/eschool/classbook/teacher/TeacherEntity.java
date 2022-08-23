@@ -47,13 +47,14 @@ public class TeacherEntity extends BaseEntity {
     private String lastName;
 
     @OneToOne(cascade = {CascadeType.MERGE}, orphanRemoval = true)
-    @JoinColumn(name="credential", nullable = false)
+    @JoinColumn(name="credential", nullable = false, updatable = false)
     private CredentialEntity credential;
 
     @Setter(AccessLevel.PRIVATE)
     @ManyToMany(mappedBy = "teachers", cascade = {CascadeType.MERGE})
     @ToString.Exclude
     @JsonBackReference
+    @Column(insertable = false, updatable = false)
     private Set<GroupEntity> groups = new HashSet<>();
 
     @Setter(AccessLevel.PRIVATE)
@@ -69,6 +70,7 @@ public class TeacherEntity extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "subject_id")
     )
     @ToString.Exclude
+    @Column(insertable = false, updatable = false)
     private Set<SubjectEntity> subjects = new HashSet<>();
 
     public void addGroup(GroupEntity groupEntity) {

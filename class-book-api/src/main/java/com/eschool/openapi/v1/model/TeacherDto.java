@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME;
+
 /**
  * Teacher info
  */
@@ -23,13 +25,13 @@ public class TeacherDto   {
   @JsonProperty("id")
   private Long id;
 
-  @JsonProperty("firstName")
+  @JsonProperty(value = "firstName", required = true)
   private String firstName;
 
-  @JsonProperty("lastName")
+  @JsonProperty(value = "lastName", required = true)
   private String lastName;
 
-  @JsonProperty("credential")
+  @JsonProperty(value = "credential", required = true)
   private CredentialDto credential;
 
   @JsonProperty("groups")
@@ -48,11 +50,11 @@ public class TeacherDto   {
   private Boolean deleted;
 
   @JsonProperty("creationDate")
-  @DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
+  @DateTimeFormat(iso = DATE_TIME)
   private OffsetDateTime creationDate;
 
   @JsonProperty("modifyingDate")
-  @DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
+  @DateTimeFormat(iso = DATE_TIME)
   private OffsetDateTime modifyingDate;
 
   public TeacherDto id(Long id) {

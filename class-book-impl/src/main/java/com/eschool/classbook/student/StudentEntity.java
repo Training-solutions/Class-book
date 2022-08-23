@@ -47,12 +47,13 @@ public class StudentEntity extends BaseEntity {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH}, orphanRemoval = true)
-    @JoinColumn(name = "credential", nullable = false)
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, orphanRemoval = true)
+    @JoinColumn(name = "credential", nullable = false, updatable = false)
     private CredentialEntity credential;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
     @JsonBackReference
+    @Column(insertable = false, updatable = false)
     private GroupEntity group;
 
     @Setter(AccessLevel.PRIVATE)
@@ -63,6 +64,7 @@ public class StudentEntity extends BaseEntity {
     )
     @ToString.Exclude
     @JsonManagedReference
+    @Column(insertable = false, updatable = false)
     private Set<TeacherEntity> teachers = new HashSet<>();
 
     @Setter(AccessLevel.PRIVATE)
@@ -73,6 +75,7 @@ public class StudentEntity extends BaseEntity {
     )
     @ToString.Exclude
     @JsonManagedReference
+    @Column(insertable = false, updatable = false)
     private Set<SubjectEntity> subjects = new HashSet<>();
 
     public void addTeacher(TeacherEntity teacherEntity){

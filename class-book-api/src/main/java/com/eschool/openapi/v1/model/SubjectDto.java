@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME;
+
 /**
  * Subject info
  */
@@ -23,7 +25,7 @@ public class SubjectDto   {
   @JsonProperty("id")
   private Long id;
 
-  @JsonProperty("subjectTitle")
+  @JsonProperty(value = "subjectTitle", required = true)
   private String subjectTitle;
 
   @JsonProperty("groups")
@@ -46,11 +48,11 @@ public class SubjectDto   {
   private Boolean deleted;
 
   @JsonProperty("creationDate")
-  @DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
+  @DateTimeFormat(iso = DATE_TIME)
   private OffsetDateTime creationDate;
 
   @JsonProperty("modifyingDate")
-  @DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
+  @DateTimeFormat(iso = DATE_TIME)
   private OffsetDateTime modifyingDate;
 
   public SubjectDto id(Long id) {
