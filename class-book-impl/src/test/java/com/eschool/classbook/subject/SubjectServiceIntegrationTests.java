@@ -5,6 +5,10 @@ import com.eschool.classbook.TestData;
 import com.eschool.classbook.exception.ClassBookException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
+import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -66,6 +70,32 @@ public class SubjectServiceIntegrationTests extends BaseIntegrationTest {
         //then
         SubjectEntity subjectDeleted = subjectService.findById(id);
         assertTrue(subjectDeleted.isDeleted());
+    }
+
+    @Test
+    public void givenSubject_whenFindAll_thenFoundGroupListSuccessfully(){
+        //when
+        Page<SubjectEntity> actual = subjectService.findAll(PageRequest.of(1, 4));
+
+        //then
+        assertEquals(1, actual.getTotalPages());
+        assertEquals(4, actual.getTotalElements());
+        assertTrue(actual.stream().allMatch(Objects::nonNull));
+    }
+
+    @Test
+    public void givenSubject_whenUpdate_thenUpdatedSuccessfully(){
+        //given
+        String subjectTitle = "Programming";
+        Long Id = 1L;
+        SubjectEntity expexted = subjectService.findById(Id);
+        expexted.setSubjectTitle(subjectTitle);
+
+        //when
+        SubjectEntity actual = subjectService.update(Id, expexted);
+
+        //then
+        assertEquals(subjectTitle, actual.getSubjectTitle());
     }
 
 }
