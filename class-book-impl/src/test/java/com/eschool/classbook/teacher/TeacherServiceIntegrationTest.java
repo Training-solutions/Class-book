@@ -5,12 +5,12 @@ import com.eschool.classbook.TestData;
 import com.eschool.classbook.credential.CredentialEntity;
 import com.eschool.classbook.group.GroupEntity;
 import com.eschool.classbook.subject.SubjectEntity;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.security.auth.Subject;
 import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -60,8 +60,9 @@ public class TeacherServiceIntegrationTest extends BaseIntegrationTest {
         assertFalse(credential.isDeleted());
 
         assertNotNull(actual.getGroups());
-        assertEquals(actual.getGroups(), "Math");
-        
+        Set<GroupEntity> groups = actual.getGroups();
+        assertFalse(groups.isEmpty());
+        groups.forEach(Assert::assertNotNull);
     }
 
 }

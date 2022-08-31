@@ -70,8 +70,8 @@ public abstract class BaseIntegrationTest {
         studentRepository.deleteAll();
 
         groupRepository.deleteAll();
-        subjectRepository.deleteAll();
         teacherRepository.deleteAll();
+        subjectRepository.deleteAll();
         scoreRepository.deleteAll();
 
         //needs to be the last
