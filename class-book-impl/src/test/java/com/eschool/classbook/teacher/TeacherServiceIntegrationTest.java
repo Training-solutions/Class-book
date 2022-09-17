@@ -3,13 +3,17 @@ package com.eschool.classbook.teacher;
 import com.eschool.classbook.BaseIntegrationTest;
 import com.eschool.classbook.TestData;
 import com.eschool.classbook.credential.CredentialEntity;
+import com.eschool.classbook.exception.ClassBookException;
 import com.eschool.classbook.group.GroupEntity;
 import com.eschool.classbook.subject.SubjectEntity;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import static org.junit.Assert.*;
@@ -63,6 +67,77 @@ public class TeacherServiceIntegrationTest extends BaseIntegrationTest {
         Set<GroupEntity> groups = actual.getGroups();
         assertFalse(groups.isEmpty());
         groups.forEach(Assert::assertNotNull);
+    }
+
+    @Test
+    public void givenTeacher_whenFindById_thenExceptionThrows(){
+        //given
+        Long failedId = 10L;
+
+        //when and then
+        assertThrows(
+                String.format("Teacher with id %d was not found", failedId),
+                ClassBookException.class,
+                ()->teacherService.findById(failedId)
+        );
+    }
+
+    @Test
+    public void givenTeacherList_whenFindAll_thenFoundTeacherListSuccessfully(){
+        //when
+        Page<TeacherEntity> actual = teacherService.findAll(PageRequest.of(1, 3));
+
+        //then
+        assertEquals(1, actual.getTotalPages());
+        assertEquals(3, actual.getTotalElements());
+        assertTrue(actual.stream().allMatch(Objects::nonNull));
+    }
+
+    @Test
+    public void givenTeacher_whenUpdate_thenTeacherUpdatedSuccessfully() {
+        //given
+        String firstName = "Some name";
+        Long id = 2L;
+        Long idGroupAdd = 3L;
+        Long idGroupRemove = 2L;
+        Long idSubjectAdd = 1L;
+        String password = "Some_password";
+        
+        TeacherEntity expected = teacherService.findById(id);
+        GroupEntity groupExpected = groupRepository.getById(idGroupAdd);
+        GroupEntity groupRemove = groupRepository.getById(idGroupRemove);
+        SubjectEntity subjectExpected = subjectRepository.getById(idSubjectAdd);
+        expected.setFirstName(firstName);
+        expected.addGroup(groupExpected);
+        expected.removeGroup(groupRemove);
+        expected.addSubject(subjectExpected);
+        expected.getCredential().setPassword(password);
+
+
+        //when
+        teacherService.update(id, expected);
+
+        //then
+
+        assertTrue(expected.getGroups().contains(groupExpected));
+        assertFalse(expected.getGroups().contains(groupRemove));
+        assertEquals(firstName, expected.getFirstName());
+        assertTrue(expected.getSubjects().contains(subjectExpected));
+        assertEquals(password, expected.getCredential().getPassword());
+    }
+
+    @Test
+    public void givenTeacher_whenDelete_thenTeacherDeletedSuccessfully(){
+        //given
+        Long id = 1L;
+
+        //when
+        teacherService.deleteById(id);
+
+        //then
+        TeacherEntity actual = teacherService.findById(id);
+        assertTrue(actual.isDeleted());
+        assertTrue(actual.getCredential().isDeleted());
     }
 
 }

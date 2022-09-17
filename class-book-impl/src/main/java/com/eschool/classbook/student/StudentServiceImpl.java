@@ -33,6 +33,8 @@ public class StudentServiceImpl implements StudentService {
                 .orElseThrow(() -> new ClassBookException(String.format("Student with id %d wasn't found", id)));
         student.setModifyingDate(LocalDateTime.now());
         student.setDeleted(true);
+        student.getCredential().setModifyingDate(LocalDateTime.now());
+        student.getCredential().setDeleted(true);
         studentRepository.save(student);
     }
 

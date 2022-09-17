@@ -34,6 +34,8 @@ public class TeacherServiceImpl implements TeacherService{
                 .orElseThrow(() -> new ClassBookException(String.format("Teacher with id %d wasn't found", id)));
         teacher.setModifyingDate(LocalDateTime.now());
         teacher.setDeleted(true);
+        teacher.getCredential().setModifyingDate(LocalDateTime.now());
+        teacher.getCredential().setDeleted(true);
         teacherRepository.save(teacher);
     }
 

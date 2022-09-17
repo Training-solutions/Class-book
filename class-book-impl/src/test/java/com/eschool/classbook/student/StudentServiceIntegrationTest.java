@@ -15,11 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import java.util.HashSet;
 import java.util.Objects;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class StudentServiceIntegrationTest extends BaseIntegrationTest {
     @Autowired
@@ -110,15 +106,18 @@ public class StudentServiceIntegrationTest extends BaseIntegrationTest {
     public void givenStudent_whenUpdate_thenStudentUpdatedSuccessfully(){
         //given
         String firstName = "Robert";
+        String password = "New_password";
         Long id = 1L;
         StudentEntity expected = studentService.findById(id);
         expected.setFirstName(firstName);
+        expected.getCredential().setPassword(password);
 
         //when
         StudentEntity actual = studentService.update(id, expected);
 
         //then
         assertEquals(firstName, actual.getFirstName());
+        assertEquals(password, actual.getCredential().getPassword());
     }
 
     @Test
@@ -132,5 +131,6 @@ public class StudentServiceIntegrationTest extends BaseIntegrationTest {
         //then
         StudentEntity deletedStudent = studentService.findById(id);
         assertTrue(deletedStudent.isDeleted());
+        assertTrue(deletedStudent.getCredential().isDeleted());
     }
 }

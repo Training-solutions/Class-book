@@ -34,6 +34,7 @@ public class GroupServiceImpl implements GroupService{
                 .orElseThrow(() -> new ClassBookException(String.format("Group with id %d wasn't found", id)));
         group.setModifyingDate(LocalDateTime.now());
         group.setDeleted(true);
+        group.getStudents().stream().forEach(studentEntity -> studentEntity.setDeleted(true));
         groupRepository.save(group);
     }
 
