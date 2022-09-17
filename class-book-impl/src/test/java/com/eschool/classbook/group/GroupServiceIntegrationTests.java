@@ -1,5 +1,6 @@
 package com.eschool.classbook.group;
 
+import com.eschool.classbook.BaseEntity;
 import com.eschool.classbook.BaseIntegrationTest;
 import com.eschool.classbook.TestData;
 import com.eschool.classbook.exception.ClassBookException;
@@ -71,17 +72,14 @@ public class GroupServiceIntegrationTests extends BaseIntegrationTest {
     public void givenGroup_whenDeleteById_thenDeletedSuccessfully(){
         //given
         Long id = 1L;
-        Long idStudent = 1L;
 
         //when
         groupService.deleteById(id);
 
         //then
         GroupEntity groupEntity = groupService.findById(id);
-        StudentEntity studentEntity = studentRepository.getById(idStudent);
         assertTrue(groupEntity.isDeleted());
-        assertTrue(studentEntity.isDeleted());
-
+        assertTrue(groupEntity.getStudents().stream().allMatch(BaseEntity::isDeleted));
     }
 
     @Test
@@ -102,7 +100,7 @@ public class GroupServiceIntegrationTests extends BaseIntegrationTest {
         Long id = 1L;
         Long idNewStudent = 2L;
         Long idNewTeacher = 2L;
-        Long idNewSubject = 2l;
+        Long idNewSubject = 2L;
 
         GroupEntity expected = groupService.findById(id);
         StudentEntity newStudent = studentRepository.getById(idNewStudent);
