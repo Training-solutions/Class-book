@@ -1,6 +1,7 @@
 package com.eschool.classbook.student;
 
 import com.eschool.classbook.TestData;
+import com.eschool.classbook.credential.CredentialEntity;
 import com.eschool.classbook.exception.ClassBookException;
 import org.junit.Test;
 import org.springframework.data.domain.Page;
@@ -102,18 +103,20 @@ public class StudentServiceImplUnitTest {
     @Test
     public void givenStudent_whenDelete_thenStudentDeletedSuccessfully(){
         //given
-        StudentEntity student = TestData.getStudentEntity();
-        Long id = student.getId();
+        StudentEntity studentEntity = TestData.getStudentEntity();
+        Long id = studentEntity.getId();
+        CredentialEntity credentialEntity = TestData.getCredentialEntity();
+        studentEntity.setCredential(credentialEntity);
         StudentEntity expected = TestData.getStudentEntity();
         expected.setDeleted(true);
-        when(studentRepository.findById(eq(id))).thenReturn(Optional.of(student));
-        when(studentRepository.save(eq(student))).thenReturn(expected);
+        when(studentRepository.findById(eq(id))).thenReturn(Optional.of(studentEntity));
+        when(studentRepository.save(eq(studentEntity))).thenReturn(expected);
 
         //when
         studentService.deleteById(id);
 
         //then
         verify(studentRepository, times(1)).findById(eq(id));
-        verify(studentRepository, times(1)).save(eq(student));
+        verify(studentRepository, times(1)).save(eq(studentEntity));
     }
 }

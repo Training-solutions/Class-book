@@ -1,6 +1,7 @@
 package com.eschool.classbook.teacher;
 
 import com.eschool.classbook.TestData;
+import com.eschool.classbook.credential.CredentialEntity;
 import com.eschool.classbook.exception.ClassBookException;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -72,6 +73,8 @@ public class TeacherServiceImplUnitTest {
         //given
         TeacherEntity teacherEntity = TestData.getTeacherEntity();
         Long id = teacherEntity.getId();
+        CredentialEntity credentialEntity = TestData.getCredentialEntity();
+        teacherEntity.setCredential(credentialEntity);
         TeacherEntity expected = TestData.getTeacherEntity();
         expected.setDeleted(true);
 

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
 public class GroupServiceImpl implements GroupService{
@@ -46,7 +45,6 @@ public class GroupServiceImpl implements GroupService{
     }
 
     @Override
-    @Transactional
     public GroupEntity update(Long id, GroupEntity groupEntity) {
         groupRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Group with id %d was not found", id)));

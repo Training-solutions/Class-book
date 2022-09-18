@@ -44,14 +44,13 @@ public class GroupEntity extends BaseEntity {
     private String groupTitle;
 
     @Setter(AccessLevel.PRIVATE)
-    @OneToMany(mappedBy = "group",
-            cascade = {CascadeType.MERGE})
+    @OneToMany(mappedBy = "group")
     @ToString.Exclude
     @JsonManagedReference
     private List<StudentEntity> students = new ArrayList<>();
 
     @Setter(AccessLevel.PRIVATE)
-    @ManyToMany(cascade = {CascadeType.MERGE})
+    @ManyToMany
     @JoinTable(name = "group_teacher",
                 joinColumns = @JoinColumn(name = "group_id"),
                 inverseJoinColumns = @JoinColumn(name = "teacher_id")
@@ -61,7 +60,7 @@ public class GroupEntity extends BaseEntity {
     private Set<TeacherEntity> teachers = new HashSet<>();
 
     @Setter(AccessLevel.PRIVATE)
-    @ManyToMany(cascade = {CascadeType.MERGE})
+    @ManyToMany
     @JoinTable(name = "group_subject",
                 joinColumns = @JoinColumn(name = "group_id"),
                 inverseJoinColumns = @JoinColumn(name = "subject_id")

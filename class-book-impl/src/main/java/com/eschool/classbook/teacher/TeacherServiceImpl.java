@@ -4,6 +4,7 @@ import com.eschool.classbook.exception.ClassBookException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -32,9 +33,7 @@ public class TeacherServiceImpl implements TeacherService{
     public void deleteById(Long id) {
         TeacherEntity teacher = teacherRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Teacher with id %d wasn't found", id)));
-        teacher.setModifyingDate(LocalDateTime.now());
         teacher.setDeleted(true);
-        teacher.getCredential().setModifyingDate(LocalDateTime.now());
         teacher.getCredential().setDeleted(true);
         teacherRepository.save(teacher);
     }

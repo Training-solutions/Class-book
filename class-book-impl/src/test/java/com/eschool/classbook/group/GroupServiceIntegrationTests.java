@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.HashSet;
 import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
@@ -116,9 +117,15 @@ public class GroupServiceIntegrationTests extends BaseIntegrationTest {
 
         //then
         assertEquals(expected.getGroupTitle(), title);
-        assertTrue(expected.getStudents().contains(newStudent));
-        assertTrue(expected.getTeachers().contains(newTeacher));
-        assertTrue(expected.getSubjects().contains(newSubject));
 
+        StudentEntity actualStudent = expected.getStudents().get(1);
+        assertEquals(actualStudent.getFirstName(), newStudent.getFirstName());
+        assertEquals(actualStudent.getLastName(), newStudent.getLastName());
+
+
+        assertEquals(actualStudent.getFirstName(), newStudent.getFirstName());
+        assertEquals(actualStudent.getLastName(), newStudent.getLastName());
+        assertEquals(new HashSet<>(expected.getTeachers()), expected.getTeachers());
+        assertEquals(new HashSet<>(expected.getSubjects()), expected.getSubjects());
     }
 }
