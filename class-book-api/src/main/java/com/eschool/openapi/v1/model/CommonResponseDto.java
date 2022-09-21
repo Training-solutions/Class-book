@@ -13,7 +13,7 @@ import javax.validation.constraints.*;
  * CommonResponse
  */
 @ApiModel(description = "CommonResponse")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-09-21T19:00:20.213481100+03:00[Europe/Helsinki]")
 public class CommonResponseDto   {
   @JsonProperty("responseId")
   private Long responseId;
@@ -21,14 +21,14 @@ public class CommonResponseDto   {
   @JsonProperty("status")
   private String status;
 
-  public CommonResponseDto responseId(Long responseId) {
-    this.responseId = responseId;
-    return this;
-  }
-
   public CommonResponseDto(Long responseId, String status) {
     this.responseId = responseId;
     this.status = status;
+  }
+
+  public CommonResponseDto responseId(Long responseId) {
+    this.responseId = responseId;
+    return this;
   }
 
   /**

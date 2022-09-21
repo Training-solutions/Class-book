@@ -15,7 +15,7 @@ import javax.validation.constraints.*;
  * Score info
  */
 @ApiModel(description = "Score info")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-09-21T19:00:20.213481100+03:00[Europe/Helsinki]")
 public class ScoreDto   {
   @JsonProperty("id")
   private Long id;
@@ -24,38 +24,38 @@ public class ScoreDto   {
    * Gets or Sets score
    */
   public enum ScoreEnum {
-    ONE_1_("ONE(1)"),
+    ONE (1),
     
-    TWO_2_("TWO(2)"),
+    TWO (2),
     
-    THREE_3_("THREE(3)"),
+    THREE(3),
     
-    FOUR_4_("FOUR(4)"),
+    FOUR(4),
     
-    FIVE_5_("FIVE(5)"),
+    FIVE(5),
     
-    SIX_6_("SIX(6)"),
+    SIX (6),
     
-    SEVEN_7_("SEVEN(7)"),
+    SEVEN (7),
     
-    EIGHT_8_("EIGHT(8)"),
+    EIGHT (8),
     
-    NINE_9_("NINE(9)"),
+    NINE (9),
     
-    TEN_10_("TEN(10)"),
+    TEN (10),
     
-    ELEVEN_11_("ELEVEN(11)"),
+    ELEVEN (11),
     
-    TWELVE_12_("TWELVE(12)");
+    TWELVE (12);
 
-    private String value;
+    private Integer value;
 
-    ScoreEnum(String value) {
+    ScoreEnum(Integer value) {
       this.value = value;
     }
 
     @JsonValue
-    public String getValue() {
+    public Integer getValue() {
       return value;
     }
 
@@ -65,7 +65,7 @@ public class ScoreDto   {
     }
 
     @JsonCreator
-    public static ScoreEnum fromValue(String value) {
+    public static ScoreEnum fromValue(Integer value) {
       for (ScoreEnum b : ScoreEnum.values()) {
         if (b.value.equals(value)) {
           return b;

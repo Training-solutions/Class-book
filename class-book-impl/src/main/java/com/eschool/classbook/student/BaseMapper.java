@@ -1,4 +1,4 @@
-package com.eschool.classbook;
+package com.eschool.classbook.student;
 
 import com.eschool.classbook.scorepage.Score;
 import com.eschool.openapi.v1.model.ScoreDto;
@@ -9,6 +9,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 public interface BaseMapper {
+
     default OffsetDateTime toOffsetDateTime(LocalDateTime localDateTime){
         return ZonedDateTime.of(localDateTime, ZoneId.systemDefault()).toOffsetDateTime();
     }
@@ -23,6 +24,6 @@ public interface BaseMapper {
 
     default ScoreDto.ScoreEnum toScoreDto(Score score){
         int value = score.getValue();
-        return ScoreDto.ScoreEnum.fromValue(value);
+        return ScoreDto.ScoreEnum.fromValue((value));
     }
 }

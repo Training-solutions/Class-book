@@ -14,7 +14,7 @@ import javax.validation.constraints.*;
 /**
  * PageViewDto
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-09-21T19:00:20.213481100+03:00[Europe/Helsinki]")
 public class PageViewDto<T>   {
   @JsonProperty("total")
   private Integer total;
@@ -45,7 +45,6 @@ public class PageViewDto<T>   {
 
   public PageViewDto data(List<T> data) {
     this.data = data;
-    this.total = data.size();
     return this;
   }
 
@@ -70,7 +69,6 @@ public class PageViewDto<T>   {
 
   public void setData(List<T> data) {
     this.data = data;
-    this.total = data.size();
   }
 
 

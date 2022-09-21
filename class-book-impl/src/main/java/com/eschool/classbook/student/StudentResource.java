@@ -25,18 +25,17 @@ public class StudentResource implements StudentsV1Api {
     @Override
     public ResponseEntity<StudentDto> getStudentById(Long id) {
         StudentEntity studentEntity = studentService.findById(id);
-        StudentDto studentDto = studentMapper.toDTO(studentEntity);
+        StudentDto studentDto = studentMapper.toDto(studentEntity);
         return ResponseEntity.ok(studentDto);
     }
 
     @Override
     public ResponseEntity<PageViewDto<StudentDto>> getStudentList(Pageable pageable) {
         Page<StudentEntity> studentEntities = studentService.findAll(pageable);
-        List<StudentDto> collect = studentEntities.getContent().stream().map(studentMapper::toDTO)
-                .collect(Collectors.toList());
-        PageViewDto<StudentDto> pageViewDto = new PageViewDto<>();
-        pageViewDto.setData(collect);
-        return ResponseEntity.ok(pageViewDto);
+        List<StudentDto> collect = studentEntities.getContent().stream().map(studentMapper::toDto).collect(Collectors.toList());
+        PageViewDto<StudentDto> pageView = new PageViewDto<>();
+        pageView.data(collect);
+        return ResponseEntity.ok(pageView);
     }
 
     @Override

@@ -1372,7 +1372,7 @@ components:
           description: Score Id
           example: 186
         score:
-          format: string
+          format: integer
           enum:
             - ONE(1)
             - TWO(2)

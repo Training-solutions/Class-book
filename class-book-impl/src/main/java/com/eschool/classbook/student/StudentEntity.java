@@ -48,21 +48,23 @@ public class StudentEntity extends BaseEntity {
     private String lastName;
 
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH}, orphanRemoval = true)
-    @JoinColumn(name = "credential", nullable = false)
+    @JoinColumn(name = "credential", nullable = false, updatable = false)
     private CredentialEntity credential;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
     @JsonBackReference
+    @JoinColumn(insertable = false, updatable = false)
     private GroupEntity group;
 
     @Setter(AccessLevel.PRIVATE)
-    @ManyToMany(cascade = {CascadeType.MERGE})
+    @ManyToMany
     @JoinTable(name = "student_teacher",
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "teacher_id")
     )
     @ToString.Exclude
     @JsonManagedReference
+    @JoinColumn(insertable = false, updatable = false)
     private Set<TeacherEntity> teachers = new HashSet<>();
 
     @Setter(AccessLevel.PRIVATE)
@@ -73,6 +75,7 @@ public class StudentEntity extends BaseEntity {
     )
     @ToString.Exclude
     @JsonManagedReference
+    @JoinColumn(insertable = false, updatable = false)
     private Set<SubjectEntity> subjects = new HashSet<>();
 
     public void addTeacher(TeacherEntity teacherEntity){
