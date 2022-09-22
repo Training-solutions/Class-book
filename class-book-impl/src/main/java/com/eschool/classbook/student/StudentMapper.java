@@ -32,14 +32,14 @@ public interface StudentMapper extends BaseMapper {
 
     @Mapping(target = "groups", ignore = true)
     @Mapping(target = "students", ignore = true)
-    @Mapping(target = "teachers", ignore = true)
-    SubjectDto mapSubjectDto(SubjectEntity subjectEntity);
-
-    @Mapping(target = "groups", ignore = true)
-    @Mapping(target = "students", ignore = true)
     @Mapping(target = "subjects", ignore = true)
     @Mapping(target = "credential", ignore = true)
     TeacherEntity mapTeacherEntity(TeacherDto source);
+
+    @Mapping(target = "groups", ignore = true)
+    @Mapping(target = "students", ignore = true)
+    @Mapping(target = "teachers", ignore = true)
+    SubjectDto mapSubjectDto(SubjectEntity subjectEntity);
 
     @Mapping(target = "groups", ignore = true)
     @Mapping(target = "students", ignore = true)
