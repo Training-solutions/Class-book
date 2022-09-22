@@ -6,7 +6,7 @@
 package com.eschool.openapi.v1.api;
 
 import com.eschool.openapi.v1.model.CommonResponseDto;
-import com.eschool.openapi.v1.model.ErrorDto;
+import com.eschool.openapi.v1.model.ErrorView;
 import com.eschool.openapi.v1.model.PageViewDto;
 import com.eschool.openapi.v1.model.SubjectDto;
 import io.swagger.annotations.Api;
@@ -24,11 +24,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.time.OffsetDateTime;
-import java.util.List;
+
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
 @Validated
 @Api(value = "SubjectsV1", description = "the SubjectsV1 API")
@@ -50,10 +48,10 @@ public interface SubjectsV1Api {
          }, tags={ "subjects-v1", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Successful response", response = CommonResponseDto.class),
-        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorDto.class),
+        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorView.class),
         @ApiResponse(code = 401, message = "Access token is missing or invalid"),
-        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorDto.class),
-        @ApiResponse(code = 500, message = "Internal server error", response = ErrorDto.class) })
+        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorView.class),
+        @ApiResponse(code = 500, message = "Internal server error", response = ErrorView.class) })
     @DeleteMapping(
         value = "/ui/subjects/{subjectId}",
         produces = { "application/json" }
@@ -78,11 +76,11 @@ public interface SubjectsV1Api {
          }, tags={ "subjects-v1", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Successful response", response = SubjectDto.class),
-        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorDto.class),
+        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorView.class),
         @ApiResponse(code = 401, message = "Access token is missing or invalid"),
-        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorDto.class),
-        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorDto.class),
-        @ApiResponse(code = 500, message = "Internal server error", response = ErrorDto.class) })
+        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorView.class),
+        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorView.class),
+        @ApiResponse(code = 500, message = "Internal server error", response = ErrorView.class) })
     @GetMapping(
         value = "/ui/subjects/{subjectId}",
         produces = { "application/json" }
@@ -114,9 +112,9 @@ public interface SubjectsV1Api {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Successful response", response = PageViewDto.class),
         @ApiResponse(code = 401, message = "Access token is missing or invalid"),
-        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorDto.class),
-        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorDto.class),
-        @ApiResponse(code = 500, message = "Internal server error", response = ErrorDto.class) })
+        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorView.class),
+        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorView.class),
+        @ApiResponse(code = 500, message = "Internal server error", response = ErrorView.class) })
     @GetMapping(
         value = "/ui/subjects",
         produces = { "application/json" }
@@ -141,11 +139,11 @@ public interface SubjectsV1Api {
          }, tags={ "subjects-v1", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Successful response", response = CommonResponseDto.class),
-        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorDto.class),
+        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorView.class),
         @ApiResponse(code = 401, message = "Access token is missing or invalid"),
-        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorDto.class),
-        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorDto.class),
-        @ApiResponse(code = 500, message = "Internal server error", response = ErrorDto.class) })
+        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorView.class),
+        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorView.class),
+        @ApiResponse(code = 500, message = "Internal server error", response = ErrorView.class) })
     @PostMapping(
         value = "/ui/subjects",
         produces = { "application/json" },
@@ -172,11 +170,11 @@ public interface SubjectsV1Api {
          }, tags={ "subjects-v1", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Successful response", response = CommonResponseDto.class),
-        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorDto.class),
+        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorView.class),
         @ApiResponse(code = 401, message = "Access token is missing or invalid"),
-        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorDto.class),
-        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorDto.class),
-        @ApiResponse(code = 500, message = "Internal server error", response = ErrorDto.class) })
+        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorView.class),
+        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorView.class),
+        @ApiResponse(code = 500, message = "Internal server error", response = ErrorView.class) })
     @PutMapping(
         value = "/ui/subjects/{subjectId}",
         produces = { "application/json" },

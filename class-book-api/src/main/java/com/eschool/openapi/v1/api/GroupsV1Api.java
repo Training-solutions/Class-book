@@ -6,7 +6,7 @@
 package com.eschool.openapi.v1.api;
 
 import com.eschool.openapi.v1.model.CommonResponseDto;
-import com.eschool.openapi.v1.model.ErrorDto;
+import com.eschool.openapi.v1.model.ErrorView;
 import com.eschool.openapi.v1.model.GroupDto;
 import com.eschool.openapi.v1.model.PageViewDto;
 import io.swagger.annotations.Api;
@@ -47,10 +47,10 @@ public interface GroupsV1Api {
          }, tags={ "groups-v1", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Successful response", response = CommonResponseDto.class),
-        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorDto.class),
+        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorView.class),
         @ApiResponse(code = 401, message = "Access token is missing or invalid"),
-        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorDto.class),
-        @ApiResponse(code = 500, message = "Internal server error", response = ErrorDto.class) })
+        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorView.class),
+        @ApiResponse(code = 500, message = "Internal server error", response = ErrorView.class) })
     @DeleteMapping(
         value = "/ui/groups/{groupId}",
         produces = { "application/json" }
@@ -75,11 +75,11 @@ public interface GroupsV1Api {
          }, tags={ "groups-v1", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Successful response", response = GroupDto.class),
-        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorDto.class),
+        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorView.class),
         @ApiResponse(code = 401, message = "Access token is missing or invalid"),
-        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorDto.class),
-        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorDto.class),
-        @ApiResponse(code = 500, message = "Internal server error", response = ErrorDto.class) })
+        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorView.class),
+        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorView.class),
+        @ApiResponse(code = 500, message = "Internal server error", response = ErrorView.class) })
     @GetMapping(
         value = "/ui/groups/{groupId}",
         produces = { "application/json" }
@@ -111,9 +111,9 @@ public interface GroupsV1Api {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Successful response", response = PageViewDto.class),
         @ApiResponse(code = 401, message = "Access token is missing or invalid"),
-        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorDto.class),
-        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorDto.class),
-        @ApiResponse(code = 500, message = "Internal server error", response = ErrorDto.class) })
+        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorView.class),
+        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorView.class),
+        @ApiResponse(code = 500, message = "Internal server error", response = ErrorView.class) })
     @GetMapping(
         value = "/ui/groups",
         produces = { "application/json" }
@@ -138,11 +138,11 @@ public interface GroupsV1Api {
          }, tags={ "groups-v1", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Successful response", response = CommonResponseDto.class),
-        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorDto.class),
+        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorView.class),
         @ApiResponse(code = 401, message = "Access token is missing or invalid"),
-        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorDto.class),
-        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorDto.class),
-        @ApiResponse(code = 500, message = "Internal server error", response = ErrorDto.class) })
+        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorView.class),
+        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorView.class),
+        @ApiResponse(code = 500, message = "Internal server error", response = ErrorView.class) })
     @PostMapping(
         value = "/ui/groups",
         produces = { "application/json" },
@@ -169,11 +169,11 @@ public interface GroupsV1Api {
          }, tags={ "groups-v1", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Successful response", response = CommonResponseDto.class),
-        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorDto.class),
+        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorView.class),
         @ApiResponse(code = 401, message = "Access token is missing or invalid"),
-        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorDto.class),
-        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorDto.class),
-        @ApiResponse(code = 500, message = "Internal server error", response = ErrorDto.class) })
+        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorView.class),
+        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorView.class),
+        @ApiResponse(code = 500, message = "Internal server error", response = ErrorView.class) })
     @PutMapping(
         value = "/ui/groups/{groupId}",
         produces = { "application/json" },

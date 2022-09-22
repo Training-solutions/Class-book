@@ -6,7 +6,7 @@
 package com.eschool.openapi.v1.api;
 
 import com.eschool.openapi.v1.model.CommonResponseDto;
-import com.eschool.openapi.v1.model.ErrorDto;
+import com.eschool.openapi.v1.model.ErrorView;
 import com.eschool.openapi.v1.model.PageViewDto;
 import com.eschool.openapi.v1.model.StudentDto;
 import io.swagger.annotations.Api;
@@ -48,11 +48,11 @@ public interface StudentsV1Api {
          }, tags={ "students-v1", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Successful response", response = StudentDto.class),
-        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorDto.class),
+        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorView.class),
         @ApiResponse(code = 401, message = "Access token is missing or invalid"),
-        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorDto.class),
-        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorDto.class),
-        @ApiResponse(code = 500, message = "Internal server error", response = ErrorDto.class) })
+        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorView.class),
+        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorView.class),
+        @ApiResponse(code = 500, message = "Internal server error", response = ErrorView.class) })
     @GetMapping(
         value = "/ui/students/{studentId}",
         produces = { "application/json" }
@@ -85,9 +85,9 @@ public interface StudentsV1Api {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Successful response", response = PageViewDto.class),
         @ApiResponse(code = 401, message = "Access token is missing or invalid"),
-        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorDto.class),
-        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorDto.class),
-        @ApiResponse(code = 500, message = "Internal server error", response = ErrorDto.class) })
+        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorView.class),
+        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorView.class),
+        @ApiResponse(code = 500, message = "Internal server error", response = ErrorView.class) })
     @GetMapping(
         value = "/ui/students",
         produces = { "application/json" }
@@ -111,11 +111,11 @@ public interface StudentsV1Api {
          }, tags={ "students-v1", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Successful response", response = CommonResponseDto.class),
-        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorDto.class),
+        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorView.class),
         @ApiResponse(code = 401, message = "Access token is missing or invalid"),
-        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorDto.class),
-        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorDto.class),
-        @ApiResponse(code = 500, message = "Internal server error", response = ErrorDto.class) })
+        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorView.class),
+        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorView.class),
+        @ApiResponse(code = 500, message = "Internal server error", response = ErrorView.class) })
     @PostMapping(
         value = "/ui/students",
         produces = { "application/json" },
@@ -142,11 +142,11 @@ public interface StudentsV1Api {
          }, tags={ "students-v1", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Successful response", response = CommonResponseDto.class),
-        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorDto.class),
+        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorView.class),
         @ApiResponse(code = 401, message = "Access token is missing or invalid"),
-        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorDto.class),
-        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorDto.class),
-        @ApiResponse(code = 500, message = "Internal server error", response = ErrorDto.class) })
+        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorView.class),
+        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorView.class),
+        @ApiResponse(code = 500, message = "Internal server error", response = ErrorView.class) })
     @PutMapping(
         value = "/ui/students/{studentId}",
         produces = { "application/json" },
@@ -170,10 +170,10 @@ public interface StudentsV1Api {
     }, tags={ "student-v1", })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successful response", response = CommonResponseDto.class),
-            @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorDto.class),
+            @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorView.class),
             @ApiResponse(code = 401, message = "Access token is missing or invalid"),
-            @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorDto.class),
-            @ApiResponse(code = 500, message = "Internal server error", response = ErrorDto.class) })
+            @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorView.class),
+            @ApiResponse(code = 500, message = "Internal server error", response = ErrorView.class) })
     @DeleteMapping(
             value = "/ui/students/{studentId}",
             produces = { "application/json" }
