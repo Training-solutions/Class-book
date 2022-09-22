@@ -86,7 +86,11 @@ public class StudentServiceImplUnitTest {
     public void givenStudent_whenUpdate_thenStudentUpdatedSuccessfully(){
         //given
         StudentEntity student = TestData.getStudentEntity();
-        Long id = student.getId();
+        Long id = 1L;
+        student.setId(id);
+        CredentialEntity credentialEntity = TestData.getCredentialEntity();
+        credentialEntity.setId(1L);
+        student.setCredential(credentialEntity);
         StudentEntity expected = TestData.getStudentEntity();
         expected.setLastName("Some text");
         when(studentRepository.findById(eq(id))).thenReturn(Optional.of(student));

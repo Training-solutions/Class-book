@@ -33,8 +33,7 @@ public class StudentResource implements StudentsV1Api {
     public ResponseEntity<PageViewDto<StudentDto>> getStudentList(Pageable pageable) {
         Page<StudentEntity> studentEntities = studentService.findAll(pageable);
         List<StudentDto> collect = studentEntities.getContent().stream().map(studentMapper::toDto).collect(Collectors.toList());
-        PageViewDto<StudentDto> pageView = new PageViewDto<>();
-        pageView.data(collect);
+        PageViewDto<StudentDto> pageView = new PageViewDto<>(collect);
         return ResponseEntity.ok(pageView);
     }
 

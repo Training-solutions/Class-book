@@ -32,42 +32,11 @@ public class StudentResourceIntegrationTest extends BaseIntegrationTest {
     @Autowired
     private StudentMapper studentMapper;
 
-    @Autowired
-    private StudentService studentService;
-
-    @Autowired
-    private StudentRepository studentRepository;
-
-    @Autowired
-    private GroupRepository groupRepository;
-
-    @Autowired
-    private SubjectRepository subjectRepository;
-
-    @Autowired
-    private CredentialRepository credentialRepository;
-
-    @Autowired
-    private TeacherRepository teacherRepository;
-
-    @After
-    public void clean(){
-        studentRepository.deleteAll();
-        groupRepository.deleteAll();
-        subjectRepository.deleteAll();
-        teacherRepository.deleteAll();
-        //needs to be the last
-        credentialRepository.deleteAll();
-    }
-
     @Test
-    public void givenStudent_whenSave_thenStudentSavedSuccessfully(){
+    public void givenStudent_whenSave_thenStudentSavedSuccessfully() {
         StudentDto studentDto = TestData.getStudentDto();
         CredentialDto credentialDto = TestData.getCredentialDto();
         studentDto.setCredential(credentialDto);
-//        GroupEntity groupEntity = groupRepository.findById(4L).get();
-//        SubjectEntity subjectEntity = subjectRepository.findById(4L).get();
-//        TeacherEntity teacherEntity = teacherRepository.findById(3L).get();
 
         given()
                 .port(port)
@@ -134,7 +103,7 @@ public class StudentResourceIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
-    public void givenStudent_whenFindById_thenExceptionThrows(){
+    public void givenStudent_whenFindById_thenExceptionThrows() {
         given()
                 .port(port)
                 .when()
