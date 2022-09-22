@@ -2,11 +2,9 @@ package com.eschool.openapi.v1.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
-import org.openapitools.jackson.nullable.JsonNullable;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -15,7 +13,7 @@ import javax.validation.constraints.*;
  */
 @ApiModel(description = "Error description")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-09-21T19:00:20.213481100+03:00[Europe/Helsinki]")
-public class ErrorDto   {
+public class ErrorView {
   @JsonProperty("timestamp")
   @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime timestamp;
@@ -32,7 +30,7 @@ public class ErrorDto   {
   @JsonProperty("path")
   private String path;
 
-  public ErrorDto timestamp(OffsetDateTime timestamp) {
+  public ErrorView timestamp(OffsetDateTime timestamp) {
     this.timestamp = timestamp;
     return this;
   }
@@ -54,7 +52,7 @@ public class ErrorDto   {
     this.timestamp = timestamp;
   }
 
-  public ErrorDto status(Integer status) {
+  public ErrorView status(Integer status) {
     this.status = status;
     return this;
   }
@@ -75,7 +73,7 @@ public class ErrorDto   {
     this.status = status;
   }
 
-  public ErrorDto errorCode(String errorCode) {
+  public ErrorView errorCode(String errorCode) {
     this.errorCode = errorCode;
     return this;
   }
@@ -95,7 +93,7 @@ public class ErrorDto   {
     this.errorCode = errorCode;
   }
 
-  public ErrorDto message(String message) {
+  public ErrorView message(String message) {
     this.message = message;
     return this;
   }
@@ -116,7 +114,7 @@ public class ErrorDto   {
     this.message = message;
   }
 
-  public ErrorDto path(String path) {
+  public ErrorView path(String path) {
     this.path = path;
     return this;
   }
@@ -146,7 +144,7 @@ public class ErrorDto   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ErrorDto error = (ErrorDto) o;
+    ErrorView error = (ErrorView) o;
     return Objects.equals(this.timestamp, error.timestamp) &&
         Objects.equals(this.status, error.status) &&
         Objects.equals(this.errorCode, error.errorCode) &&

@@ -43,9 +43,9 @@ public class PageViewDto<T>   {
     this.total = total;
   }
 
-  public PageViewDto data(List<T> data) {
+  public PageViewDto (List<T> data) {
     this.data = data;
-    return this;
+    this.total = data.size();
   }
 
   public PageViewDto addDataItem(T dataItem) {

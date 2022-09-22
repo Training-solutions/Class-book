@@ -1,14 +1,12 @@
 package com.eschool.openapi.v1.model;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.OffsetDateTime;
-import org.openapitools.jackson.nullable.JsonNullable;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import java.time.OffsetDateTime;
+import java.util.Objects;
 
 /**
  * Credential info
@@ -25,8 +23,8 @@ public class CredentialDto   {
   @JsonProperty("password")
   private String password;
 
-  @JsonProperty("isDeleted")
-  private Boolean isDeleted;
+  @JsonProperty("deleted")
+  private boolean deleted;
 
   @JsonProperty("creationDate")
   @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
@@ -96,8 +94,8 @@ public class CredentialDto   {
     this.password = password;
   }
 
-  public CredentialDto isDeleted(Boolean isDeleted) {
-    this.isDeleted = isDeleted;
+  public CredentialDto isDeleted(boolean deleted) {
+    this.deleted = deleted;
     return this;
   }
 
@@ -108,12 +106,12 @@ public class CredentialDto   {
   @ApiModelProperty(example = "false", value = "")
 
 
-  public Boolean isIsDeleted() {
-    return isDeleted;
+  public boolean isDeleted() {
+    return deleted;
   }
 
-  public void setIsDeleted(Boolean isDeleted) {
-    this.isDeleted = isDeleted;
+  public void setDeleted(boolean isDeleted) {
+    this.deleted = deleted;
   }
 
   public CredentialDto creationDate(OffsetDateTime creationDate) {
@@ -171,14 +169,14 @@ public class CredentialDto   {
     return Objects.equals(this.id, credential.id) &&
         Objects.equals(this.username, credential.username) &&
         Objects.equals(this.password, credential.password) &&
-        Objects.equals(this.isDeleted, credential.isDeleted) &&
+        Objects.equals(this.deleted, credential.deleted) &&
         Objects.equals(this.creationDate, credential.creationDate) &&
         Objects.equals(this.modifyingDate, credential.modifyingDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, username, password, isDeleted, creationDate, modifyingDate);
+    return Objects.hash(id, username, password, deleted, creationDate, modifyingDate);
   }
 
   @Override
@@ -189,7 +187,7 @@ public class CredentialDto   {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
-    sb.append("    isDeleted: ").append(toIndentedString(isDeleted)).append("\n");
+    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
     sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
     sb.append("    modifyingDate: ").append(toIndentedString(modifyingDate)).append("\n");
     sb.append("}");

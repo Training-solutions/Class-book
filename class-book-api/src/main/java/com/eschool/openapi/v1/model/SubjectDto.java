@@ -1,20 +1,14 @@
 package com.eschool.openapi.v1.model;
 
-import java.util.Objects;
-import com.eschool.openapi.v1.model.GroupDto;
-import com.eschool.openapi.v1.model.ScoreDto;
-import com.eschool.openapi.v1.model.StudentDto;
-import com.eschool.openapi.v1.model.TeacherDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import javax.validation.Valid;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.openapitools.jackson.nullable.JsonNullable;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import java.util.Objects;
 
 /**
  * Subject info
@@ -44,8 +38,8 @@ public class SubjectDto   {
   @Valid
   private List<TeacherDto> teachers = null;
 
-  @JsonProperty("isDeleted")
-  private Boolean isDeleted;
+  @JsonProperty("deleted")
+  private boolean deleted;
 
   @JsonProperty("creationDate")
   @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
@@ -211,8 +205,8 @@ public class SubjectDto   {
     this.teachers = teachers;
   }
 
-  public SubjectDto isDeleted(Boolean isDeleted) {
-    this.isDeleted = isDeleted;
+  public SubjectDto isDeleted(boolean deleted) {
+    this.deleted = deleted;
     return this;
   }
 
@@ -223,12 +217,12 @@ public class SubjectDto   {
   @ApiModelProperty(example = "false", value = "")
 
 
-  public Boolean isIsDeleted() {
-    return isDeleted;
+  public boolean isDeleted() {
+    return deleted;
   }
 
-  public void setIsDeleted(Boolean isDeleted) {
-    this.isDeleted = isDeleted;
+  public void setDeleted(boolean deleted) {
+    this.deleted = deleted;
   }
 
   public SubjectDto creationDate(OffsetDateTime creationDate) {
@@ -289,14 +283,14 @@ public class SubjectDto   {
         Objects.equals(this.scores, subject.scores) &&
         Objects.equals(this.students, subject.students) &&
         Objects.equals(this.teachers, subject.teachers) &&
-        Objects.equals(this.isDeleted, subject.isDeleted) &&
+        Objects.equals(this.deleted, subject.deleted) &&
         Objects.equals(this.creationDate, subject.creationDate) &&
         Objects.equals(this.modifyingDate, subject.modifyingDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, subjectTitle, groups, scores, students, teachers, isDeleted, creationDate, modifyingDate);
+    return Objects.hash(id, subjectTitle, groups, scores, students, teachers, deleted, creationDate, modifyingDate);
   }
 
   @Override
@@ -310,7 +304,7 @@ public class SubjectDto   {
     sb.append("    scores: ").append(toIndentedString(scores)).append("\n");
     sb.append("    students: ").append(toIndentedString(students)).append("\n");
     sb.append("    teachers: ").append(toIndentedString(teachers)).append("\n");
-    sb.append("    isDeleted: ").append(toIndentedString(isDeleted)).append("\n");
+    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
     sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
     sb.append("    modifyingDate: ").append(toIndentedString(modifyingDate)).append("\n");
     sb.append("}");
