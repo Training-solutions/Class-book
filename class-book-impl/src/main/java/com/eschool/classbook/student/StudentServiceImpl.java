@@ -47,7 +47,6 @@ public class StudentServiceImpl implements StudentService {
     public StudentEntity update(Long id, StudentEntity studentEntity) {
         studentRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Student with id %d wasn't found", id)));
-        studentEntity.setModifyingDate(LocalDateTime.now());
         studentEntity.getCredential().setDeleted(true);
         return studentRepository.save(studentEntity);
     }

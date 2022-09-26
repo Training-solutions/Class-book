@@ -47,7 +47,6 @@ public class TeacherServiceImpl implements TeacherService{
     public TeacherEntity update(Long id, TeacherEntity teacherEntity) {
         teacherRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Teacher with id %d wasn't found", id)));
-        teacherEntity.setModifyingDate(LocalDateTime.now());
         return teacherRepository.save(teacherEntity);
     }
 }

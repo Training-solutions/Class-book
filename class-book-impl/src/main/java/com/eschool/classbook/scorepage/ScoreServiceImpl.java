@@ -31,7 +31,6 @@ public class ScoreServiceImpl implements ScoreService {
     public void deleteById(Long id) {
         ScoreEntity score = scoreRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Score with id %d wasn't found", id)));
-        score.setModifyingDate(LocalDateTime.now());
         score.setDeleted(true);
         scoreRepository.save(score);
     }
@@ -45,7 +44,6 @@ public class ScoreServiceImpl implements ScoreService {
     public ScoreEntity update(Long id, ScoreEntity scoreEntity) {
         scoreRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Score with id %d wasn't found", id)));
-        scoreEntity.setModifyingDate(LocalDateTime.now());
         return scoreRepository.save(scoreEntity);
     }
 }
