@@ -7,8 +7,7 @@ import com.eschool.classbook.scorepage.ScoreEntity;
 import com.eschool.classbook.student.StudentEntity;
 import com.eschool.classbook.subject.SubjectEntity;
 import com.eschool.classbook.teacher.TeacherEntity;
-import com.eschool.openapi.v1.model.CredentialDto;
-import com.eschool.openapi.v1.model.StudentDto;
+import com.eschool.openapi.v1.model.*;
 
 import java.time.LocalDateTime;
 
@@ -39,6 +38,12 @@ public class TestData {
         return subjectEntity;
     }
 
+    public static SubjectDto getSubjectDto(){
+        SubjectDto subjectDto = new SubjectDto();
+        subjectDto.setSubjectTitle("Math");
+        return subjectDto;
+    }
+
     public static ScoreEntity getScoreEntity() {
         ScoreEntity scoreEntity = new ScoreEntity();
         scoreEntity.setScore(Score.ELEVEN);
@@ -58,6 +63,13 @@ public class TestData {
         return teacherEntity;
     }
 
+    public static TeacherDto getTeacherDto() {
+        TeacherDto teacherDto = new TeacherDto();
+        teacherDto.setFirstName("Leo");
+        teacherDto.setLastName("Davidson");
+        return teacherDto;
+    }
+
     public static GroupEntity getGroupEntity() {
         GroupEntity groupEntity = new GroupEntity();
         groupEntity.setGroupTitle("1A");
@@ -67,13 +79,19 @@ public class TestData {
         return groupEntity;
     }
 
+    public static GroupDto getGroupDto(){
+        GroupDto groupDto = new GroupDto();
+        groupDto.setGroupTitle("1A");
+        return groupDto;
+    }
+
     public static CredentialEntity getCredentialEntity() {
         CredentialEntity credentialEntity = new CredentialEntity();
         credentialEntity.setUsername("david_emerston");
         credentialEntity.setPassword("qwerty");
         credentialEntity.setCreationDate(LocalDateTime.now());
         credentialEntity.setModifyingDate(LocalDateTime.now());
-        credentialEntity.setDeleted(true);
+        credentialEntity.setDeleted(false);
         return credentialEntity;
     }
 

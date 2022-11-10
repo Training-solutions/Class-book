@@ -1,5 +1,6 @@
 package com.eschool.classbook.student;
 
+import com.eschool.classbook.credential.CredentialRepository;
 import com.eschool.classbook.exception.ClassBookException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

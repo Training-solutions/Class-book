@@ -3,6 +3,9 @@ package com.eschool.classbook.subject;
 import com.eschool.classbook.BaseIntegrationTest;
 import com.eschool.classbook.TestData;
 import com.eschool.classbook.exception.ClassBookException;
+import com.eschool.classbook.scorepage.Score;
+import com.eschool.classbook.scorepage.ScoreEntity;
+import com.eschool.classbook.scorepage.ScoreService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -87,12 +90,13 @@ public class SubjectServiceIntegrationTests extends BaseIntegrationTest {
     public void givenSubject_whenUpdate_thenUpdatedSuccessfully(){
         //given
         String subjectTitle = "Programming";
-        Long Id = 1L;
-        SubjectEntity expexted = subjectService.findById(Id);
+        Long id = 1L;
+        SubjectEntity expexted = subjectService.findById(id);
         expexted.setSubjectTitle(subjectTitle);
 
+
         //when
-        SubjectEntity actual = subjectService.update(Id, expexted);
+        SubjectEntity actual = subjectService.update(id, expexted);
 
         //then
         assertEquals(subjectTitle, actual.getSubjectTitle());
