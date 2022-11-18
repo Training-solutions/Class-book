@@ -1,11 +1,9 @@
 package com.eschool.classbook.group;
 
 import com.eschool.classbook.BaseMapper;
-import com.eschool.classbook.student.StudentEntity;
 import com.eschool.classbook.subject.SubjectEntity;
 import com.eschool.classbook.teacher.TeacherEntity;
 import com.eschool.openapi.v1.model.GroupDto;
-import com.eschool.openapi.v1.model.StudentDto;
 import com.eschool.openapi.v1.model.SubjectDto;
 import com.eschool.openapi.v1.model.TeacherDto;
 import org.mapstruct.Mapper;
