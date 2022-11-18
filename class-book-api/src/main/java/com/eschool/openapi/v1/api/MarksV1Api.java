@@ -7,15 +7,16 @@ package com.eschool.openapi.v1.api;
 
 import com.eschool.openapi.v1.model.CommonResponseDto;
 import com.eschool.openapi.v1.model.ErrorView;
+import com.eschool.openapi.v1.model.MarkDto;
+import java.time.OffsetDateTime;
 import com.eschool.openapi.v1.model.PageViewDto;
-import com.eschool.openapi.v1.model.ScoreDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.Authorization;
-import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,45 +25,90 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
+import java.util.List;
+@javax.annotation.Generated(
+    value = "org.openapitools.codegen.languages.SpringCodegen",
+    date = "2022-11-15T10:48:04.327672500+02:00[Europe/Helsinki]")
 @Validated
-@Api(value = "ScoresV1", description = "the ScoresV1 API")
-public interface ScoresV1Api {
+@Api(value = "MarksV1", description = "the MarksV1 API")
+public interface MarksV1Api {
 
     /**
-     * DELETE /ui/scores/{scoreId} : Score deleting
+     * DELETE /ui/marks/{markId} : Mark deleting
      *
-     * @param scoreId Id for score deleting (required)
+     * @param markId Id for mark deleting (required)
      * @return Successful response (status code 200)
      *         or Supplied request data are invalid (status code 400)
      *         or Access token is missing or invalid (status code 401)
      *         or User is not granted sufficient privileges (status code 403)
      *         or Internal server error (status code 500)
      */
-    @ApiOperation(value = "Score deleting", nickname = "deleteScore", notes = "", response = CommonResponseDto.class, authorizations = {
-        
-        @Authorization(value = "bearerAuth")
-         }, tags={ "scores-v1", })
-    @ApiResponses(value = { 
+    @ApiOperation(
+        value = "Mark deleting",
+        nickname = "deleteMark",
+        notes = "",
+        response = CommonResponseDto.class,
+        authorizations = {
+            @Authorization(value = "bearerAuth")
+        },
+        tags={ "marks-v1", }
+    )
+    @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Successful response", response = CommonResponseDto.class),
         @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorView.class),
         @ApiResponse(code = 401, message = "Access token is missing or invalid"),
         @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorView.class),
         @ApiResponse(code = 500, message = "Internal server error", response = ErrorView.class) })
     @DeleteMapping(
-        value = "/ui/scores/{scoreId}",
+        value = "/ui/marks/{markId}",
         produces = { "application/json" }
     )
-    ResponseEntity<CommonResponseDto> deleteScore(@ApiParam(value = "Id for score deleting",required=true) @PathVariable("scoreId") Long scoreId);
+    ResponseEntity<CommonResponseDto> deleteMark(
+        @ApiParam(value = "Id for mark deleting", required=true) @PathVariable("markId") Long markId);
 
 
     /**
-     * GET /ui/scores : List of Scores
+     * GET /ui/marks/{markId} : Information about concrete mark
+     *
+     * @param markId Mark identifier (required)
+     * @return Successful response (status code 200)
+     *         or Supplied request data are invalid (status code 400)
+     *         or Access token is missing or invalid (status code 401)
+     *         or User is not granted sufficient privileges (status code 403)
+     *         or Resource was not found (status code 404)
+     *         or Internal server error (status code 500)
+     */
+    @ApiOperation(
+        value = "Information about concrete mark",
+        nickname = "getMarkById",
+        notes = "",
+        response = MarkDto.class,
+        authorizations = {
+            @Authorization(value = "bearerAuth")
+         },
+        tags={ "marks-v1", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Successful response", response = MarkDto.class),
+        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorView.class),
+        @ApiResponse(code = 401, message = "Access token is missing or invalid"),
+        @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorView.class),
+        @ApiResponse(code = 404, message = "Resource was not found", response = ErrorView.class),
+        @ApiResponse(code = 500, message = "Internal server error", response = ErrorView.class) })
+    @GetMapping(
+        value = "/ui/marks/{markId}",
+        produces = { "application/json" }
+    )
+    ResponseEntity<MarkDto> getMarkById(
+        @ApiParam(value = "Mark identifier", required=true) @PathVariable("markId") Long markId);
+
+    /**
+     * GET /ui/marks : List of Marks
      *
      * @param page Page number (optional)
-     * @param size Scores count on page (optional)
+     * @param size Marks count on page (optional)
      * @param sort Sort criteria (can have multiple declarations - id, creationDate, changingDate, isDeleted) (optional, default to new ArrayList&lt;&gt;())
      * @param id Filter by id (optional, default to new ArrayList&lt;&gt;())
      * @param creationDate Filter by creationDate (optional)
@@ -74,55 +120,39 @@ public interface ScoresV1Api {
      *         or Resource was not found (status code 404)
      *         or Internal server error (status code 500)
      */
-    @ApiOperation(value = "List of Scores", nickname = "getScoreList", notes = "", response = PageViewDto.class, authorizations = {
-
+    @ApiOperation(
+        value = "List of Marks",
+        nickname = "getMarkList",
+        notes = "",
+        response = PageViewDto.class,
+        authorizations = {
             @Authorization(value = "bearerAuth")
-    }, tags={ "score-v1", })
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successful response", response = PageViewDto.class),
-            @ApiResponse(code = 401, message = "Access token is missing or invalid"),
-            @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorView.class),
-            @ApiResponse(code = 404, message = "Resource was not found", response = ErrorView.class),
-            @ApiResponse(code = 500, message = "Internal server error", response = ErrorView.class) })
-    @GetMapping(
-            value = "/ui/scores",
-            produces = { "application/json" }
-    )
-    ResponseEntity<PageViewDto<ScoreDto>> getScoreList(Pageable pageable);
-
-    /**
-     * GET /ui/scores/{scoreId} : Information about concrete score
-     *
-     * @param scoreId Score identifier (required)
-     * @return Successful response (status code 200)
-     *         or Supplied request data are invalid (status code 400)
-     *         or Access token is missing or invalid (status code 401)
-     *         or User is not granted sufficient privileges (status code 403)
-     *         or Resource was not found (status code 404)
-     *         or Internal server error (status code 500)
-     */
-    @ApiOperation(value = "Information about concrete score", nickname = "getScoreById", notes = "", response = ScoreDto.class, authorizations = {
-        
-        @Authorization(value = "bearerAuth")
-         }, tags={ "scores-v1", })
+         },
+        tags={ "marks-v1", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Successful response", response = ScoreDto.class),
-        @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorView.class),
+        @ApiResponse(code = 200, message = "Successful response", response = PageViewDto.class),
         @ApiResponse(code = 401, message = "Access token is missing or invalid"),
         @ApiResponse(code = 403, message = "User is not granted sufficient privileges", response = ErrorView.class),
         @ApiResponse(code = 404, message = "Resource was not found", response = ErrorView.class),
         @ApiResponse(code = 500, message = "Internal server error", response = ErrorView.class) })
     @GetMapping(
-        value = "/ui/scores/{scoreId}",
+        value = "/ui/marks",
         produces = { "application/json" }
     )
-    ResponseEntity<ScoreDto> getScoreById(@ApiParam(value = "Score identifier",required=true) @PathVariable("scoreId") Long scoreId);
+    ResponseEntity<PageViewDto> getMarkList(
+        @ApiParam(value = "Page number") @Valid @RequestParam(value = "page", required = false) Integer page,
+        @ApiParam(value = "Marks count on page") @Valid @RequestParam(value = "size", required = false) Integer size,
+        @ApiParam(value = "Sort criteria (can have multiple declarations - id, creationDate, changingDate, isDeleted)") @Valid @RequestParam(value = "sort", required = false) List<String> sort,
+        @ApiParam(value = "Filter by id") @Valid @RequestParam(value = "id", required = false) List<Long> id,
+        @ApiParam(value = "Filter by creationDate") @Valid @RequestParam(value = "creationDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime creationDate,
+        @ApiParam(value = "Filter by changingDate") @Valid @RequestParam(value = "changingDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime changingDate,
+        @ApiParam(value = "Filter by isDeleted") @Valid @RequestParam(value = "isDeleted", required = false) Boolean isDeleted);
 
 
     /**
-     * POST /ui/scores : Creating new score
+     * POST /ui/marks : Creating new marks
      *
-     * @param scoreDto Callback payload (optional)
+     * @param markDto Callback payload (optional)
      * @return Successful response (status code 200)
      *         or Supplied request data are invalid (status code 400)
      *         or Access token is missing or invalid (status code 401)
@@ -130,10 +160,15 @@ public interface ScoresV1Api {
      *         or Resource was not found (status code 404)
      *         or Internal server error (status code 500)
      */
-    @ApiOperation(value = "Creating new score", nickname = "postScore", notes = "", response = CommonResponseDto.class, authorizations = {
-        
-        @Authorization(value = "bearerAuth")
-         }, tags={ "scores-v1", })
+    @ApiOperation(
+        value = "Creating new marks",
+        nickname = "postMark",
+        notes = "",
+        response = CommonResponseDto.class,
+        authorizations = {
+            @Authorization(value = "bearerAuth")
+         },
+        tags={ "marks-v1", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Successful response", response = CommonResponseDto.class),
         @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorView.class),
@@ -142,18 +177,18 @@ public interface ScoresV1Api {
         @ApiResponse(code = 404, message = "Resource was not found", response = ErrorView.class),
         @ApiResponse(code = 500, message = "Internal server error", response = ErrorView.class) })
     @PostMapping(
-        value = "/ui/scores",
+        value = "/ui/marks",
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    ResponseEntity<CommonResponseDto> postScore(@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) ScoreDto scoreDto);
+    ResponseEntity<CommonResponseDto> postMark(@ApiParam(value = "Callback payload") @Valid @RequestBody(required = false) MarkDto markDto);
 
 
     /**
-     * PUT /ui/scores/{scoreId} : Score updating
+     * PUT /ui/marks/{markId} : Mark updating
      *
-     * @param scoreId Id for score updating (required)
-     * @param scoreDto Callback payload (optional)
+     * @param markId Id for mark updating (required)
+     * @param markDto Callback payload (optional)
      * @return Successful response (status code 200)
      *         or Supplied request data are invalid (status code 400)
      *         or Access token is missing or invalid (status code 401)
@@ -161,10 +196,15 @@ public interface ScoresV1Api {
      *         or Resource was not found (status code 404)
      *         or Internal server error (status code 500)
      */
-    @ApiOperation(value = "Score updating", nickname = "updateScore", notes = "", response = CommonResponseDto.class, authorizations = {
-        
-        @Authorization(value = "bearerAuth")
-         }, tags={ "scores-v1", })
+    @ApiOperation(
+        value = "Mark updating",
+        nickname = "updateMark",
+        notes = "",
+        response = CommonResponseDto.class,
+        authorizations = {
+            @Authorization(value = "bearerAuth")
+         },
+        tags={ "marks-v1", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Successful response", response = CommonResponseDto.class),
         @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorView.class),
@@ -173,10 +213,12 @@ public interface ScoresV1Api {
         @ApiResponse(code = 404, message = "Resource was not found", response = ErrorView.class),
         @ApiResponse(code = 500, message = "Internal server error", response = ErrorView.class) })
     @PutMapping(
-        value = "/ui/scores/{scoreId}",
+        value = "/ui/marks/{markId}",
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    ResponseEntity<CommonResponseDto> updateScore(@ApiParam(value = "Id for score updating",required=true) @PathVariable("scoreId") Long scoreId,@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) ScoreDto scoreDto);
+    ResponseEntity<CommonResponseDto> updateMark(
+        @ApiParam(value = "Id for mark updating",required=true) @PathVariable("markId") Long markId,
+        @ApiParam(value = "Callback payload") @Valid @RequestBody(required = false) MarkDto markDto);
 
 }

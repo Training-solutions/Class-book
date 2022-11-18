@@ -12,21 +12,21 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Score info
+ * Mark info
  */
-@ApiModel(description = "Score info")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-09-21T19:00:20.213481100+03:00[Europe/Helsinki]")
-public class ScoreDto   {
+@ApiModel(description = "Mark info")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-11-15T10:48:04.327672500+02:00[Europe/Helsinki]")
+public class MarkDto   {
   @JsonProperty("id")
   private Long id;
 
   /**
-   * Gets or Sets score
+   * Gets or Sets mark
    */
-  public enum ScoreEnum {
-    ONE (1),
+  public enum MarkEnum {
+    ONE(1),
     
-    TWO (2),
+    TWO(2),
     
     THREE(3),
     
@@ -34,23 +34,23 @@ public class ScoreDto   {
     
     FIVE(5),
     
-    SIX (6),
+    SIX(6),
     
-    SEVEN (7),
+    SEVEN(7),
     
-    EIGHT (8),
+    EIGHT(8),
     
-    NINE (9),
+    NINE(9),
     
-    TEN (10),
+    TEN(10),
     
-    ELEVEN (11),
+    ELEVEN(11),
     
-    TWELVE (12);
+    TWELVE(12);
 
     private Integer value;
 
-    ScoreEnum(Integer value) {
+    MarkEnum(Integer value) {
       this.value = value;
     }
 
@@ -65,8 +65,8 @@ public class ScoreDto   {
     }
 
     @JsonCreator
-    public static ScoreEnum fromValue(Integer value) {
-      for (ScoreEnum b : ScoreEnum.values()) {
+    public static MarkEnum fromValue(Integer value) {
+      for (MarkEnum b : MarkEnum.values()) {
         if (b.value.equals(value)) {
           return b;
         }
@@ -75,8 +75,8 @@ public class ScoreDto   {
     }
   }
 
-  @JsonProperty("score")
-  private ScoreEnum score;
+  @JsonProperty("mark")
+  private MarkEnum mark;
 
   @JsonProperty("isDeleted")
   private Boolean isDeleted;
@@ -89,16 +89,16 @@ public class ScoreDto   {
   @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime modifyingDate;
 
-  public ScoreDto id(Long id) {
+  public MarkDto id(Long id) {
     this.id = id;
     return this;
   }
 
   /**
-   * Score Id
+   * Mark Id
    * @return id
   */
-  @ApiModelProperty(example = "186", value = "Score Id")
+  @ApiModelProperty(example = "186", value = "Mark Id")
 
 
   public Long getId() {
@@ -109,27 +109,27 @@ public class ScoreDto   {
     this.id = id;
   }
 
-  public ScoreDto score(ScoreEnum score) {
-    this.score = score;
+  public MarkDto mark(MarkEnum mark) {
+    this.mark = mark;
     return this;
   }
 
   /**
-   * Get score
-   * @return score
+   * Get mark
+   * @return mark
   */
   @ApiModelProperty(value = "")
 
 
-  public ScoreEnum getScore() {
-    return score;
+  public MarkEnum getMark() {
+    return mark;
   }
 
-  public void setScore(ScoreEnum score) {
-    this.score = score;
+  public void setMark(MarkEnum mark) {
+    this.mark = mark;
   }
 
-  public ScoreDto isDeleted(Boolean isDeleted) {
+  public MarkDto isDeleted(Boolean isDeleted) {
     this.isDeleted = isDeleted;
     return this;
   }
@@ -149,7 +149,7 @@ public class ScoreDto   {
     this.isDeleted = isDeleted;
   }
 
-  public ScoreDto creationDate(OffsetDateTime creationDate) {
+  public MarkDto creationDate(OffsetDateTime creationDate) {
     this.creationDate = creationDate;
     return this;
   }
@@ -170,7 +170,7 @@ public class ScoreDto   {
     this.creationDate = creationDate;
   }
 
-  public ScoreDto modifyingDate(OffsetDateTime modifyingDate) {
+  public MarkDto modifyingDate(OffsetDateTime modifyingDate) {
     this.modifyingDate = modifyingDate;
     return this;
   }
@@ -200,26 +200,26 @@ public class ScoreDto   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ScoreDto score = (ScoreDto) o;
-    return Objects.equals(this.id, score.id) &&
-        Objects.equals(this.score, score.score) &&
-        Objects.equals(this.isDeleted, score.isDeleted) &&
-        Objects.equals(this.creationDate, score.creationDate) &&
-        Objects.equals(this.modifyingDate, score.modifyingDate);
+    MarkDto mark = (MarkDto) o;
+    return Objects.equals(this.id, mark.id) &&
+        Objects.equals(this.mark, mark.mark) &&
+        Objects.equals(this.isDeleted, mark.isDeleted) &&
+        Objects.equals(this.creationDate, mark.creationDate) &&
+        Objects.equals(this.modifyingDate, mark.modifyingDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, score, isDeleted, creationDate, modifyingDate);
+    return Objects.hash(id, mark, isDeleted, creationDate, modifyingDate);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ScoreDto {\n");
+    sb.append("class MarkDto {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    score: ").append(toIndentedString(score)).append("\n");
+    sb.append("    mark: ").append(toIndentedString(mark)).append("\n");
     sb.append("    isDeleted: ").append(toIndentedString(isDeleted)).append("\n");
     sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
     sb.append("    modifyingDate: ").append(toIndentedString(modifyingDate)).append("\n");
