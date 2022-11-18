@@ -2,12 +2,11 @@ package com.eschool.classbook;
 
 import com.eschool.classbook.credential.CredentialRepository;
 import com.eschool.classbook.group.GroupRepository;
-import com.eschool.classbook.scorepage.ScoreRepository;
+import com.eschool.classbook.mark.MarkRepository;
 import com.eschool.classbook.student.StudentRepository;
 import com.eschool.classbook.subject.SubjectRepository;
 import com.eschool.classbook.teacher.TeacherRepository;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,7 +31,7 @@ public abstract class BaseIntegrationTest {
     public GroupRepository groupRepository;
     public SubjectRepository subjectRepository;
     public TeacherRepository teacherRepository;
-    private ScoreRepository scoreRepository;
+    private MarkRepository markRepository;
     public CredentialRepository credentialRepository;
 
     @Autowired
@@ -56,8 +55,8 @@ public abstract class BaseIntegrationTest {
     }
 
     @Autowired
-    public final void setScoreRepository(ScoreRepository scoreRepository) {
-        this.scoreRepository = scoreRepository;
+    public final void setScoreRepository(MarkRepository markRepository) {
+        this.markRepository = markRepository;
     }
 
     @Autowired
@@ -73,7 +72,7 @@ public abstract class BaseIntegrationTest {
         groupRepository.deleteAll();
         teacherRepository.deleteAll();
         subjectRepository.deleteAll();
-        scoreRepository.deleteAll();
+        markRepository.deleteAll();
 
         //needs to be the last
         credentialRepository.deleteAll();

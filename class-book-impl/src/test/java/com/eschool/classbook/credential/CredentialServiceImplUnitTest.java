@@ -12,7 +12,10 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class CredentialServiceImplUnitTest {
     private final CredentialRepository credentialRepository = mock(CredentialRepository.class);

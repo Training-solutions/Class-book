@@ -10,7 +10,11 @@ import org.springframework.data.domain.PageRequest;
 
 import java.util.Objects;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
 public class CredentialServiceIntegrationTest extends BaseIntegrationTest {
 

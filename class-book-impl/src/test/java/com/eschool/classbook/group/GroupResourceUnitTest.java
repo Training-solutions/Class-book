@@ -5,19 +5,21 @@ import com.eschool.classbook.exception.ClassBookException;
 import com.eschool.openapi.v1.api.GroupsV1Api;
 import com.eschool.openapi.v1.model.CommonResponseDto;
 import com.eschool.openapi.v1.model.GroupDto;
-import static org.junit.Assert.assertThrows;
-
 import com.eschool.openapi.v1.model.PageViewDto;
 import org.junit.Test;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
+import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 
 public class GroupResourceUnitTest {

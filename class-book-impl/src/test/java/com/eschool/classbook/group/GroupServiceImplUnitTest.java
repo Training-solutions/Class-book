@@ -7,14 +7,15 @@ import org.mockito.Mockito;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import static org.junit.Assert.assertThrows;
-
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class GroupServiceImplUnitTest {
     private GroupRepository groupRepository = mock(GroupRepository.class);

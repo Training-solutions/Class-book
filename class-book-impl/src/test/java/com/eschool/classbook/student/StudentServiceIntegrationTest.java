@@ -12,10 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import java.util.HashSet;
 import java.util.Objects;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
 public class StudentServiceIntegrationTest extends BaseIntegrationTest {
     @Autowired
@@ -45,9 +48,9 @@ public class StudentServiceIntegrationTest extends BaseIntegrationTest {
         assertEquals(expected.getCredential(), actual.getCredential());
         assertEquals(expected.getGroup(), actual.getGroup());
         assertFalse(actual.getTeachers().isEmpty());
-        assertEquals(new HashSet<>(expected.getTeachers()), actual.getTeachers());
+        assertEquals(expected.getTeachers(), actual.getTeachers());
         assertFalse(actual.getSubjects().isEmpty());
-        assertEquals(new HashSet<>(expected.getSubjects()), actual.getSubjects());
+        assertEquals(expected.getSubjects(), actual.getSubjects());
     }
 
     @Test

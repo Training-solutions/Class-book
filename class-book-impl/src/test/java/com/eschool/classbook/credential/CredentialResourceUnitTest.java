@@ -15,7 +15,11 @@ import java.util.List;
 
 import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class CredentialResourceUnitTest {
 
@@ -102,8 +106,8 @@ public class CredentialResourceUnitTest {
         CredentialEntity expected = TestData.getCredentialEntity();
         expected.setUsername("Some username");
         CredentialDto credentialDto = TestData.getCredentialDto();
-        when(credentialService.update(eq(id), credentialEntity)).thenReturn(expected);
-        when(credentialMapper.toEntity(credentialDto)).thenReturn(credentialEntity);
+        when(credentialMapper.toEntity(eq(credentialDto))).thenReturn(credentialEntity);
+        when(credentialService.update(eq(id), eq(credentialEntity))).thenReturn(expected);
 
         //when
         ResponseEntity<CommonResponseDto> response = credentialResource.updateCredential(id, credentialDto);
