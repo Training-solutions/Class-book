@@ -5,11 +5,12 @@ info:
   version: 1.0.0
 tags:
   - name: groups-v1
-  - name: scores-v1
+  - name: marks-v1
   - name: students-v1
   - name: subjects-v1
   - name: teachers-v1
   - name: credentials-v1
+  - name: evaluationRecords-v1
 servers:
   - url: http://localhost:8085
 
@@ -231,12 +232,12 @@ paths:
         - bearerAuth: [ ]
 
 
-  /ui/scores:
+  /ui/marks:
     get:
       tags:
-        - score-v1
-      summary: List of Scores
-      operationId: getScoreList
+        - marks-v1
+      summary: List of Marks
+      operationId: getMarkList
       parameters:
         - name: page
           in: query
@@ -247,7 +248,7 @@ paths:
             format: int32
         - name: size
           in: query
-          description: Scores count on page
+          description: Marks count on page
           example: 25
           schema:
             type: integer
@@ -306,15 +307,15 @@ paths:
 
     post:
       tags:
-        - scores-v1
-      summary: Creating new score
-      operationId: postScore
+        - marks-v1
+      summary: Creating new marks
+      operationId: postMark
       requestBody:
         description: Callback payload
         content:
           'application/json':
             schema:
-              $ref: '#/components/schemas/Score'
+              $ref: '#/components/schemas/Mark'
       responses:
         '200':
           description: Successful response
@@ -335,16 +336,16 @@ paths:
       security:
         - bearerAuth: [ ]
 
-  /ui/scores/{scoreId}:
+  /ui/marks/{markId}:
     get:
       tags:
-        - scores-v1
-      summary: Information about concrete score
-      operationId: getScoreById
+        - marks-v1
+      summary: Information about concrete mark
+      operationId: getMarkById
       parameters:
-        - name: scoreId
+        - name: markId
           in: path
-          description: Score identifier
+          description: Mark identifier
           required: true
           schema:
             type: integer
@@ -355,7 +356,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Score'
+                $ref: '#/components/schemas/Mark'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -371,13 +372,13 @@ paths:
 
     put:
       tags:
-        - scores-v1
-      summary: Score updating
-      operationId: updateScore
+        - marks-v1
+      summary: Mark updating
+      operationId: updateMark
       parameters:
-        - name: scoreId
+        - name: markId
           in: path
-          description: Id for score updating
+          description: Id for mark updating
           required: true
           schema:
             type: integer
@@ -387,7 +388,7 @@ paths:
         content:
           'application/json':
             schema:
-              $ref: '#/components/schemas/Score'
+              $ref: '#/components/schemas/Mark'
       responses:
         '200':
           description: Successful response
@@ -410,13 +411,13 @@ paths:
 
     delete:
       tags:
-        - scores-v1
-      summary: Score deleting
-      operationId: deleteScore
+        - marks-v1
+      summary: Mark deleting
+      operationId: deleteMark
       parameters:
-        - name: scoreId
+        - name: markId
           in: path
-          description: Id for score deleting
+          description: Id for mark deleting
           required: true
           schema:
             type: integer
@@ -438,7 +439,6 @@ paths:
           $ref: '#/components/responses/InternalServerError'
       security:
         - bearerAuth: [ ]
-
 
   /ui/students:
     get:
@@ -1323,6 +1323,75 @@ paths:
       security:
         - bearerAuth: [ ]
 
+  /ui/evaluationRecords:
+    get:
+      tags:
+        - evaluationRecords-v1
+      summary: Get list of evaluationRecords by subject, teacher, group, student, startDate and endDate
+      operationId: getEvaluationRecords
+      parameters:
+        - name: subjectId
+          in: query
+          description: Subject identifier
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: teacherId
+          in: query
+          description: Teacher identifier
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: groupId
+          in: query
+          description: GroupIdentifier
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: studentId
+          in: query
+          description: Student identifier
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: startDate
+          in: query
+          description: Student identifier
+          required: false
+          schema:
+            type: string
+            format: data-type
+        - name: endDate
+          in: query
+          description: Student identifier
+          required: false
+          schema:
+            type: string
+            format: data-type
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageView'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
 components:
   schemas:
 
@@ -1361,17 +1430,17 @@ components:
             type: string
             format: date-time
 
-    Score:
+    Mark:
       type: object
-      description: Score info
+      description: Mark info
       example: 4
       properties:
         id:
           type: integer
           format: int64
-          description: Score Id
+          description: Mark Id
           example: 186
-        score:
+        mark:
           format: integer
           enum:
             - ONE(1)
@@ -1403,7 +1472,7 @@ components:
         id:
           type: integer
           format: int64
-          description: Score Id
+          description: mark Id
           example: 186
         firstName:
           type: string
@@ -1440,7 +1509,7 @@ components:
         id:
           type: integer
           format: int64
-          description: Score Id
+          description: Mark Id
           example: 186
         subjectTitle:
           type: string
@@ -1449,10 +1518,10 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Group"
-        scores:
+        marks:
           type: array
           items:
-            $ref: "#/components/schemas/Score"
+            $ref: "#/components/schemas/Mark"
         students:
           type: array
           items:
@@ -1478,7 +1547,7 @@ components:
         id:
           type: integer
           format: int64
-          description: Score Id
+          description: Mark Id
           example: 186
         firstName:
           type: string
@@ -1510,6 +1579,36 @@ components:
           type: string
           format: date-time
 
+    EvaluationRecord:
+      type: object
+      description: Evaluation record info
+      properties:
+        studentFirstName:
+          type: string
+          example:
+        studentLastName:
+          type: string
+          example:
+        groupName:
+          type: string
+          example: 1A
+        subjectName:
+          type: string
+          example: MATH
+        teacherFirstName:
+          type: string
+          example:
+        teacherLastName:
+          type: string
+          example:
+        marks:
+          type: array
+          items:
+            $ref: "#/components/schemas/Mark"
+        creationDate:
+          type: string
+          format: date-time
+
     Credential:
       type: object
       description: Credential info
@@ -1517,7 +1616,7 @@ components:
         id:
           type: integer
           format: int64
-          description: Score Id
+          description: Credential Id
           example: 186
         username:
           type: string
