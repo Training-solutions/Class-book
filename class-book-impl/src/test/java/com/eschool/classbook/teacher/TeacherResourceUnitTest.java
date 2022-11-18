@@ -15,7 +15,11 @@ import java.util.List;
 
 import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class TeacherResourceUnitTest {
     private final TeacherService teacherService = mock(TeacherService.class);
@@ -100,8 +104,8 @@ public class TeacherResourceUnitTest {
         TeacherEntity expected = TestData.getTeacherEntity();
         expected.setFirstName("Some name");
         TeacherDto teacherDto = TestData.getTeacherDto();
-        when(teacherService.update(eq(id), teacherEntity)).thenReturn(expected);
-        when(teacherMapper.toEntity(teacherDto)).thenReturn(teacherEntity);
+        when(teacherService.update(eq(id), eq(teacherEntity))).thenReturn(expected);
+        when(teacherMapper.toEntity(eq(teacherDto))).thenReturn(teacherEntity);
 
         //when
         ResponseEntity<CommonResponseDto> response = teacherResource.updateTeacher(id, teacherDto);
