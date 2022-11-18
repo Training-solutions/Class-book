@@ -25,8 +25,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.annotation.Generated;
 import javax.validation.Valid;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
+
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-04T11:27:54.497233400+03:00[Asia/Istanbul]")
 @Validated
 @Api(value = "CredentialsV1", description = "the CredentialsV1 API")
 public interface CredentialsV1Api {
@@ -41,10 +43,15 @@ public interface CredentialsV1Api {
      *         or User is not granted sufficient privileges (status code 403)
      *         or Internal server error (status code 500)
      */
-    @ApiOperation(value = "Credential deleting", nickname = "deleteCredential", notes = "", response = CommonResponseDto.class, authorizations = {
-        
-        @Authorization(value = "bearerAuth")
-         }, tags={ "credentials-v1", })
+    @ApiOperation(
+        value = "Credential deleting",
+        nickname = "deleteCredential",
+        notes = "",
+        response = CommonResponseDto.class,
+        authorizations = {
+            @Authorization(value = "bearerAuth")
+         },
+        tags={ "credentials-v1", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Successful response", response = CommonResponseDto.class),
         @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorView.class),
@@ -55,7 +62,9 @@ public interface CredentialsV1Api {
         value = "/ui/credentials/{credentialId}",
         produces = { "application/json" }
     )
-    ResponseEntity<CommonResponseDto> deleteCredential(@ApiParam(value = "Id for credential deleting",required=true) @PathVariable("credentialId") Long credentialId);
+    ResponseEntity<CommonResponseDto> deleteCredential(
+        @ApiParam(value = "Id for credential deleting",required=true) @PathVariable("credentialId") Long credentialId
+    );
 
 
     /**
@@ -69,10 +78,15 @@ public interface CredentialsV1Api {
      *         or Resource was not found (status code 404)
      *         or Internal server error (status code 500)
      */
-    @ApiOperation(value = "Information about concrete credential", nickname = "getCredentialById", notes = "", response = CredentialDto.class, authorizations = {
-        
-        @Authorization(value = "bearerAuth")
-         }, tags={ "credentials-v1", })
+    @ApiOperation(
+        value = "Information about concrete credential",
+        nickname = "getCredentialById",
+        notes = "",
+        response = CredentialDto.class,
+        authorizations = {
+            @Authorization(value = "bearerAuth")
+         },
+        tags={ "credentials-v1", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Successful response", response = CredentialDto.class),
         @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorView.class),
@@ -84,7 +98,9 @@ public interface CredentialsV1Api {
         value = "/ui/credentials/{credentialId}",
         produces = { "application/json" }
     )
-    ResponseEntity<CredentialDto> getCredentialById(@ApiParam(value = "Credential identifier",required=true) @PathVariable("credentialId") Long credentialId);
+    ResponseEntity<CredentialDto> getCredentialById(
+        @ApiParam(value = "Credential identifier",required=true) @PathVariable("credentialId") Long credentialId
+    );
 
 
     /**
@@ -104,10 +120,15 @@ public interface CredentialsV1Api {
      *         or Resource was not found (status code 404)
      *         or Internal server error (status code 500)
      */
-    @ApiOperation(value = "List of credentials", nickname = "getCredentialList", notes = "", response = PageViewDto.class, authorizations = {
-        
-        @Authorization(value = "bearerAuth")
-         }, tags={ "credentials-v1", })
+    @ApiOperation(
+        value = "List of credentials",
+        nickname = "getCredentialList",
+        notes = "",
+        response = PageViewDto.class,
+        authorizations = {
+            @Authorization(value = "bearerAuth")
+         },
+        tags={ "credentials-v1", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Successful response", response = PageViewDto.class),
         @ApiResponse(code = 401, message = "Access token is missing or invalid"),
@@ -132,10 +153,15 @@ public interface CredentialsV1Api {
      *         or Resource was not found (status code 404)
      *         or Internal server error (status code 500)
      */
-    @ApiOperation(value = "Creating new credential", nickname = "postCredential", notes = "", response = CommonResponseDto.class, authorizations = {
-        
-        @Authorization(value = "bearerAuth")
-         }, tags={ "credentials-v1", })
+    @ApiOperation(
+        value = "Creating new credential",
+        nickname = "postCredential",
+        notes = "",
+        response = CommonResponseDto.class,
+        authorizations = {
+            @Authorization(value = "bearerAuth")
+         },
+        tags={ "credentials-v1", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Successful response", response = CommonResponseDto.class),
         @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorView.class),
@@ -148,7 +174,8 @@ public interface CredentialsV1Api {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    ResponseEntity<CommonResponseDto> postCredential(@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) CredentialDto credentialDto);
+    ResponseEntity<CommonResponseDto> postCredential(
+        @ApiParam(value = "Callback payload") @Valid @RequestBody(required = false) CredentialDto credentialDto);
 
 
     /**
@@ -163,10 +190,15 @@ public interface CredentialsV1Api {
      *         or Resource was not found (status code 404)
      *         or Internal server error (status code 500)
      */
-    @ApiOperation(value = "Credential updating", nickname = "updateCredential", notes = "", response = CommonResponseDto.class, authorizations = {
-        
-        @Authorization(value = "bearerAuth")
-         }, tags={ "credentials-v1", })
+    @ApiOperation(
+        value = "Credential updating", nickname =
+        "updateCredential",
+        notes = "",
+        response = CommonResponseDto.class,
+        authorizations = {
+            @Authorization(value = "bearerAuth")
+         },
+        tags={ "credentials-v1", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Successful response", response = CommonResponseDto.class),
         @ApiResponse(code = 400, message = "Supplied request data are invalid", response = ErrorView.class),
@@ -179,6 +211,7 @@ public interface CredentialsV1Api {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    ResponseEntity<CommonResponseDto> updateCredential(@ApiParam(value = "Id for credential updating",required=true) @PathVariable("credentialId") Long credentialId,@ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) CredentialDto credentialDto);
-
+    ResponseEntity<CommonResponseDto> updateCredential(
+        @ApiParam(value = "Id for credential updating",required=true) @PathVariable("credentialId") Long credentialId,
+        @ApiParam(value = "Callback payload"  )  @Valid @RequestBody(required = false) CredentialDto credentialDto);
 }
