@@ -1,13 +1,10 @@
 package com.eschool.classbook.student;
 
-import com.eschool.classbook.credential.CredentialRepository;
 import com.eschool.classbook.exception.ClassBookException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -45,11 +42,10 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @Transactional
     public StudentEntity update(Long id, StudentEntity studentEntity) {
         studentRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Student with id %d wasn't found", id)));
-        studentEntity.setModifyingDate(LocalDateTime.now());
-        studentEntity.getCredential().setDeleted(true);
         return studentRepository.save(studentEntity);
     }
 }

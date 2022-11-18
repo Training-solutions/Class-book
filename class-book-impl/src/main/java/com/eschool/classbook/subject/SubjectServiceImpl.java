@@ -4,9 +4,7 @@ import com.eschool.classbook.exception.ClassBookException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SubjectServiceImpl implements SubjectService{
@@ -28,10 +26,10 @@ public class SubjectServiceImpl implements SubjectService{
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         SubjectEntity subject = subjectRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Subject with id %d wasn't found", id)));
-        subject.setModifyingDate(LocalDateTime.now());
         subject.setDeleted(true);
         subjectRepository.save(subject);
     }
@@ -42,10 +40,10 @@ public class SubjectServiceImpl implements SubjectService{
     }
 
     @Override
+    @Transactional
     public SubjectEntity update(Long id, SubjectEntity subjectEntity) {
        subjectRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Subject with id %d wasn't found", id)));
-        subjectEntity.setModifyingDate(LocalDateTime.now());
         return subjectRepository.save(subjectEntity);
     }
 }

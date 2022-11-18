@@ -6,9 +6,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
-
 @Service
 public class TeacherServiceImpl implements TeacherService{
 
@@ -30,6 +27,7 @@ public class TeacherServiceImpl implements TeacherService{
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         TeacherEntity teacher = teacherRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Teacher with id %d wasn't found", id)));
@@ -44,10 +42,10 @@ public class TeacherServiceImpl implements TeacherService{
     }
 
     @Override
+    @Transactional
     public TeacherEntity update(Long id, TeacherEntity teacherEntity) {
         teacherRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Teacher with id %d wasn't found", id)));
-        teacherEntity.setModifyingDate(LocalDateTime.now());
         return teacherRepository.save(teacherEntity);
     }
 }
