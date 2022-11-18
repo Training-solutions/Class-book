@@ -16,9 +16,6 @@ import java.util.stream.Collectors;
 @RestController
 @AllArgsConstructor
 public class StudentResource implements StudentsV1Api {
-    private static final String STUDENT_SAVED_RESPONSE_TEXT = "Student with id - %d saved successfully";
-    private static final String STUDENT_UPDATED_RESPONSE_TEXT = "Student with id - %d updated successfully";
-    private static final String STUDENT_DELETED_RESPONSE_TEXT = "Student with id - %d deleted successfully";
     private final StudentMapper studentMapper;
     private final StudentService studentService;
 
@@ -32,7 +29,8 @@ public class StudentResource implements StudentsV1Api {
     @Override
     public ResponseEntity<PageViewDto<StudentDto>> getStudentList(Pageable pageable) {
         Page<StudentEntity> studentEntities = studentService.findAll(pageable);
-        List<StudentDto> collect = studentEntities.getContent().stream().map(studentMapper::toDto).collect(Collectors.toList());
+        List<StudentDto> collect = studentEntities.getContent().stream()
+            .map(studentMapper::toDto).collect(Collectors.toList());
         PageViewDto<StudentDto> pageView = new PageViewDto<>(collect);
         return ResponseEntity.ok(pageView);
     }
@@ -42,7 +40,8 @@ public class StudentResource implements StudentsV1Api {
         StudentEntity studentEntity = studentMapper.toEntity(studentDto);
         StudentEntity savedStudent = studentService.save(studentEntity);
         Long id = savedStudent.getId();
-        CommonResponseDto commonResponseDto = new CommonResponseDto(id, String.format(STUDENT_SAVED_RESPONSE_TEXT, id));
+        CommonResponseDto commonResponseDto = new CommonResponseDto(id,
+            String.format("Student with id - %d saved successfully", id));
         return ResponseEntity.ok(commonResponseDto);
     }
 
@@ -50,14 +49,16 @@ public class StudentResource implements StudentsV1Api {
     public ResponseEntity<CommonResponseDto> updateStudent(Long id, StudentDto studentDto) {
         StudentEntity studentEntity = studentMapper.toEntity(studentDto);
         studentService.update(id, studentEntity);
-        CommonResponseDto commonResponseDto = new CommonResponseDto(id, String.format(STUDENT_UPDATED_RESPONSE_TEXT, id));
+        CommonResponseDto commonResponseDto = new CommonResponseDto(id,
+            String.format("Student with id - %d updated successfully", id));
         return ResponseEntity.ok(commonResponseDto);
     }
 
     @Override
     public ResponseEntity<CommonResponseDto> deleteStudent(Long id) {
         studentService.deleteById(id);
-        CommonResponseDto commonResponseDto = new CommonResponseDto(id, String.format(STUDENT_DELETED_RESPONSE_TEXT, id));
+        CommonResponseDto commonResponseDto = new CommonResponseDto(id,
+            String.format("Student with id - %d deleted successfully", id));
         return ResponseEntity.ok(commonResponseDto);
     }
 }
