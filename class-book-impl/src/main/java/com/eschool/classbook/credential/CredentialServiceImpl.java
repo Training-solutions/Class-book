@@ -4,8 +4,7 @@ import com.eschool.classbook.exception.ClassBookException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CredentialServiceImpl implements CredentialService{
@@ -29,13 +28,12 @@ public class CredentialServiceImpl implements CredentialService{
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         CredentialEntity credential = credentialRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Credential with id %d was not found", id)));
-        credential.setModifyingDate(LocalDateTime.now());
         credential.setDeleted(true);
         credentialRepository.save(credential);
-
     }
 
     @Override
@@ -44,6 +42,7 @@ public class CredentialServiceImpl implements CredentialService{
     }
 
     @Override
+    @Transactional
     public CredentialEntity update(Long id, CredentialEntity credentialEntity) {
         credentialRepository.findById(id)
                 .orElseThrow(() -> new ClassBookException(String.format("Credential with id %d was not found", id)));
