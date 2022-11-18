@@ -73,7 +73,7 @@
                     </dependency>
                 </dependencies>
                 <executions>
-                    <!--<execution>
+                    <execution>
                         <goals>
                             <goal>generate</goal>
                         </goals>
@@ -81,8 +81,8 @@
                             <inputSpec>class-book-v1.yml</inputSpec>
                             <generatorName>spring</generatorName>
                             <modelNameSuffix>Dto</modelNameSuffix>
-                            &lt;!&ndash;                            <templateDirectory>src/main/resources/JavaSpring</templateDirectory>&ndash;&gt;
-                            <generateApis>true</generateApis>
+                            <!--                            <templateDirectory>src/main/resources/JavaSpring</templateDirectory>-->
+                            <generateApis>false</generateApis>
                             <generateModels>true</generateModels>
                             <generateApiTests>false</generateApiTests>
                             <generateModelTests>false</generateModelTests>
@@ -105,7 +105,7 @@
                                 </typeMappings>
                             </configOptions>
                         </configuration>
-                    </execution>-->
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
