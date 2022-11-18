@@ -1,6 +1,6 @@
-package com.eschool.classbook.scorepage;
+package com.eschool.classbook.mark;
 
-public enum ScoresEnum {
+public enum MarkEnum {
     ONE(1),
     TWO(2),
     THREE(3),
@@ -16,7 +16,7 @@ public enum ScoresEnum {
 
     private final int value;
 
-    ScoresEnum(int value){
+    MarkEnum(int value){
         this.value = value;
     }
 

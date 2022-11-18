@@ -11,7 +11,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -48,23 +47,23 @@ public class TeacherEntity extends BaseEntity {
     private String lastName;
 
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, orphanRemoval = true)
-    @JoinColumn(name="credential", nullable = false)
+    @JoinColumn(name="credential_id", nullable = false)
     private CredentialEntity credential;
 
     @Setter(AccessLevel.PRIVATE)
-    @ManyToMany(mappedBy = "teachers", cascade = {CascadeType.MERGE})
+    @ManyToMany(mappedBy = "teachers")
     @ToString.Exclude
     @JsonBackReference
     private Set<GroupEntity> groups = new HashSet<>();
 
     @Setter(AccessLevel.PRIVATE)
-    @ManyToMany(mappedBy = "teachers", cascade = {CascadeType.MERGE})
+    @ManyToMany(mappedBy = "teachers")
     @ToString.Exclude
     @JsonBackReference
     private Set<StudentEntity> students = new HashSet<>();
 
     @Setter(AccessLevel.PRIVATE)
-    @ManyToMany(cascade = {CascadeType.MERGE})
+    @ManyToMany
     @JoinTable(name = "teacher_subject",
             joinColumns = @JoinColumn(name = "teacher_id"),
             inverseJoinColumns = @JoinColumn(name = "subject_id")

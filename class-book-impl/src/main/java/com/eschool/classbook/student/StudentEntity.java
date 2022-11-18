@@ -25,9 +25,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Setter
 @Getter
@@ -48,7 +48,7 @@ public class StudentEntity extends BaseEntity {
     private String lastName;
 
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH}, orphanRemoval = true)
-    @JoinColumn(name = "credential", nullable = false, updatable = false)
+    @JoinColumn(name = "credential_id", nullable = false, updatable = false)
     private CredentialEntity credential;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
@@ -65,7 +65,7 @@ public class StudentEntity extends BaseEntity {
     @ToString.Exclude
     @JsonManagedReference
     @JoinColumn(insertable = false, updatable = false)
-    private Set<TeacherEntity> teachers = new HashSet<>();
+    private List<TeacherEntity> teachers = new ArrayList<>();
 
     @Setter(AccessLevel.PRIVATE)
     @ManyToMany(cascade = {CascadeType.MERGE})
@@ -76,7 +76,7 @@ public class StudentEntity extends BaseEntity {
     @ToString.Exclude
     @JsonManagedReference
     @JoinColumn(insertable = false, updatable = false)
-    private Set<SubjectEntity> subjects = new HashSet<>();
+    private List<SubjectEntity> subjects = new ArrayList<>();
 
     public void addTeacher(TeacherEntity teacherEntity){
         teacherEntity.getStudents().add(this);
@@ -113,6 +113,6 @@ public class StudentEntity extends BaseEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), id, firstName, lastName, credential, group);
+        return Objects.hash(super.hashCode(), firstName, lastName, credential, group);
     }
 }
