@@ -1,4 +1,4 @@
-package com.eschool.classbook.scorepage;
+package com.eschool.classbook.mark;
 
 import com.eschool.classbook.BaseIntegrationTest;
 import com.eschool.classbook.TestData;
@@ -13,39 +13,40 @@ import java.util.Objects;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
-public class ScoreServiceIntegrationTests extends BaseIntegrationTest {
+public class MarkServiceIntegrationTests extends BaseIntegrationTest {
     @Autowired
-    private ScoreService scoreService;
+    private MarkService markService;
 
     @Test
     public void givenScore_whenSave_thenReturnSuccessfulResult() {
         //given
-        ScoreEntity expected = TestData.getScoreEntity();
+        MarkEntity expected = TestData.getScoreEntity();
 
         //when
-        ScoreEntity actual = scoreService.save(expected);
+        MarkEntity actual = markService.save(expected);
 
         //then
         assertNotNull(actual);
-        assertEquals(expected.getScore(), actual.getScore());
+        assertEquals(expected.getMark(), actual.getMark());
         assertEquals(expected.getId(), actual.getId());
         assertFalse(expected.isDeleted());
-        assertTrue(expected.getSubjects().isEmpty());
+        assertNull(expected.getSubject());
 
     }
 
     @Test
     public void givenScore_whenFindById_thenReturnSuccessfulResult() {
         //when
-        ScoreEntity actual = scoreService.findById(1L);
+        MarkEntity actual = markService.findById(1L);
 
         //then
         assertNotNull(actual);
         assertEquals(Long.valueOf(1), actual.getId());
-        assertEquals(11, actual.getScore().getValue());
+        assertEquals(11, actual.getMark().getValue());
         assertFalse(actual.isDeleted());
 
     }
@@ -58,7 +59,7 @@ public class ScoreServiceIntegrationTests extends BaseIntegrationTest {
         //when and then
         assertThrows(String.format("Score with id %d was not found", failedId),
                 ClassBookException.class,
-                () -> scoreService.findById(failedId));
+                () -> markService.findById(failedId));
     }
 
     @Test
@@ -67,18 +68,18 @@ public class ScoreServiceIntegrationTests extends BaseIntegrationTest {
         Long id = 1L;
 
         //when
-        scoreService.deleteById(id);
+        markService.deleteById(id);
 
         //then
-        ScoreEntity scoreEntity = scoreService.findById(id);
-        assertTrue(scoreEntity.isDeleted());
+        MarkEntity markEntity = markService.findById(id);
+        assertTrue(markEntity.isDeleted());
 
     }
 
     @Test
     public void givenScore_whenFindAll_thenFoundGroupListSuccessfully(){
         //when
-        Page<ScoreEntity> scores = scoreService.findAll(PageRequest.of(1, 3));
+        Page<MarkEntity> scores = markService.findAll(PageRequest.of(1, 3));
 
         //then
         assertEquals(1, scores.getTotalPages());
@@ -91,15 +92,15 @@ public class ScoreServiceIntegrationTests extends BaseIntegrationTest {
     public void givenScore_whenUpdate_thenUpdatedSuccessfully(){
         //given
 
-        Score score = Score.ONE;
-        ScoreEntity expected = scoreService.findById(1L);
-        expected.setScore(score);
+        Mark mark = Mark.ONE;
+        MarkEntity expected = markService.findById(1L);
+        expected.setMark(mark);
 
         //when
-        scoreService.update(1L, expected);
+        markService.update(1L, expected);
 
         //then
-        assertEquals(expected.getScore(), score);
+        assertEquals(expected.getMark(), mark);
 
     }
 

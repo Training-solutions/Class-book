@@ -2,7 +2,7 @@ package com.eschool.classbook.subject;
 
 import com.eschool.classbook.BaseEntity;
 import com.eschool.classbook.group.GroupEntity;
-import com.eschool.classbook.scorepage.ScoreEntity;
+import com.eschool.classbook.mark.MarkEntity;
 import com.eschool.classbook.student.StudentEntity;
 import com.eschool.classbook.teacher.TeacherEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -18,6 +18,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.HashSet;
@@ -40,15 +41,15 @@ public class SubjectEntity extends BaseEntity {
     private String subjectTitle;
 
     @Setter(AccessLevel.PRIVATE)
-    @ManyToMany(mappedBy = "subjects", cascade = {CascadeType.MERGE})
+    @ManyToMany(mappedBy = "subjects")
     @ToString.Exclude
     @JsonBackReference
     private Set<GroupEntity> groups = new HashSet<>();
 
     @Setter(AccessLevel.PRIVATE)
-    @ManyToMany(mappedBy = "subjects", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "subject", cascade = {CascadeType.REMOVE})
     @ToString.Exclude
-    private Set<ScoreEntity> scores = new HashSet<>();
+    private Set<MarkEntity> marks = new HashSet<>();
 
     @Setter(AccessLevel.PRIVATE)
     @ManyToMany(mappedBy = "subjects", cascade = {CascadeType.MERGE})
@@ -69,16 +70,6 @@ public class SubjectEntity extends BaseEntity {
     public void removeGroup(GroupEntity groupEntity) {
         groupEntity.getSubjects().remove(this);
         groups.remove(groupEntity);
-    }
-
-    public void addScore(ScoreEntity scoreEntity){
-        scoreEntity.getSubjects().add(this);
-        scores.add(scoreEntity);
-    }
-
-    public void removeScore(ScoreEntity scoreEntity){
-        scoreEntity.getSubjects().remove(this);
-        scores.remove(scoreEntity);
     }
 
     public void addStudent(StudentEntity studentEntity){

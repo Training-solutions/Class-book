@@ -2,13 +2,16 @@ package com.eschool.classbook;
 
 import com.eschool.classbook.credential.CredentialEntity;
 import com.eschool.classbook.group.GroupEntity;
-import com.eschool.classbook.scorepage.Score;
-import com.eschool.classbook.scorepage.ScoreEntity;
+import com.eschool.classbook.mark.Mark;
+import com.eschool.classbook.mark.MarkEntity;
 import com.eschool.classbook.student.StudentEntity;
 import com.eschool.classbook.subject.SubjectEntity;
 import com.eschool.classbook.teacher.TeacherEntity;
 import com.eschool.openapi.v1.model.CredentialDto;
+import com.eschool.openapi.v1.model.GroupDto;
 import com.eschool.openapi.v1.model.StudentDto;
+import com.eschool.openapi.v1.model.SubjectDto;
+import com.eschool.openapi.v1.model.TeacherDto;
 
 import java.time.LocalDateTime;
 
@@ -39,13 +42,19 @@ public class TestData {
         return subjectEntity;
     }
 
-    public static ScoreEntity getScoreEntity() {
-        ScoreEntity scoreEntity = new ScoreEntity();
-        scoreEntity.setScore(Score.ELEVEN);
-        scoreEntity.setDeleted(false);
-        scoreEntity.setCreationDate(LocalDateTime.now());
-        scoreEntity.setModifyingDate(LocalDateTime.now());
-        return scoreEntity;
+    public static SubjectDto getSubjectDto(){
+        SubjectDto subjectDto = new SubjectDto();
+        subjectDto.setSubjectTitle("Math");
+        return subjectDto;
+    }
+
+    public static MarkEntity getScoreEntity() {
+        MarkEntity markEntity = new MarkEntity();
+        markEntity.setMark(Mark.ELEVEN);
+        markEntity.setDeleted(false);
+        markEntity.setCreationDate(LocalDateTime.now());
+        markEntity.setModifyingDate(LocalDateTime.now());
+        return markEntity;
     }
 
     public static TeacherEntity getTeacherEntity() {
@@ -58,6 +67,13 @@ public class TestData {
         return teacherEntity;
     }
 
+    public static TeacherDto getTeacherDto() {
+        TeacherDto teacherDto = new TeacherDto();
+        teacherDto.setFirstName("Leo");
+        teacherDto.setLastName("Davidson");
+        return teacherDto;
+    }
+
     public static GroupEntity getGroupEntity() {
         GroupEntity groupEntity = new GroupEntity();
         groupEntity.setGroupTitle("1A");
@@ -67,13 +83,19 @@ public class TestData {
         return groupEntity;
     }
 
+    public static GroupDto getGroupDto(){
+        GroupDto groupDto = new GroupDto();
+        groupDto.setGroupTitle("1A");
+        return groupDto;
+    }
+
     public static CredentialEntity getCredentialEntity() {
         CredentialEntity credentialEntity = new CredentialEntity();
         credentialEntity.setUsername("david_emerston");
         credentialEntity.setPassword("qwerty");
         credentialEntity.setCreationDate(LocalDateTime.now());
         credentialEntity.setModifyingDate(LocalDateTime.now());
-        credentialEntity.setDeleted(true);
+        credentialEntity.setDeleted(false);
         return credentialEntity;
     }
 

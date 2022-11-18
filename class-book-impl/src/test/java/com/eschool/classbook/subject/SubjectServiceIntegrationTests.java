@@ -87,12 +87,13 @@ public class SubjectServiceIntegrationTests extends BaseIntegrationTest {
     public void givenSubject_whenUpdate_thenUpdatedSuccessfully(){
         //given
         String subjectTitle = "Programming";
-        Long Id = 1L;
-        SubjectEntity expexted = subjectService.findById(Id);
+        Long id = 1L;
+        SubjectEntity expexted = subjectService.findById(id);
         expexted.setSubjectTitle(subjectTitle);
 
+
         //when
-        SubjectEntity actual = subjectService.update(Id, expexted);
+        SubjectEntity actual = subjectService.update(id, expexted);
 
         //then
         assertEquals(subjectTitle, actual.getSubjectTitle());

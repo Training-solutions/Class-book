@@ -2,16 +2,9 @@ package com.eschool.classbook.student;
 
 import com.eschool.classbook.BaseIntegrationTest;
 import com.eschool.classbook.TestData;
-import com.eschool.classbook.credential.CredentialRepository;
-import com.eschool.classbook.group.GroupRepository;
-import com.eschool.classbook.scorepage.Score;
-import com.eschool.classbook.subject.SubjectRepository;
-import com.eschool.classbook.teacher.TeacherRepository;
 import com.eschool.openapi.v1.model.CredentialDto;
 import com.eschool.openapi.v1.model.StudentDto;
 import io.restassured.http.ContentType;
-import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;

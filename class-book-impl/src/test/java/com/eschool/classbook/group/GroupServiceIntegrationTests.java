@@ -53,7 +53,8 @@ public class GroupServiceIntegrationTests extends BaseIntegrationTest {
         assertEquals(Long.valueOf(1), actual.getId());
         assertEquals("2A", actual.getGroupTitle());
         assertFalse(actual.isDeleted());
-        assertEquals(Long.valueOf(1), actual.getStudents().get(0).getId());
+        assertEquals(Long.valueOf(1),
+            actual.getStudents().stream().findFirst().get().getId());
 
     }
 
@@ -103,29 +104,26 @@ public class GroupServiceIntegrationTests extends BaseIntegrationTest {
         Long idNewTeacher = 2L;
         Long idNewSubject = 2L;
 
-        GroupEntity expected = groupService.findById(id);
-        StudentEntity newStudent = studentRepository.getById(idNewStudent);
-        TeacherEntity newTeacher = teacherRepository.getById(idNewTeacher);
-        SubjectEntity newSubject = subjectRepository.getById(idNewSubject);
+        GroupEntity expected = TestData.getGroupEntity();
+        StudentEntity newStudent = TestData.getStudentEntity();
+        newStudent.setId(2L);
+        TeacherEntity newTeacher = TestData.getTeacherEntity();
+        newTeacher.setId(2L);
+        SubjectEntity newSubject = TestData.getSubjectEntity();
+        newSubject.setId(2L);
         expected.setGroupTitle(title);
         expected.addStudent(newStudent);
         expected.addTeacher(newTeacher);
         expected.addSubject(newSubject);
 
         //when
-        groupService.update(id, expected);
+        GroupEntity actual = groupService.update(id, expected);
 
         //then
-        assertEquals(expected.getGroupTitle(), title);
+        assertEquals(actual.getGroupTitle(), expected.getGroupTitle());
 
-        StudentEntity actualStudent = expected.getStudents().get(1);
-        assertEquals(actualStudent.getFirstName(), newStudent.getFirstName());
-        assertEquals(actualStudent.getLastName(), newStudent.getLastName());
-
-
-        assertEquals(actualStudent.getFirstName(), newStudent.getFirstName());
-        assertEquals(actualStudent.getLastName(), newStudent.getLastName());
-        assertEquals(new HashSet<>(expected.getTeachers()), expected.getTeachers());
-        assertEquals(new HashSet<>(expected.getSubjects()), expected.getSubjects());
+        assertEquals(new HashSet<>(actual.getStudents()), expected.getStudents());
+        assertEquals(new HashSet<>(actual.getTeachers()), expected.getTeachers());
+        assertEquals(new HashSet<>(actual.getSubjects()), expected.getSubjects());
     }
 }

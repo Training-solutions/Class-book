@@ -10,6 +10,7 @@ import com.eschool.openapi.v1.model.ErrorView;
 import com.eschool.openapi.v1.model.PageViewDto;
 import com.eschool.openapi.v1.model.TeacherDto;
 import io.swagger.annotations.*;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -109,7 +110,7 @@ public interface TeachersV1Api {
         value = "/ui/teachers",
         produces = { "application/json" }
     )
-    ResponseEntity<PageViewDto<TeacherDto>> getTeacherList();
+    ResponseEntity<PageViewDto<TeacherDto>> getTeacherList(Pageable pageable);
 
 
     /**

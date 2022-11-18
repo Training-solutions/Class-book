@@ -16,7 +16,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
 public class TeacherServiceIntegrationTest extends BaseIntegrationTest {
 
@@ -42,7 +46,6 @@ public class TeacherServiceIntegrationTest extends BaseIntegrationTest {
         assertEquals(expected.isDeleted(), actual.isDeleted());
         assertEquals(expected.getCredential(), actual.getCredential());
         assertEquals(new HashSet<>(expected.getSubjects()), actual.getSubjects());
-
     }
 
     @Test
@@ -113,17 +116,15 @@ public class TeacherServiceIntegrationTest extends BaseIntegrationTest {
         expected.addSubject(subjectExpected);
         expected.getCredential().setPassword(password);
 
-
         //when
-        teacherService.update(id, expected);
+        TeacherEntity actual = teacherService.update(id, expected);
 
         //then
-
-        assertTrue(expected.getGroups().contains(groupExpected));
-        assertFalse(expected.getGroups().contains(groupRemove));
-        assertEquals(firstName, expected.getFirstName());
-        assertTrue(expected.getSubjects().contains(subjectExpected));
-        assertEquals(password, expected.getCredential().getPassword());
+        assertTrue(actual.getGroups().contains(groupExpected));
+        assertFalse(actual.getGroups().contains(groupRemove));
+        assertEquals(actual.getFirstName(), expected.getFirstName());
+        assertTrue(actual.getSubjects().contains(subjectExpected));
+        assertEquals(actual.getCredential().getPassword(), expected.getCredential().getPassword());
     }
 
     @Test
