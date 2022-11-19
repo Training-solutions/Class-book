@@ -28,7 +28,7 @@ public class SubjectDto   {
 
   @JsonProperty("scores")
   @Valid
-  private List<ScoreDto> scores = null;
+  private List<MarkDto> marks = null;
 
   @JsonProperty("students")
   @Valid
@@ -118,16 +118,16 @@ public class SubjectDto   {
     this.groups = groups;
   }
 
-  public SubjectDto scores(List<ScoreDto> scores) {
-    this.scores = scores;
+  public SubjectDto scores(List<MarkDto> marks) {
+    this.marks = marks;
     return this;
   }
 
-  public SubjectDto addScoresItem(ScoreDto scoresItem) {
-    if (this.scores == null) {
-      this.scores = new ArrayList<>();
+  public SubjectDto addScoresItem(MarkDto mark) {
+    if (this.marks == null) {
+      this.marks = new ArrayList<>();
     }
-    this.scores.add(scoresItem);
+    this.marks.add(mark);
     return this;
   }
 
@@ -139,12 +139,12 @@ public class SubjectDto   {
 
   @Valid
 
-  public List<ScoreDto> getScores() {
-    return scores;
+  public List<MarkDto> getScores() {
+    return marks;
   }
 
-  public void setScores(List<ScoreDto> scores) {
-    this.scores = scores;
+  public void setScores(List<MarkDto> scores) {
+    this.marks = marks;
   }
 
   public SubjectDto students(List<StudentDto> students) {
@@ -280,7 +280,7 @@ public class SubjectDto   {
     return Objects.equals(this.id, subject.id) &&
         Objects.equals(this.subjectTitle, subject.subjectTitle) &&
         Objects.equals(this.groups, subject.groups) &&
-        Objects.equals(this.scores, subject.scores) &&
+        Objects.equals(this.marks, subject.marks) &&
         Objects.equals(this.students, subject.students) &&
         Objects.equals(this.teachers, subject.teachers) &&
         Objects.equals(this.deleted, subject.deleted) &&
@@ -290,7 +290,7 @@ public class SubjectDto   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, subjectTitle, groups, scores, students, teachers, deleted, creationDate, modifyingDate);
+    return Objects.hash(id, subjectTitle, groups, marks, students, teachers, deleted, creationDate, modifyingDate);
   }
 
   @Override
@@ -301,7 +301,7 @@ public class SubjectDto   {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    subjectTitle: ").append(toIndentedString(subjectTitle)).append("\n");
     sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
-    sb.append("    scores: ").append(toIndentedString(scores)).append("\n");
+    sb.append("    scores: ").append(toIndentedString(marks)).append("\n");
     sb.append("    students: ").append(toIndentedString(students)).append("\n");
     sb.append("    teachers: ").append(toIndentedString(teachers)).append("\n");
     sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
