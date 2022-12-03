@@ -1,18 +1,21 @@
 package com.eschool.classbook.evaluationRecord;
 
 import com.eschool.classbook.group.GroupEntity;
-import com.eschool.openapi.v1.model.EvaluationRecordDto;
+import com.eschool.classbook.mark.MarkEntity;
+import com.eschool.classbook.subject.SubjectEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 @Repository
 @AllArgsConstructor
@@ -20,48 +23,48 @@ public class EvaluationRecordRecordRepositoryImpl implements EvaluationRecordRep
     private EntityManager entityManager;
 
     @Override
-    public List<EvaluationRecordDto> getEvaluationRecords(Long subjectId, Long teacherId,
+    public List<GroupEntity> getEvaluationRecords(Long subjectId, Long teacherId,
                                                           Long groupId, Long studentId,
                                                           LocalDateTime startDate, LocalDateTime endDate) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<GroupEntity> criteriaQuery = criteriaBuilder.createQuery(GroupEntity.class);
         Root<GroupEntity> entityRoot = criteriaQuery.from(GroupEntity.class);
 
-        List<Predicate> predicates = new ArrayList<>();
+        Predicate subjectsPredicate =
+            buildJoinEqualPredicate("subjects", "id", subjectId, criteriaBuilder, entityRoot);
+        Predicate teachersPredicate =
+            buildJoinEqualPredicate("teachers", "id", teacherId, criteriaBuilder, entityRoot);
+        Predicate studentsPredicate =
+            buildJoinEqualPredicate("students", "id", studentId, criteriaBuilder, entityRoot);
+        Predicate groupsPredicate =
+            groupId == null ? null : criteriaBuilder.equal(entityRoot.get("id"), groupId);
+        Predicate datePredicate = buildDatePredicate("marks", "creationDate",
+                startDate, endDate, criteriaBuilder, entityRoot);
 
-        if (subjectId != null) {
-            predicates.add(criteriaBuilder.equal(entityRoot.get("subjects").get("id"), subjectId));
+        criteriaQuery.where(
+                Stream.of(subjectsPredicate, teachersPredicate, studentsPredicate,
+                                groupsPredicate, datePredicate)
+                .filter(Objects::nonNull).toArray(Predicate[]::new));
+
+        return entityManager.createQuery(criteriaQuery).getResultList();
+    }
+
+    private Predicate buildJoinEqualPredicate(String joiningField, String parameter, Object value,
+                                              CriteriaBuilder criteriaBuilder, Root<GroupEntity> entityRoot) {
+        if (value != null) {
+            Join<Object, Object> objectJoin = entityRoot.join(joiningField);
+            return criteriaBuilder.equal(objectJoin.get(parameter), value);
         }
+        return null;
+    }
 
-        if (teacherId != null) {
-            predicates.add(criteriaBuilder.equal(entityRoot.get("teachers").get("id"), teacherId));
+    private Predicate buildDatePredicate(String joiningField, String parameter,
+                                         LocalDateTime firstValue, LocalDateTime secondValue,
+                                         CriteriaBuilder criteriaBuilder, Root<GroupEntity> entityRoot) {
+        if(firstValue != null && secondValue != null) {
+            Join<SubjectEntity, MarkEntity> objectJoin = entityRoot.join("subjects").join(joiningField);
+            return criteriaBuilder.between(objectJoin.get(parameter), firstValue, secondValue);
         }
-
-        if (groupId != null) {
-            predicates.add(criteriaBuilder.equal(entityRoot.get("id"), groupId));
-        }
-
-        if (studentId != null) {
-            predicates.add(criteriaBuilder.equal(entityRoot.get("students").get("id"), teacherId));
-        }
-
-//        if(startDate != null || endDate != null) {
-//            predicates.add(criteriaBuilder.between(entityRoot.get("subjects").get("marks").get("creationDate"), startDate));
-//        }
-//
-//        if(endDate != null && endDate != null) {
-//
-//        }
-
-        if(startDate != null && endDate==null) {
-            predicates.add(criteriaBuilder.between(
-                entityRoot.get("subjects").get("marks").get("creationDate"), startDate, LocalDateTime.now()));
-        }
-
-        criteriaQuery.where(predicates.toArray(new Predicate[0]));
-
-        List<GroupEntity> resultList = entityManager.createQuery(criteriaQuery).getResultList();
-
         return null;
     }
 }

@@ -18,11 +18,11 @@ public interface BaseMapper {
         return offsetDateTime.toLocalDateTime();
     }
 
-    default Mark toScoreEntity(MarkDto.MarkEnum value) {
+    default Mark toMarkEntity(MarkDto.MarkEnum value) {
         return Mark.valueOf(value.name());
     }
 
-    default MarkDto.MarkEnum toScoreDto(Mark mark){
+    default MarkDto.MarkEnum toMarkDto(Mark mark){
         int value = mark.getValue();
         return MarkDto.MarkEnum.fromValue(value);
     }

@@ -64,11 +64,17 @@ public interface EvaluationRecordsV1Api {
         produces = { "application/json" }
     )
     ResponseEntity<PageViewDto<EvaluationRecordDto>> getEvaluationRecords(
-        @ApiParam(value = "Subject identifier") @Valid @RequestParam(value = "subjectId", required = false) Long subjectId,
-        @ApiParam(value = "Teacher identifier") @Valid @RequestParam(value = "teacherId", required = false) Long teacherId,
-        @ApiParam(value = "GroupIdentifier") @Valid @RequestParam(value = "groupId", required = false) Long groupId,
-        @ApiParam(value = "Student identifier") @Valid @RequestParam(value = "studentId", required = false) Long studentId,
-        @ApiParam(value = "Student identifier") @Valid @RequestParam(value = "startDate", required = false) OffsetDateTime startDate,
-        @ApiParam(value = "Student identifier") @Valid @RequestParam(value = "endDate", required = false) OffsetDateTime endDate);
+        @ApiParam(value = "Subject identifier")
+        @Valid @RequestParam(value = "subjectId", required = false) Long subjectId,
+        @ApiParam(value = "Teacher identifier")
+        @Valid @RequestParam(value = "teacherId", required = false) Long teacherId,
+        @ApiParam(value = "GroupIdentifier")
+        @Valid @RequestParam(value = "groupId", required = false) Long groupId,
+        @ApiParam(value = "Student identifier")
+        @Valid @RequestParam(value = "studentId", required = false) Long studentId,
+        @ApiParam(value = "Student identifier")
+        @Valid @RequestParam(value = "startDate", required = false) OffsetDateTime startDate,
+        @ApiParam(value = "Student identifier")
+        @Valid @RequestParam(value = "endDate", required = false) OffsetDateTime endDate);
 
 }
