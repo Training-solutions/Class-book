@@ -3,8 +3,10 @@ package com.eschool.classbook.teacher;
 import com.eschool.classbook.BaseMapper;
 import com.eschool.classbook.group.GroupEntity;
 import com.eschool.classbook.student.StudentEntity;
+import com.eschool.classbook.subject.SubjectEntity;
 import com.eschool.openapi.v1.model.GroupDto;
 import com.eschool.openapi.v1.model.StudentDto;
+import com.eschool.openapi.v1.model.SubjectDto;
 import com.eschool.openapi.v1.model.TeacherDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -15,16 +17,19 @@ import org.mapstruct.NullValueCheckStrategy;
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
 )
 public interface TeacherMapper extends BaseMapper {
-
-    @Mapping(target = "subjects.students", ignore = true)
-    @Mapping(target = "subjects.teachers", ignore = true)
-    @Mapping(target = "subjects.groups", ignore = true)
     TeacherDto toDto(TeacherEntity source);
 
-    @Mapping(target = "subjects.students", ignore = true)
-    @Mapping(target = "subjects.teachers", ignore = true)
-    @Mapping(target = "subjects.groups", ignore = true)
     TeacherEntity toEntity(TeacherDto source);
+
+    @Mapping(target = "students", ignore = true)
+    @Mapping(target = "teachers", ignore = true)
+    @Mapping(target = "groups", ignore = true)
+    SubjectDto mapSubjectDto(SubjectEntity source);
+
+    @Mapping(target = "students", ignore = true)
+    @Mapping(target = "teachers", ignore = true)
+    @Mapping(target = "groups", ignore = true)
+    SubjectEntity mapSubjectEntity(SubjectDto source);
 
     @Mapping(target = "group", ignore = true)
     @Mapping(target = "teachers", ignore = true)

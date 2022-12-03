@@ -21,7 +21,6 @@ public interface BaseMapper {
     default Mark toMarkEntity(MarkDto.MarkEnum value) {
         return Mark.valueOf(value.name());
     }
-
     default MarkDto.MarkEnum toMarkDto(Mark mark){
         int value = mark.getValue();
         return MarkDto.MarkEnum.fromValue(value);
