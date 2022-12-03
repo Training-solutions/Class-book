@@ -1,8 +1,8 @@
 package com.eschool.classbook.evaluationRecord;
 
 import com.eschool.classbook.group.GroupEntity;
-import com.eschool.classbook.mark.Mark;
-import com.eschool.openapi.v1.model.EvaluationRecordDto;
+import com.eschool.classbook.mark.MarkEntity;
+import com.eschool.classbook.subject.SubjectEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -10,15 +10,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Repository
@@ -27,7 +23,7 @@ public class EvaluationRecordRecordRepositoryImpl implements EvaluationRecordRep
     private EntityManager entityManager;
 
     @Override
-    public List<EvaluationRecordDto> getEvaluationRecords(Long subjectId, Long teacherId,
+    public List<GroupEntity> getEvaluationRecords(Long subjectId, Long teacherId,
                                                           Long groupId, Long studentId,
                                                           LocalDateTime startDate, LocalDateTime endDate) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -37,31 +33,20 @@ public class EvaluationRecordRecordRepositoryImpl implements EvaluationRecordRep
         Predicate subjectsPredicate =
             buildJoinEqualPredicate("subjects", "id", subjectId, criteriaBuilder, entityRoot);
         Predicate teachersPredicate =
-            buildJoinEqualPredicate("teachers", "id", subjectId, criteriaBuilder, entityRoot);
+            buildJoinEqualPredicate("teachers", "id", teacherId, criteriaBuilder, entityRoot);
         Predicate studentsPredicate =
-            buildJoinEqualPredicate("students", "id", subjectId, criteriaBuilder, entityRoot);
+            buildJoinEqualPredicate("students", "id", studentId, criteriaBuilder, entityRoot);
         Predicate groupsPredicate =
             groupId == null ? null : criteriaBuilder.equal(entityRoot.get("id"), groupId);
-        Predicate datePredicate = null;
+        Predicate datePredicate = buildDatePredicate("marks", "creationDate",
+                startDate, endDate, criteriaBuilder, entityRoot);
 
+        criteriaQuery.where(
+                Stream.of(subjectsPredicate, teachersPredicate, studentsPredicate,
+                                groupsPredicate, datePredicate)
+                .filter(Objects::nonNull).toArray(Predicate[]::new));
 
-        if (startDate != null && endDate != null) {
-
-        } else if(startDate != null) {
-            datePredicate = buildJoinBetweenPredicate("marks", "creationDate",
-                startDate, LocalDateTime.now(), criteriaBuilder, entityRoot);
-        }
-
-
-        List<Predicate> predicates = Stream.of(
-            subjectsPredicate, teachersPredicate, studentsPredicate, groupsPredicate, datePredicate)
-                .filter(Objects::nonNull).collect(Collectors.toList());
-
-        criteriaQuery.where(predicates.toArray(new Predicate[0]));
-
-        List<GroupEntity> resultList = entityManager.createQuery(criteriaQuery).getResultList();
-
-        return null;
+        return entityManager.createQuery(criteriaQuery).getResultList();
     }
 
     private Predicate buildJoinEqualPredicate(String joiningField, String parameter, Object value,
@@ -69,19 +54,17 @@ public class EvaluationRecordRecordRepositoryImpl implements EvaluationRecordRep
         if (value != null) {
             Join<Object, Object> objectJoin = entityRoot.join(joiningField);
             return criteriaBuilder.equal(objectJoin.get(parameter), value);
-        } else {
-            return null;
         }
+        return null;
     }
 
-    private Predicate buildJoinBetweenPredicate(String joiningField, String parameter, Object firstValue, Object secondValue,
-                                                CriteriaBuilder criteriaBuilder, Root<GroupEntity> entityRoot) {
-        if (firstValue != null && secondValue != null) {
-            Join<GroupEntity, Mark> objectJoin = entityRoot.join(joiningField);
-            Path<Date> objectPath = objectJoin.get(parameter);
-            criteriaBuilder.between(objectPath.get(parameter),firstValue, secondValue);
-        } else {
-            return null;
+    private Predicate buildDatePredicate(String joiningField, String parameter,
+                                         LocalDateTime firstValue, LocalDateTime secondValue,
+                                         CriteriaBuilder criteriaBuilder, Root<GroupEntity> entityRoot) {
+        if(firstValue != null && secondValue != null) {
+            Join<SubjectEntity, MarkEntity> objectJoin = entityRoot.join("subjects").join(joiningField);
+            return criteriaBuilder.between(objectJoin.get(parameter), firstValue, secondValue);
         }
+        return null;
     }
 }
