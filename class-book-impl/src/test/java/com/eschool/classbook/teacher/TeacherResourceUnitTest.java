@@ -100,15 +100,15 @@ public class TeacherResourceUnitTest {
         TeacherEntity expected = TestData.getTeacherEntity();
         expected.setFirstName("Some name");
         TeacherDto teacherDto = TestData.getTeacherDto();
-        when(teacherService.update(eq(id), teacherEntity)).thenReturn(expected);
-        when(teacherMapper.toEntity(teacherDto)).thenReturn(teacherEntity);
+        when(teacherService.update(eq(id), eq(teacherEntity))).thenReturn(expected);
+        when(teacherMapper.toEntity(eq(teacherDto))).thenReturn(teacherEntity);
 
         //when
         ResponseEntity<CommonResponseDto> response = teacherResource.updateTeacher(id, teacherDto);
 
         //then
         verify(teacherService, times(1)).update(eq(id), eq(teacherEntity));
-        verify(teacherMapper, times(1)).toEntity(teacherDto);
+        verify(teacherMapper, times(1)).toEntity(eq(teacherDto));
 
     }
 
@@ -119,7 +119,7 @@ public class TeacherResourceUnitTest {
         Long id = teacherEntity.getId();
         TeacherEntity expected = TestData.getTeacherEntity();
         expected.setDeleted(true);
-        doNothing().when(teacherService).deleteById(id);
+        doNothing().when(teacherService).deleteById(eq(id));
 
         //when
         ResponseEntity<CommonResponseDto> response = teacherResource.deleteTeacher(id);

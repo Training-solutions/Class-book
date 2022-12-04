@@ -17,16 +17,13 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class TeacherResource implements TeachersV1Api {
 
-    private static final String TEACHER_SAVED_RESPONSE_TEXT = "Teacher with id - %d saved successfully";
-    private static final String TEACHER_UPDATE_RESPONSE_TEXT = "Teacher with id - %d updated successfully";
-    private static final String TEACHER_DELETED_RESPONSE_TEXT = "Teacher with id - %d deleted successfully";
-
     private final TeacherMapper teacherMapper;
     private final TeacherService teacherService;
     @Override
     public ResponseEntity<CommonResponseDto> deleteTeacher(Long teacherId) {
         teacherService.deleteById(teacherId);
-        CommonResponseDto commonResponseDto = new CommonResponseDto(teacherId, String.format(TEACHER_SAVED_RESPONSE_TEXT));
+        CommonResponseDto commonResponseDto = new CommonResponseDto(teacherId,
+            String.format("Teacher with id - %d deleted successfully", teacherId));
         return ResponseEntity.ok(commonResponseDto);
     }
 
@@ -40,7 +37,8 @@ public class TeacherResource implements TeachersV1Api {
     @Override
     public ResponseEntity<PageViewDto<TeacherDto>> getTeacherList(Pageable pageable) {
         Page<TeacherEntity> teacherEntities = teacherService.findAll(pageable);
-        List<TeacherDto> collect = teacherEntities.getContent().stream().map(teacherMapper::toDto).collect(Collectors.toList());
+        List<TeacherDto> collect = teacherEntities.getContent().stream()
+            .map(teacherMapper::toDto).collect(Collectors.toList());
         PageViewDto<TeacherDto> pageViewDto = new PageViewDto<>(collect);
         return ResponseEntity.ok(pageViewDto);
     }
@@ -50,7 +48,8 @@ public class TeacherResource implements TeachersV1Api {
         TeacherEntity teacherEntity = teacherMapper.toEntity(teacherDto);
         TeacherEntity savedTeacher = teacherService.save(teacherEntity);
         Long id = savedTeacher.getId();
-        CommonResponseDto commonResponseDto = new CommonResponseDto(id, String.format(TEACHER_SAVED_RESPONSE_TEXT, id));
+        CommonResponseDto commonResponseDto = new CommonResponseDto(id,
+            String.format("Teacher with id - %d saved successfully", id));
         return ResponseEntity.ok(commonResponseDto);
     }
 
@@ -58,7 +57,8 @@ public class TeacherResource implements TeachersV1Api {
     public ResponseEntity<CommonResponseDto> updateTeacher(Long teacherId, TeacherDto teacherDto) {
         TeacherEntity teacherEntity = teacherMapper.toEntity(teacherDto);
         teacherService.update(teacherId, teacherEntity);
-        CommonResponseDto commonResponseDto = new CommonResponseDto(teacherId, String.format(TEACHER_UPDATE_RESPONSE_TEXT, teacherId));
+        CommonResponseDto commonResponseDto = new CommonResponseDto(teacherId,
+            String.format("Teacher with id - %d updated successfully", teacherId));
         return ResponseEntity.ok(commonResponseDto);
     }
 }
