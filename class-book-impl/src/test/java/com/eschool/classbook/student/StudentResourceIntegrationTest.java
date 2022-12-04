@@ -88,8 +88,6 @@ public class StudentResourceIntegrationTest extends BaseIntegrationTest {
                 .body("subjects.students", hasItems(nullValue()))
                 .body("subjects.teachers", hasItems(nullValue()))
                 .body("subjects.scores", notNullValue())
-                .body("subjects.scores.id", hasItems(hasItems(1)))
-                .body("subjects.scores.score", hasItems(hasItems(11)))
                 .body("subjects.creationDate", hasItems(notNullValue()))
                 .body("subjects.modifyingDate", hasItems(notNullValue()))
                 .body("subjects.deleted", hasItems(false));

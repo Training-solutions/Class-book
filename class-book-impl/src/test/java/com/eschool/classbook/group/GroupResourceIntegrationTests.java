@@ -45,18 +45,18 @@ public class GroupResourceIntegrationTests extends BaseIntegrationTest {
                 .then()
                 .statusCode(200)
                 .body("id", equalTo(1))
-                .body("group_title", equalTo("2A"))
-                .body("creation_date", notNullValue())
+                .body("groupTitle", equalTo("2A"))
+                .body("creationDate", notNullValue())
                 .body("deleted", equalTo(false))
-                .body("modifying_date", notNullValue())
+                .body("modifyingDate", notNullValue())
                 .body("deleted", equalTo(false))
                 .body("students", notNullValue())
-                .body("students.first_name", hasItems("Steven"))
-                .body("students.last_name", hasItems("Venson"))
+                .body("students.firstName", hasItems("Steven"))
+                .body("students.lastName", hasItems("Venson"))
                 .body("students.id", hasItems(1))
                 .body("students.credential", hasItems(nullValue()))
-                .body("students.creationDate", hasItems(nullValue()))
-                .body("students.modifyingDate", hasItems(nullValue()))
+                .body("students.creationDate", hasItems(notNullValue()))
+                .body("students.modifyingDate", hasItems(notNullValue()))
                 .body("students.deleted", hasItems(false))
                 .body("students.teachers", hasItems(nullValue()))
                 .body("students.subjects", hasItems(nullValue()))
@@ -82,8 +82,6 @@ public class GroupResourceIntegrationTests extends BaseIntegrationTest {
                 .body("subjects.students", hasItems(nullValue()))
                 .body("subjects.teachers", hasItems(nullValue()))
                 .body("subjects.scores", notNullValue())
-                .body("subjects.scores.id", hasItems(hasItems(1)))
-                .body("subjects.scores.score", hasItems(hasItems(10)))
                 .body("subjects.creationDate", hasItems(notNullValue()))
                 .body("subjects.modifyingDate", hasItems(notNullValue()))
                 .body("subjects.deleted", hasItems(false));
@@ -101,7 +99,7 @@ public class GroupResourceIntegrationTests extends BaseIntegrationTest {
                 .body("timestamp", notNullValue())
                 .body("status", equalTo(500))
                 .body("errorCode", nullValue())
-                .body("message", equalTo("Group with id 10 was not found"))
+                .body("message", equalTo("Group with id 10 wasn't found"))
                 .body("path", nullValue());
     }
 
@@ -145,7 +143,7 @@ public class GroupResourceIntegrationTests extends BaseIntegrationTest {
                 .then()
                 .statusCode(200)
                 .body("responseId", equalTo(3))
-                .body("status", equalTo("Student with id - 3 deleted successfully"));
+                .body("status", equalTo("Group with id - 3 deleted successfully"));
     }
 
 }
