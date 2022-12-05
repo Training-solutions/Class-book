@@ -73,3 +73,8 @@ INSERT INTO student_subject(student_id, subject_id) VALUES (3,3);
 INSERT INTO student_teacher(student_id, teacher_id) VALUES (1,1);
 INSERT INTO student_teacher(student_id, teacher_id) VALUES (2,2);
 INSERT INTO student_teacher(student_id, teacher_id) VALUES (3,2);
+
+INSERT INTO teacher_subject(teacher_id, subject_id) VALUES (1,1);
+INSERT INTO teacher_subject(teacher_id, subject_id) VALUES (2,2);
+INSERT INTO teacher_subject(teacher_id, subject_id) VALUES (2, 3);
+INSERT INTO teacher_subject(teacher_id, subject_id) VALUES (3, 3);
