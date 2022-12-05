@@ -11,6 +11,7 @@ tags:
   - name: teachers-v1
   - name: credentials-v1
   - name: evaluationRecords-v1
+  - name: reports-v1
 servers:
   - url: http://localhost:8085
 
@@ -1379,6 +1380,71 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PageView'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - bearerAuth: [ ]
+
+  /ui/report:
+    get:
+      tags:
+        - reports-v1
+      summary: Get report by subject, teacher, group, student, startDate and endDate
+      operationId: getReport
+      parameters:
+        - name: subjectId
+          in: query
+          description: Subject identifier
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: teacherId
+          in: query
+          description: Teacher identifier
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: groupId
+          in: query
+          description: GroupIdentifier
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: studentId
+          in: query
+          description: Student identifier
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: startDate
+          in: query
+          description: Student identifier
+          required: false
+          schema:
+            type: string
+            format: data-type
+        - name: endDate
+          in: query
+          description: Student identifier
+          required: false
+          schema:
+            type: string
+            format: data-type
+      responses:
+        '200':
+          description: Successful response
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
